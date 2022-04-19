@@ -1,14 +1,17 @@
 import { createRouter, createWebHistory } from "vue-router";
+import Homepage from "../components/main/Homepage.vue";
+import Signup from "../components/main/Signup.vue";
 
 const routes = [
   {
     path: "/",
     name: "Homepage",
     component: Homepage,
-    meta: {
-      enterClass: "animate__animated animate__slideInDown",
-      leaveClass: "animate__animated animate__slideOutUp",
-    },
+  },
+  {
+    path: "/signup",
+    name: "Signup",
+    component: Signup,
   },
 ];
 

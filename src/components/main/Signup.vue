@@ -34,9 +34,9 @@
 </template>
 
 <script>
-import { appwrite } from "../utils";
+import { appwrite } from "../../utils.js";
 export default {
-  name: "HelloWorld",
+  name: "Signup",
   data: () => {
     return {
       username: "",

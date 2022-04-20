@@ -3,10 +3,10 @@
     class="flex md:flex-row flex-col justify-between items-center h-screen px-10 md:px-16 pt-16 gap-10"
   >
     <header class="basis-full order-2 md:-order-none">
-      <h1 class="text-white font-bold text-3xl leading-relaxed">
+      <h1 class="dark:text-white text-black font-bold text-3xl leading-relaxed">
         An open source tool for creative tailwinders.
       </h1>
-      <p class="text-white text-lg">
+      <p class="text-lg dark:text-white text-black">
         Create the best button design patterns for your website. Sign up to be
         able to save your favourite patterns in your profile or publish you
         creative patterns to the word.
@@ -41,21 +41,16 @@ export default {
 
 <style scoped>
 main {
-  background: radial-gradient(
-    at right center,
-    rgb(56, 189, 248),
-    rgb(49, 46, 129)
-  );
-}
-main .test {
-  background: radial-gradient(
-    at right center,
-    rgb(25, 91, 119),
-    rgb(30, 28, 78)
-  );
-}
-
-main .test {
-  background: linear-gradient(to right, rgb(96, 165, 250), rgb(52, 211, 153));
+  background-color: rgb(207, 250, 254);
+  background-image: radial-gradient(
+      at 67% 51%,
+      rgb(255, 241, 242) 0,
+      transparent 45%
+    ),
+    radial-gradient(at 18% 33%, rgb(204, 251, 241) 0, transparent 38%),
+    radial-gradient(at 27% 50%, rgb(241, 245, 249) 0, transparent 16%),
+    radial-gradient(at 36% 73%, rgb(241, 245, 249) 0, transparent 68%),
+    radial-gradient(at 100% 70%, rgb(240, 253, 244) 0, transparent 43%),
+    radial-gradient(at 42% 10%, rgb(199, 210, 254) 0, transparent 58%);
 }
 </style>

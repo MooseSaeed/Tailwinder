@@ -5,10 +5,10 @@
     ></span>
 
     <div
-      class="relative flex items-end h-full transition-all transform border-2 rounded-xl border-white -translate-x-1 group-hover:-translate-x-0 -translate-y-1 group-hover:-translate-y-0 bg-gradient-to-r from-green-400 to-blue-500 group-hover:bg-none"
+      class="relative flex items-end h-full transition-all transform border-2 rounded-xl border-white -translate-x-1 group-hover:-translate-x-0 -translate-y-1 group-hover:-translate-y-0 bg-gradient-to-r from-green-400/50 to-blue-500/50 group-hover:bg-none"
     >
       <div class="py-2.5 px-7 transition-opacity group-hover:relative">
-        <h2 class="text-md font-semibold text-black group-hover:text-white">
+        <h2 class="text-md font-semibold group-hover:text-black text-white">
           <slot />
         </h2>
       </div>

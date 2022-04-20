@@ -3,16 +3,17 @@
     class="bg-white border-gray-200 px-2 sm:px-4 py-4 dark:bg-gray-800 w-full"
   >
     <div class="container flex flex-wrap justify-between items-center mx-auto">
-      <a href="/" class="flex items-center">
+      <router-link to="/" class="flex items-center">
         <span
           class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
           >Flowbite</span
         >
-      </a>
+      </router-link>
       <div class="flex items-center md:order-2">
         <div class="font-semibold">
-          <a class="hover:text-blue-500" href="/signup">SIGN UP</a> /
-          <a class="hover:text-blue-500" href="/signin">SIGN IN</a>
+          <router-link class="hover:text-blue-500" to="/auth">
+            SIGN UP / LOGIN
+          </router-link>
         </div>
         <button
           type="button"

@@ -1,5 +1,5 @@
 <template>
-  <div class="relative group w-fit inline-block">
+  <div class="relative group inline-block">
     <span
       class="absolute inset-0 border-2 border-white border-dashed rounded-xl translate-x-0.5 group-hover:translate-x-0 delay-150 duration-300 translate-y-0.5 group-hover:translate-y-0"
     ></span>

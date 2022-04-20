@@ -96,12 +96,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.loginCore {
-  background: radial-gradient(
-    at right center,
-    rgb(56, 189, 248),
-    rgb(49, 46, 129)
-  );
-}
-</style>
+<style scoped></style>

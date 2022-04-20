@@ -39,18 +39,18 @@ export default {
 };
 </script>
 
-<style scoped>
-main {
-  background-color: rgb(207, 250, 254);
+<style>
+body {
+  background-color: rgb(255, 255, 255);
   background-image: radial-gradient(
-      at 67% 51%,
-      rgb(255, 241, 242) 0,
-      transparent 45%
+      at 0% 0%,
+      rgb(191, 219, 254) 0,
+      transparent 30%
     ),
-    radial-gradient(at 18% 33%, rgb(204, 251, 241) 0, transparent 38%),
-    radial-gradient(at 27% 50%, rgb(241, 245, 249) 0, transparent 16%),
-    radial-gradient(at 36% 73%, rgb(241, 245, 249) 0, transparent 68%),
-    radial-gradient(at 100% 70%, rgb(240, 253, 244) 0, transparent 43%),
-    radial-gradient(at 42% 10%, rgb(199, 210, 254) 0, transparent 58%);
+    radial-gradient(at 2% 28%, rgb(220, 252, 231) 0, transparent 17%),
+    radial-gradient(at 99% 69%, rgb(209, 250, 229) 0, transparent 11%),
+    radial-gradient(at 100% 81%, rgb(219, 234, 254) 0, transparent 21%),
+    radial-gradient(at 29% 0%, rgb(254, 252, 232) 0, transparent 15%),
+    radial-gradient(at 100% 54%, rgb(255, 228, 230) 0, transparent 15%);
 }
 </style>

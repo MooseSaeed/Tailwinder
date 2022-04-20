@@ -6,7 +6,7 @@
       <router-link to="/" class="flex items-center">
         <span
           class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
-          >Flowbite</span
+          >Tailwinder</span
         >
       </router-link>
       <div class="flex items-center md:order-2">

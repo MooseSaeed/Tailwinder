@@ -17,13 +17,20 @@
         </div>
         <button
           type="button"
-          class="mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-          id="user-menu-button"
-          aria-expanded="false"
-          data-dropdown-toggle="dropdown"
+          class="mr-3 text-sm bg-red-500 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
         >
-          <span class="sr-only">Open user menu</span>
-          <div class="w-8 h-8 rounded-full bg-red-500" />
+          <div>
+            <Dropdown>
+              <Dropdowncontent>
+                <router-link to="/auth">
+                  <Dropdownitems category="Profile"></Dropdownitems>
+                </router-link>
+                <p @click="logout">
+                  <Dropdownitems category="Logout"></Dropdownitems>
+                </p>
+              </Dropdowncontent>
+            </Dropdown>
+          </div>
         </button>
         <!-- Dropdown menu -->
         <div
@@ -35,7 +42,7 @@
               >Bonnie Green</span
             >
           </div>
-          <ul class="py-1" aria-labelledby="dropdown">
+          <ul class="py-1">
             <li>
               <a
                 href="#"
@@ -56,8 +63,6 @@
           data-collapse-toggle="mobile-menu-2"
           type="button"
           class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-          aria-controls="mobile-menu-2"
-          aria-expanded="false"
         >
           <span class="sr-only">Open main menu</span>
           <svg
@@ -119,7 +124,15 @@
 
 <script>
 import { appwrite } from "../utils";
+import Dropdown from "./dropdown/Dropdown.vue";
+import Dropdowncontent from "./dropdown/Dropdowncontent.vue";
+import Dropdownitems from "./dropdown/Dropdownitems.vue";
 export default {
+  components: {
+    Dropdown,
+    Dropdowncontent,
+    Dropdownitems,
+  },
   data() {
     return {
       userprofile: null,
@@ -138,6 +151,11 @@ export default {
         if (err == "Error: Unauthorized") return;
         console.error(err);
       }
+    },
+    logout() {
+      this.userprofile = null;
+      appwrite.account.deleteSession("current");
+      this.$router.push("/");
     },
   },
 };

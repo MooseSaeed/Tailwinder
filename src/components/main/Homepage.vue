@@ -8,7 +8,10 @@
           class="dark:text-white text-black font-bold text-3xl leading-relaxed animate__animated animate__bounceInUp"
         >
           <div class="">
-            Open source tool for<span class="inline"> <Changingname /> </span
+            Open source tool for<span class="inline">
+              <keep-alive>
+                <Changingname />
+              </keep-alive> </span
             >tailwinders.
           </div>
         </h1>

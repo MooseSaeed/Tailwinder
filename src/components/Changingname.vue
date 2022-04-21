@@ -11,15 +11,19 @@ export default {
   data() {
     return {
       repeat: true,
+      changeInterval: null,
     };
   },
   mounted() {
     this.changeNames();
   },
+  unmounted() {
+    clearInterval(this.changeInterval);
+  },
 
   methods: {
     changeNames() {
-      setInterval(function () {
+      this.changeInterval = setInterval(function () {
         const show = document.querySelector(".spanspecial[data-show]");
         const next =
           show.nextElementSibling ||
@@ -34,7 +38,7 @@ export default {
         show.setAttribute("data-up", "");
 
         next.setAttribute("data-show", "");
-      }, 3000);
+      }, 2000);
     },
   },
 };

@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen">
-    <div class="loginPage" v-if="!userprofile">
+    <div v-if="!userprofile">
       <Login v-if="!pageSwitch">
         <div>
           <p>
@@ -26,7 +26,7 @@
         </div>
       </Signup>
     </div>
-    <div class="loginPage" v-if="userprofile">
+    <div v-if="userprofile">
       <Profile v-bind:userprofile="userprofile" />
     </div>
   </div>

@@ -43,7 +43,7 @@
             </div>
           </div>
 
-          <button type="submit">
+          <button class="w-full" type="submit">
             <Primarybtn> Sign in </Primarybtn>
           </button>
 
@@ -77,7 +77,7 @@ export default {
         this.error = "Error: Password must be between 6 and 32 characters.";
         return;
       }
-      if ((await this.$parent.login(this.email, this.password)) === false) {
+      if ((await this.$parent.login()) === false) {
         this.error = "Incorrect Credentials!";
       }
     },

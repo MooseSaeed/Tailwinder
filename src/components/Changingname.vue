@@ -34,7 +34,7 @@ export default {
         show.setAttribute("data-up", "");
 
         next.setAttribute("data-show", "");
-      }, 2000);
+      }, 3000);
     },
   },
 };
@@ -42,8 +42,8 @@ export default {
 
 <style scoped>
 .mask {
-  height: 53px;
-  width: 11rem;
+  height: 39px;
+  width: 10rem;
   position: relative;
   overflow: hidden;
 }
@@ -81,9 +81,5 @@ export default {
 
 .mask span:nth-child(3) {
   background-image: linear-gradient(45deg, #8a7cfb 50%, #633e9c);
-}
-
-.mask span:nth-child(4) {
-  background-image: linear-gradient(45deg, #fa7671 50%, #f45f7f);
 }
 </style>

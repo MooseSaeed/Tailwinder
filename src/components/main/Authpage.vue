@@ -1,26 +1,26 @@
 <template>
-  <div class="loginCore">
+  <div class="min-h-screen">
     <div class="loginPage" v-if="!userprofile">
-      <Login v-if="!currentPage">
+      <Login v-if="!pageSwitch">
         <div>
           <p>
-            {{ currentPage ? "Got an account?" : "Haven't got an account?" }}
+            {{ pageSwitch ? "Got an account?" : "Haven't got an account?" }}
             <span
               class="cursor-pointer"
-              @click="() => (this.currentPage = !this.currentPage)"
-              >{{ currentPage ? "Login" : "Sign Up" }}</span
+              @click="() => (this.pageSwitch = !this.pageSwitch)"
+              >{{ pageSwitch ? "Login" : "Sign Up" }}</span
             >
           </p>
         </div>
       </Login>
-      <Signup v-if="currentPage">
+      <Signup v-if="pageSwitch">
         <div>
           <p>
-            {{ currentPage ? "Got an account?" : "Haven't got an account?" }}
+            {{ pageSwitch ? "Got an account?" : "Haven't got an account?" }}
             <span
               class="cursor-pointer"
-              @click="() => (this.currentPage = !this.currentPage)"
-              >{{ currentPage ? "Login" : "Sign Up" }}</span
+              @click="() => (this.pageSwitch = !this.pageSwitch)"
+              >{{ pageSwitch ? "Login" : "Sign Up" }}</span
             >
           </p>
         </div>
@@ -47,7 +47,7 @@ export default {
   },
   data: () => {
     return {
-      currentPage: false,
+      pageSwitch: false,
       userprofile: false,
     };
   },
@@ -59,8 +59,7 @@ export default {
       this.userprofile = false;
       appwrite.account.deleteSession("current");
     },
-    async login(username, password) {
-      console.log({ username, password });
+    async login() {
       try {
         await appwrite.account.createSession(
           event.target.email.value,
@@ -95,5 +94,3 @@ export default {
   },
 };
 </script>
-
-<style scoped></style>

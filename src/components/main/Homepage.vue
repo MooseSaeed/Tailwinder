@@ -1,16 +1,16 @@
 <template>
   <main
-    class="flex md:flex-row flex-col justify-between items-center h-screen px-10 md:px-16 pt-16 gap-10"
+    class="flex md:flex-row flex-col justify-between items-center min-h-screen px-5 pt-16 gap-10"
   >
     <section class="basis-full order-2 md:-order-none p-2">
       <header class="py-2 overflow-hidden">
         <h1
-          class="dark:text-white flex text-black font-bold text-3xl leading-relaxed animate__animated animate__bounceInUp"
+          class="dark:text-white text-black font-bold text-3xl leading-relaxed animate__animated animate__bounceInUp"
         >
-          <div>Open source tool for</div>
-
-          <span class="inline"> <Changingname /> </span>
-          <div>tailwinders.</div>
+          <div class="">
+            Open source tool for<span class="inline"> <Changingname /> </span
+            >tailwinders.
+          </div>
         </h1>
         <p
           class="text-lg dark:text-white text-black animate__animated animate__bounceInUp animate__slow"
@@ -21,26 +21,32 @@
         </p>
       </header>
       <footer>
-        <div class="flex items-center mt-5 max-w-sm">
+        <div
+          class="flex flex-col sm:flex-row gap-3 items-center overflow-hidden py-5 px-2"
+        >
           <router-link
             to="#"
             class="animate__animated animate__bounceInUp animate__delay-1s"
           >
-            <Primarybtn> Tailwinder Tool </Primarybtn>
+            <Primarybtn class="text-sm sm:text-base">
+              Tailwinder Tool
+            </Primarybtn>
           </router-link>
 
           <router-link
             class="ml-3 animate__animated animate__bounceInUp animate__slow animate__delay-1s"
             to="#"
           >
-            <Secondarybtn> Explore Community </Secondarybtn>
+            <Secondarybtn class="text-sm sm:text-base">
+              Explore Community
+            </Secondarybtn>
           </router-link>
         </div>
       </footer>
     </section>
-    <div
-      class="bg-gray-500 w-72 h-72 basis-4/5 order-1 md:-order-none mt-16 md:mt-0"
-    ></div>
+    <div class="max-w-72 basis-4/5 order-1 md:-order-none mt-16 md:mt-0">
+      <img src="../../assets/images/robotthumbnail.png" alt="" />
+    </div>
   </main>
 </template>
 

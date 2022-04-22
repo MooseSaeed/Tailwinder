@@ -1,13 +1,9 @@
 <template>
-  s
-
-  <!--   <div>
-    <h2>Logged In!</h2>
-    <h1>{{ userprofile.name }}</h1>
-    <p>{{ userprofile.email }}</p>
-    <p>ID: {{ userprofile.$id }}</p>
-    <button @click="logout">Logout</button>
-  </div> -->
+  <h2>Logged In!</h2>
+  <h1>{{ userprofile.name }}</h1>
+  <p>{{ userprofile.email }}</p>
+  <p>ID: {{ userprofile.$id }}</p>
+  <button @click="logout">Logout</button>
 </template>
 
 <script>

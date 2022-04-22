@@ -18,7 +18,7 @@
 
         <div
           v-if="store.userprofile"
-          class="mr-3 text-sm bg-red-500 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+          class="mr-3 text-sm bg-gradient-to-r from-green-400 to-blue-500 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
         >
           <Dropdown>
             <Dropdowncontent>
@@ -118,7 +118,7 @@ export default {
 
   methods: {
     logout() {
-      this.userprofile = null;
+      store.userprofile = false;
       appwrite.account.deleteSession("current");
       this.$router.push("/");
     },

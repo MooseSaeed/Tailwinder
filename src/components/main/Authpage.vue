@@ -48,7 +48,6 @@ export default {
   data: () => {
     return {
       pageSwitch: false,
-      userprofile: false,
       store,
     };
   },

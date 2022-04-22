@@ -1,6 +1,6 @@
 <template>
   <main
-    class="flex md:flex-row flex-col justify-between items-center min-h-screen px-5 pt-16 gap-10"
+    class="flex md:flex-row flex-col justify-between items-center min-h-screen px-10 gap-10"
   >
     <section class="basis-full order-2 md:-order-none p-2">
       <header class="py-2 overflow-hidden">

@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen">
-    <div v-if="!userprofile">
+    <div v-if="!store.userprofile">
       <Login v-if="!pageSwitch">
         <div>
           <p>
@@ -26,15 +26,15 @@
         </div>
       </Signup>
     </div>
-    <div v-if="userprofile">
-      <Profile v-bind:userprofile="userprofile" />
+    <div v-if="store.userprofile">
+      <Profile v-bind:userprofile="store.userprofile" />
     </div>
   </div>
 </template>
 
 <script>
 import { appwrite } from "../../utils";
-
+import { store } from "../../store.js";
 import Login from "../auth/Login.vue";
 import Signup from "../auth/Signup.vue";
 import Profile from "../auth/Profile.vue";
@@ -49,6 +49,7 @@ export default {
     return {
       pageSwitch: false,
       userprofile: false,
+      store,
     };
   },
   mounted: function () {
@@ -56,7 +57,7 @@ export default {
   },
   methods: {
     async logout() {
-      this.userprofile = false;
+      store.userprofile = false;
       appwrite.account.deleteSession("current");
     },
     async login() {
@@ -85,7 +86,8 @@ export default {
     async checkLogin() {
       try {
         const response = await appwrite.account.get();
-        this.userprofile = response;
+        store.userprofile = response;
+        console.log(store.userprofile);
       } catch (err) {
         if (err == "Error: Unauthorized") return;
         console.error(err);

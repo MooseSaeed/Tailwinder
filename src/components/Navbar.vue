@@ -10,55 +10,30 @@
         >
       </router-link>
       <div class="flex items-center md:order-2">
-        <div class="font-semibold">
+        <div class="font-semibold" v-if="!store.userprofile">
           <router-link class="hover:text-blue-500" to="/auth">
             SIGN UP / LOGIN
           </router-link>
         </div>
-        <button
-          type="button"
+
+        <div
+          v-if="store.userprofile"
           class="mr-3 text-sm bg-red-500 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
         >
-          <div>
-            <Dropdown>
-              <Dropdowncontent>
+          <Dropdown>
+            <Dropdowncontent>
+              <div class="ml-2 text-base">
                 <router-link to="/auth">
                   <Dropdownitems category="Profile"></Dropdownitems>
                 </router-link>
-                <p @click="logout">
+                <p @click="logout" class="cursor-pointer">
                   <Dropdownitems category="Logout"></Dropdownitems>
                 </p>
-              </Dropdowncontent>
-            </Dropdown>
-          </div>
-        </button>
-        <!-- Dropdown menu -->
-        <div
-          class="hidden z-50 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
-          id="dropdown"
-        >
-          <div class="py-3 px-4">
-            <span class="block text-sm text-gray-900 dark:text-white"
-              >Bonnie Green</span
-            >
-          </div>
-          <ul class="py-1">
-            <li>
-              <a
-                href="#"
-                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                >Profile</a
-              >
-            </li>
-            <li>
-              <a
-                href="#"
-                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                >Sign out</a
-              >
-            </li>
-          </ul>
+              </div>
+            </Dropdowncontent>
+          </Dropdown>
         </div>
+
         <button
           data-collapse-toggle="mobile-menu-2"
           type="button"
@@ -127,6 +102,7 @@ import { appwrite } from "../utils";
 import Dropdown from "./dropdown/Dropdown.vue";
 import Dropdowncontent from "./dropdown/Dropdowncontent.vue";
 import Dropdownitems from "./dropdown/Dropdownitems.vue";
+import { store } from "../store.js";
 export default {
   components: {
     Dropdown,
@@ -135,23 +111,12 @@ export default {
   },
   data() {
     return {
-      userprofile: null,
+      store,
     };
   },
-  mounted() {
-    this.checkLogin();
-  },
+  mounted() {},
+
   methods: {
-    async checkLogin() {
-      try {
-        const response = await appwrite.account.get();
-        this.userprofile = response;
-        console.log(this.userprofile);
-      } catch (err) {
-        if (err == "Error: Unauthorized") return;
-        console.error(err);
-      }
-    },
     logout() {
       this.userprofile = null;
       appwrite.account.deleteSession("current");

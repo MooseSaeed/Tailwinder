@@ -22,11 +22,14 @@
         >
           <Dropdown>
             <Dropdowncontent>
-              <div class="ml-2 text-base">
+              <div class="ml-2 text-sm">
                 <router-link to="/auth">
-                  <Dropdownitems category="Profile"></Dropdownitems>
+                  <p class="cursor-pointer hover:text-white">
+                    <Dropdownitems category="Profile"></Dropdownitems>
+                  </p>
                 </router-link>
-                <p @click="logout" class="cursor-pointer">
+
+                <p @click="logout" class="cursor-pointer hover:text-white">
                   <Dropdownitems category="Logout"></Dropdownitems>
                 </p>
               </div>
@@ -114,9 +117,21 @@ export default {
       store,
     };
   },
-  mounted() {},
+  mounted() {
+    this.checkLogin();
+  },
 
   methods: {
+    async checkLogin() {
+      try {
+        const response = await appwrite.account.get();
+        store.userprofile = response;
+        console.log(store.userprofile);
+      } catch (err) {
+        if (err == "Error: Unauthorized") return;
+        console.error(err);
+      }
+    },
     logout() {
       store.userprofile = false;
       appwrite.account.deleteSession("current");

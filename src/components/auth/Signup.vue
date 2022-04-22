@@ -91,7 +91,7 @@
 <script>
 import Primarybtn from "../buttons/Primarybtn.vue";
 export default {
-  name: "Register",
+  name: "Signup",
   components: {
     Primarybtn,
   },

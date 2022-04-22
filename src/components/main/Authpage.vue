@@ -37,7 +37,7 @@ import { appwrite } from "../../utils";
 import { store } from "../../store.js";
 import Login from "../auth/Login.vue";
 import Signup from "../auth/Signup.vue";
-import Profile from "../auth/Profile.vue";
+import Profile from "./Profile.vue";
 export default {
   name: "Authpage",
   components: {

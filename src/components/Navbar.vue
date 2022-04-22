@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="bg-white/50 border-gray-200 px-2 sm:px-4 py-4 dark:bg-gray-800 w-full absolute z-50 top-0"
+    class="bg-white/50 border-b-2 border-gray-900 px-2 sm:px-4 py-4 dark:bg-gray-800 w-full absolute z-50 top-0"
   >
     <div class="container flex flex-wrap justify-between items-center mx-auto">
       <router-link to="/" class="flex items-center">
@@ -18,7 +18,7 @@
 
         <div
           v-if="store.userprofile"
-          class="mr-3 text-sm bg-gradient-to-r from-green-400 to-blue-500 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+          class="text-sm bg-gradient-to-r from-green-400 to-blue-500 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
         >
           <Dropdown>
             <Dropdowncontent>

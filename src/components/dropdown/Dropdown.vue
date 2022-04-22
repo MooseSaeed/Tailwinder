@@ -5,7 +5,7 @@
     @click="showCategories"
   >
     <button
-      class="flex max-h-52 overflow-auto py-2 pl-3 text-sm font-semibold lg:inline-flex w-32 h-8"
+      class="flex max-h-52 overflow-auto py-2 pl-3 text-sm font-semibold lg:inline-flex w-28 h-8"
     >
       <img
         class="rounded-full left-3 -top-1.5 absolute h-12 w-12 border-black border-2 transition-transform group-hover:scale-110 z-50"

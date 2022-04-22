@@ -24,12 +24,15 @@
             <Dropdowncontent>
               <div class="ml-2 text-sm">
                 <router-link to="/auth">
-                  <p class="cursor-pointer hover:text-white">
+                  <p class="cursor-pointer hover:text-white transition-colors">
                     <Dropdownitems category="Profile"></Dropdownitems>
                   </p>
                 </router-link>
 
-                <p @click="logout" class="cursor-pointer hover:text-white">
+                <p
+                  @click="logout"
+                  class="cursor-pointer hover:text-white transition-colors"
+                >
                   <Dropdownitems category="Logout"></Dropdownitems>
                 </p>
               </div>

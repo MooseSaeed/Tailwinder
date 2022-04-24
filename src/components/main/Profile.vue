@@ -14,11 +14,9 @@
     </header>
 
     <main class="text-center mt-8">
-      <h2 class="font-semibold text-3xl relative">
-        {{ userprofile.name }}
-      </h2>
+      <h2 class="font-semibold text-3xl relative">{{ id }}</h2>
 
-      <h2 class="">{{ userprofile.email }}</h2>
+      <h2 class="">Mail</h2>
 
       <div class="flex gap-5 mt-5">
         <aside>
@@ -31,12 +29,28 @@
 </template>
 
 <script>
+import { appwrite } from "../../utils";
 export default {
   name: "Profile",
-  props: ["userprofile"],
+  props: ["id"],
+  data() {
+    return {
+      userprfile: false,
+    };
+  },
+  mounted() {
+    this.checkLogin();
+  },
   methods: {
-    logout() {
-      this.$parent.logout();
+    async checkLogin() {
+      try {
+        const response = await appwrite.users.get(this.id);
+        this.userprofile = response;
+        console.log(this.userprofile);
+      } catch (err) {
+        if (err == "Error: Unauthorized") return;
+        console.error(err);
+      }
     },
   },
 };

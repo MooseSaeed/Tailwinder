@@ -23,7 +23,12 @@
           <Dropdown>
             <Dropdowncontent>
               <div class="ml-2 text-sm">
-                <router-link to="/auth">
+                <router-link
+                  :to="{
+                    name: 'UserProfile',
+                    params: { id: store.userprofile.$id },
+                  }"
+                >
                   <p class="cursor-pointer hover:text-white transition-colors">
                     <Dropdownitems category="Profile"></Dropdownitems>
                   </p>

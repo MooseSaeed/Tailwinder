@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Homepage from "../components/main/Homepage.vue";
 import Authpage from "../components/main/Authpage.vue";
 import Tools from "../components/main/Tools.vue";
+import Profile from "../components/main/Profile.vue";
 
 const routes = [
   {
@@ -13,6 +14,12 @@ const routes = [
     path: "/auth",
     name: "Authpage",
     component: Authpage,
+  },
+  {
+    path: "/users/:id",
+    name: "UserProfile",
+    component: Profile,
+    props: true,
   },
   {
     path: "/tools",

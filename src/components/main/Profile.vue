@@ -29,7 +29,6 @@
 </template>
 
 <script>
-/* import { appwrite } from "../../utils"; */
 import { getAllUsers } from "../../services/UserService";
 
 export default {
@@ -42,33 +41,14 @@ export default {
     };
   },
   mounted() {
-    this.getAllUsers();
+    this.getThisUser();
   },
   methods: {
-    getAllUsers() {
+    getThisUser() {
       getAllUsers(this.id).then((response) => {
         this.userprofile = response;
       });
     },
-
-    /*     getUser() {
-      const getUserURL = "/v1/users/" + this.id;
-      console.log(getUserURL);
-      fetch("http://localhost/v1/users/6262ca8a3aa40f3ce3b4")
-        .then((response) => response)
-        .then((data) => console.log(data));
-    },
-
-    async checkLogin() {
-      try {
-        const response = await appwrite.users.get(this.id);
-        this.userprofile = response;
-        console.log(this.userprofile);
-      } catch (err) {
-        if (err == "Error: Unauthorized") return;
-        console.error(err);
-      }
-    }, */
   },
 };
 </script>

@@ -86,6 +86,7 @@ export default {
       try {
         const response = await appwrite.account.get();
         store.userprofile = response;
+        this.$router.push("/users/" + store.userprofile.$id);
       } catch (err) {
         if (err == "Error: Unauthorized") return;
         console.error(err);

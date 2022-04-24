@@ -36,7 +36,6 @@ export default {
   props: ["id"],
   data() {
     return {
-      userprfile: false,
       userprofile: false,
     };
   },

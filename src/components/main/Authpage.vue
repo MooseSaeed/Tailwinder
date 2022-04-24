@@ -86,7 +86,6 @@ export default {
       try {
         const response = await appwrite.account.get();
         store.userprofile = response;
-        console.log(store.userprofile);
       } catch (err) {
         if (err == "Error: Unauthorized") return;
         console.error(err);

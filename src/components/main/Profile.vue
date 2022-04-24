@@ -14,9 +14,9 @@
     </header>
 
     <main class="text-center mt-8">
-      <h2 class="font-semibold text-3xl relative">{{ id }}</h2>
+      <h2 class="font-semibold text-3xl relative">{{ userprofile.name }}</h2>
 
-      <h2 class="">Mail</h2>
+      <h2 class="">{{ userprofile.email }}</h2>
 
       <div class="flex gap-5 mt-5">
         <aside>
@@ -29,19 +29,36 @@
 </template>
 
 <script>
-import { appwrite } from "../../utils";
+/* import { appwrite } from "../../utils"; */
+import { getAllUsers } from "../../services/UserService";
+
 export default {
   name: "Profile",
   props: ["id"],
   data() {
     return {
       userprfile: false,
+      userprofile: false,
     };
   },
   mounted() {
-    this.checkLogin();
+    this.getAllUsers();
   },
   methods: {
+    getAllUsers() {
+      getAllUsers(this.id).then((response) => {
+        this.userprofile = response;
+      });
+    },
+
+    /*     getUser() {
+      const getUserURL = "/v1/users/" + this.id;
+      console.log(getUserURL);
+      fetch("http://localhost/v1/users/6262ca8a3aa40f3ce3b4")
+        .then((response) => response)
+        .then((data) => console.log(data));
+    },
+
     async checkLogin() {
       try {
         const response = await appwrite.users.get(this.id);
@@ -51,7 +68,7 @@ export default {
         if (err == "Error: Unauthorized") return;
         console.error(err);
       }
-    },
+    }, */
   },
 };
 </script>

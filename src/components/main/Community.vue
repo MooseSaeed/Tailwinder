@@ -32,13 +32,9 @@ export default {
   methods: {
     getAllDocuments() {
       let promise = appwrite.database.listDocuments("Buttons");
-      let response = "";
       promise.then((response) => {
         this.documents = response.documents;
-        console.log(this.documents);
       });
-
-      this.owner = response;
     },
   },
 };

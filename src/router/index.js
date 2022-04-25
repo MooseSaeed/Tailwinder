@@ -3,6 +3,7 @@ import Homepage from "../components/main/Homepage.vue";
 import Authpage from "../components/main/Authpage.vue";
 import Tools from "../components/main/Tools.vue";
 import Profile from "../components/main/Profile.vue";
+import Buttontool from "../components/tailwinderTools/Buttontool.vue";
 
 const routes = [
   {
@@ -25,6 +26,11 @@ const routes = [
     path: "/tools",
     name: "Tools",
     component: Tools,
+  },
+  {
+    path: "/tools/buttontool",
+    name: "Buttontool",
+    component: Buttontool,
   },
 ];
 

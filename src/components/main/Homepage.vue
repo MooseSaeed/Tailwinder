@@ -28,11 +28,11 @@
           class="flex flex-col sm:flex-row gap-3 items-center overflow-hidden py-5 px-2"
         >
           <router-link
-            to="#"
+            to="/tools"
             class="animate__animated animate__bounceInUp animate__delay-1s"
           >
             <Primarybtn class="text-sm sm:text-base">
-              Tailwinder Tool
+              Tailwinder Tools
             </Primarybtn>
           </router-link>
 

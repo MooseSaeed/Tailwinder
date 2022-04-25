@@ -41,6 +41,7 @@
 <script>
 import { appwrite } from "../../utils";
 export default {
+  name: "Buttontool",
   data() {
     return {
       response: false,

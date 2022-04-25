@@ -38,7 +38,7 @@
 
           <router-link
             class="ml-3 animate__animated animate__bounceInUp animate__slow animate__delay-1s"
-            to="#"
+            to="/community"
           >
             <Secondarybtn class="text-sm sm:text-base">
               Explore Community

@@ -5,6 +5,7 @@ import Community from "../components/main/Community.vue";
 import Tools from "../components/main/Tools.vue";
 import Profile from "../components/main/Profile.vue";
 import Buttontool from "../components/tailwinderTools/Buttontool.vue";
+import Componentview from "../components/main/Componentview.vue";
 
 const routes = [
   {
@@ -37,6 +38,12 @@ const routes = [
     path: "/tools/buttontool",
     name: "Buttontool",
     component: Buttontool,
+  },
+  {
+    path: "/community/:colname/:id",
+    name: "Componentview",
+    component: Componentview,
+    props: true,
   },
 ];
 

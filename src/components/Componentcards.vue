@@ -42,7 +42,12 @@
         </router-link>
       </div>
 
-      <router-link :to="buttonUrl">
+      <router-link
+        :to="{
+          name: 'Componentview',
+          params: { colname: collectionName, id: buttonId },
+        }"
+      >
         <Infobtn> Discover </Infobtn>
       </router-link>
     </footer>
@@ -64,7 +69,7 @@ export default {
   data() {
     return {
       userAccUrl: "/users/" + this.ownerId,
-      buttonUrl: "/community/buttons/" + this.buttonId,
+      buttonUrl: "/community/" + this.collectionName + "/" + this.buttonId,
     };
   },
   components: {

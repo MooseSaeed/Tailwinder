@@ -11,27 +11,26 @@ export default {
     return {
       componentId: false,
       collectionId: false,
+      currentComponent: null,
     };
   },
   mounted() {
-    this.getId();
+    this.getComponentDetails();
   },
   methods: {
-    getId() {
+    // Getting component details from params and passed to appwrite
+    getComponentDetails() {
       this.componentId = this.$route.params.id;
       this.collectionId = this.$route.params.colname;
       let promise = appwrite.database.getDocument(
         this.collectionId,
         this.componentId
       );
-      promise.then(
-        function (response) {
-          console.log(response); // Success
-        },
-        function (error) {
-          console.log(error); // Failure
-        }
-      );
+
+      promise.then((response) => {
+        this.currentComponent = response;
+        console.log(this.currentComponent);
+      });
     },
   },
 };

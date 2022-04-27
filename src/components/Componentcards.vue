@@ -1,6 +1,6 @@
 <template>
   <article
-    class="bg-blue-300 focus:ring-4 relative text-white dark:text-black dark:hover:bg-blue-50 transition-colors py-6 px-5 flex flex-col justify-between duration-300 border border-gray-200 rounded-xl"
+    class="hover:bg-blue-100 focus:ring-4 relative text-black dark:text-white transition-colors py-6 px-5 flex flex-col justify-between duration-300 border border-gray-200 rounded-xl"
   >
     <div class="z-10">
       <img
@@ -18,9 +18,6 @@
 
         <div class="mt-4 text-gray-400 text-xs items-center">
           <div>collection name: {{ collectionName }}</div>
-          <div>Button ID: {{ buttonId }}</div>
-          <div>Button Owner: {{ owner }}</div>
-          <div>Owner ID: {{ ownerId }}</div>
         </div>
       </div>
     </header>
@@ -32,18 +29,41 @@
     <footer
       class="z-10 flex flex-col sm:flex-row lg:flex-col xl:flex-row justify-between items-center mt-8"
     >
-      <div></div>
+      <div class="flex justify-center items-center gap-2">
+        <img
+          src="../assets/images/test.jpg"
+          class="rounded-full h-12 w-12 border-black border-2 transition-transform hover:scale-110 z-50"
+          alt=""
+        />
+        <router-link :to="userAccUrl">
+          <h4 class="font-semibold">{{ owner }}</h4>
+        </router-link>
+      </div>
 
-      <a href="#" class="bg-gray-500">Read More </a>
+      <router-link :to="buttonUrl">
+        <Infobtn> Have a 👀 </Infobtn>
+      </router-link>
     </footer>
   </article>
 </template>
 
 <script>
+import Infobtn from "./buttons/Infobtn.vue";
+
 export default {
   props: ["collectionName", "buttonId", "buttonName", "owner", "ownerId"],
+  data() {
+    return {
+      userAccUrl: "/users/" + this.ownerId,
+      buttonUrl: "/community/buttons/" + this.buttonId,
+    };
+  },
+  components: {
+    Infobtn,
+  },
 };
 </script>
+Secondarybtn
 
 <style scoped>
 .background-animate:hover {

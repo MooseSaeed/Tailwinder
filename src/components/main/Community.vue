@@ -1,5 +1,5 @@
 <template>
-  <section class="min-h-screen mt-28 mx-10">
+  <section class="min-h-screen mt-28">
     <div
       class="relative bg-gradient-to-r from-gray-900 via-violet-900 to-blue-900 background-animate focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 h-2 rounded-full mb-8"
     >

@@ -1,6 +1,6 @@
 <template>
   <main
-    class="flex md:flex-row flex-col justify-between items-center min-h-screen px-10 gap-10"
+    class="flex md:flex-row flex-col justify-between items-center min-h-screen gap-10"
   >
     <section class="basis-full order-2 md:-order-none p-2">
       <header class="py-2 overflow-hidden">
@@ -47,7 +47,7 @@
         </div>
       </footer>
     </section>
-    <div class="max-w-72 basis-4/5 order-1 md:-order-none mt-16 md:mt-0">
+    <div class="max-w-72 basis-4/5 order-1 md:-order-none mt-28 md:mt-0">
       <img src="../../assets/images/robotthumbnail.png" alt="" />
     </div>
   </main>

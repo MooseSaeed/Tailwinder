@@ -1,8 +1,10 @@
 <template>
   <nav
-    class="bg-white/50 border-b-2 border-gray-900 px-2 sm:px-4 py-4 dark:bg-gray-800 w-full absolute z-50 top-0"
+    class="bg-white/50 border-b-2 md:px-0 border-gray-900 py-4 dark:bg-gray-800 w-full absolute z-50 top-0"
   >
-    <div class="container flex flex-wrap justify-between items-center mx-auto">
+    <div
+      class="max-w-7xl px-5 md:px-10 flex flex-wrap justify-between items-center mx-auto"
+    >
       <router-link to="/" class="flex items-center">
         <span
           class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"

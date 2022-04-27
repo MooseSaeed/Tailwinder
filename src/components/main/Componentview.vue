@@ -10,6 +10,7 @@ export default {
   data() {
     return {
       componentId: false,
+      collectionId: false,
     };
   },
   mounted() {
@@ -18,7 +19,11 @@ export default {
   methods: {
     getId() {
       this.componentId = this.$route.params.id;
-      let promise = appwrite.database.getDocument("buttons", this.componentId);
+      this.collectionId = this.$route.params.colname;
+      let promise = appwrite.database.getDocument(
+        this.collectionId,
+        this.componentId
+      );
       promise.then(
         function (response) {
           console.log(response); // Success

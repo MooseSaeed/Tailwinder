@@ -1,7 +1,12 @@
 <template>
   <section class="min-h-screen mt-28 mx-10">
-    <div class="relative border border-gray-900/40 mb-10">
-      <span class="absolute text-2xl font-semibold -top-5 left-5">Buttons</span>
+    <div
+      class="relative bg-gradient-to-r from-gray-900 via-violet-900 to-blue-900 background-animate focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 h-2 rounded-full mb-8"
+    >
+      <span
+        class="absolute text-2xl font-semibold -top-4 left-5 rounded-full bg-gradient-to-r from-gray-900 via-violet-900 to-blue-900 background-animate focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 px-3 py-1 text-white"
+        >Buttons</span
+      >
     </div>
 
     <div class="lg:grid lg:grid-cols-3 gap-5">
@@ -45,4 +50,21 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.background-animate {
+  background-size: 400%;
+  -webkit-animation: gradColor 3s ease infinite;
+  -moz-animation: gradColor 3s ease infinite;
+  animation: gradColor 3s ease infinite;
+}
+
+@keyframes gradColor {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+</style>

@@ -12,7 +12,7 @@
 
     <header class="mt-4 z-10">
       <span
-        class="text-white text-xs font-semibold bg-blue-500 px-3 py-1 rounded-xl"
+        class="text-white text-xs font-semibold bg-gradient-to-r from-gray-900 via-violet-900 to-blue-900 background-animate focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 px-3 py-1 rounded-xl"
         >{{ collectionName }}</span
       >
       <div class="mt-4">
@@ -27,7 +27,7 @@
     </div>
 
     <footer
-      class="z-10 flex flex-col sm:flex-row lg:flex-col xl:flex-row justify-between items-center mt-8"
+      class="z-10 flex flex-col sm:flex-row gap-4 justify-between items-center mt-8"
     >
       <div class="flex justify-center items-center gap-2 group">
         <router-link :to="userAccUrl">
@@ -43,7 +43,7 @@
       </div>
 
       <router-link :to="buttonUrl">
-        <Infobtn> Have a 👀 </Infobtn>
+        <Infobtn> Discover </Infobtn>
       </router-link>
     </footer>
   </article>
@@ -75,7 +75,7 @@ export default {
 Secondarybtn
 
 <style scoped>
-.background-animate:hover {
+.background-animate {
   background-size: 400%;
   -webkit-animation: gradColor 3s ease infinite;
   -moz-animation: gradColor 3s ease infinite;

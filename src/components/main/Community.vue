@@ -1,5 +1,9 @@
 <template>
-  <section class="mt-20 min-h-screen mx-10">
+  <section class="min-h-screen mt-28 mx-10">
+    <div class="relative border border-gray-900/40 mb-10">
+      <span class="absolute text-2xl font-semibold -top-5 left-5">Buttons</span>
+    </div>
+
     <div class="lg:grid lg:grid-cols-3 gap-5">
       <div v-for="document in documents" :key="document.$id">
         <Componentcards
@@ -8,6 +12,7 @@
           :buttonName="document.buttonName"
           :owner="document.owner"
           :ownerId="document.ownerId"
+          :description="document.description"
         />
       </div>
     </div>

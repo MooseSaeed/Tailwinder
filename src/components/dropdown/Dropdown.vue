@@ -9,7 +9,7 @@
     >
       <img
         class="rounded-full left-3 -top-2 absolute h-12 w-12 border-black border-2 transition-transform group-hover:scale-110 z-50"
-        src="../../assets/images/test.jpg"
+        :src="this.avatar"
         alt=""
       />
 
@@ -46,12 +46,28 @@
 
 <script>
 import vClickOutside from "click-outside-vue3";
+import { appwrite } from "../../utils";
 import { ref, provide } from "vue";
 export default {
   name: "Dropdown",
   props: ["title"],
   directives: {
     clickOutside: vClickOutside.directive,
+  },
+  data() {
+    return {
+      avatar: null,
+    };
+  },
+  mounted() {
+    this.getAvatar();
+  },
+  methods: {
+    getAvatar() {
+      let result = appwrite.avatars.getInitials("Mostafa Said");
+
+      this.avatar = result;
+    },
   },
   setup() {
     const sharedState = ref(false);

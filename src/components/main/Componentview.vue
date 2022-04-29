@@ -48,17 +48,7 @@
         soluta aperiam accusantium assumenda alias. Amet deleniti eum natus
         praesentium suscipit ipsum id impedit, voluptatibus nemo officia quaerat
         velit, iure, iusto cum consectetur? Voluptatibus sequi sint aspernatur
-        maxime, tempora sit, nihil natus ipsum fugit saepe, eos a. Dolore est
-        odit sunt corporis voluptatibus dolorum quaerat aperiam ex nihil rerum
-        deserunt impedit, laboriosam nulla molestiae consequuntur aliquam
-        officia quibusdam dicta blanditiis magnam quia sequi fugit? Saepe nulla
-        error rerum odio ex aut animi omnis iusto in sint, autem voluptatibus
-        fugit mollitia sapiente ratione fugiat quam esse consequatur, similique
-        optio dicta sequi. Optio suscipit inventore cupiditate amet sequi
-        consectetur alias reprehenderit dolorem ipsum deserunt, dolorum delectus
-        maiores ut sint laudantium magnam nam commodi ea totam iusto ad
-        aspernatur fugiat laborum ratione! Dolores, unde? Iste, incidunt quo
-        culpa possimus molestias quos itaque cupiditate!
+        maxime, tempora sit, nihil natus ipsum fugit saepe, eos a. Dolore est.
       </p>
     </div>
 
@@ -154,6 +144,7 @@ export default {
       currentComponent: null,
       availableComments: [],
       commentContext: null,
+      deletedCommentId: false,
       store,
     };
   },
@@ -181,12 +172,16 @@ export default {
       });
     },
     checkForComments() {
+      this.availableComments = [];
       // Getting list of documents(ALL) inside comments collection
       let promise = appwrite.database.listDocuments("comments");
       promise.then((response) => {
         // Filtering each document to check if it relates to the current component
         for (const document of response.documents) {
-          if (document.componentId == this.componentId) {
+          if (
+            document.componentId == this.componentId &&
+            document.$id !== this.deletedCommentId
+          ) {
             this.availableComments.push(document);
           }
         }
@@ -204,10 +199,13 @@ export default {
 
       // Clear comment text area after adding new comment.
       document.querySelector("#commentContext").value = "";
+      this.checkForComments();
     },
     // Delete the comment (Passed comment ID value from the loop in template)
     deleteComment(commentId) {
+      this.deletedCommentId = commentId;
       appwrite.database.deleteDocument("comments", commentId);
+      this.checkForComments();
     },
   },
 };

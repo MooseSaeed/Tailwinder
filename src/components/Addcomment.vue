@@ -23,7 +23,7 @@
           </p>
           <textarea
             v-if="store.userprofile"
-            v-model="commentContext"
+            id="commentContext"
             name="body"
             class="rounded-xl w-full text-sm outline-none border-none p-2"
             rows="3"
@@ -36,9 +36,7 @@
           v-if="store.userprofile"
           class="flex justify-end mt-6 border-t border-gray-200 pt-6"
         >
-          <Infobtn @click="postComment" class="w-fit cursor-pointer"
-            >Post Comment</Infobtn
-          >
+          <slot />
         </div>
       </div>
     </div>
@@ -46,38 +44,12 @@
 </template>
 
 <script>
-import { appwrite } from "../utils.js";
-import Infobtn from "./buttons/Infobtn.vue";
 import { store } from "../store";
-
 export default {
-  props: ["componentId"],
-  components: {
-    Infobtn,
-  },
   data() {
     return {
       store,
-      commentContext: null,
     };
-  },
-  methods: {
-    postComment() {
-      let promise = appwrite.database.createDocument("comments", "unique()", {
-        commentOwner: store.userprofile.name,
-        commentOwnerId: store.userprofile.$id,
-        componentId: this.componentId,
-        commentContext: this.commentContext,
-      });
-      promise.then(
-        function (response) {
-          console.log(response); // Success
-        },
-        function (error) {
-          console.log(error); // Failure
-        }
-      );
-    },
   },
 };
 </script>

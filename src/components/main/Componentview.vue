@@ -93,19 +93,35 @@
         </div></Infobtn
       >
     </div>
-    <Addcomment :componentId="this.componentId" class="mt-6" />
+    <Addcomment class="mt-6">
+      <Infobtn @click="postComment" class="w-fit cursor-pointer"
+        >Post Comment</Infobtn
+      >
+    </Addcomment>
+
     <div v-for="document in availableComments" :key="document.$id">
       <Comments
+        :document="document"
         :commentOwner="document.commentOwner"
         :commentOwnerId="document.commentOwnerId"
         :commentContext="document.commentContext"
+        :commentId="document.$id"
         class="my-6"
-      />
+      >
+        <div
+          @click="deleteComment(document.$id)"
+          v-if="document.commentOwnerId == store.userprofile.$id"
+          class="w-fit self-end font-semibold text-sm text-red-500 cursor-pointer hover:text-red-700"
+        >
+          DELETE
+        </div>
+      </Comments>
     </div>
   </section>
 </template>
 
 <script>
+import { store } from "../../store";
 import { appwrite } from "../../utils";
 import { Swiper, SwiperSlide } from "swiper/vue";
 // Import Swiper styles
@@ -137,15 +153,19 @@ export default {
       collectionId: false,
       currentComponent: null,
       availableComments: [],
+      commentContext: null,
+      store,
     };
   },
   mounted() {
     this.getComponentDetails();
     this.checkForComments();
   },
+
   methods: {
     // Getting component details from params and passed to appwrite
     getComponentDetails() {
+      // Fetch component ID and colleciton ID from the params in route
       this.componentId = this.$route.params.id;
       this.collectionId = this.$route.params.colname;
 
@@ -156,20 +176,38 @@ export default {
       );
 
       promise.then((response) => {
+        // Getting current component details
         this.currentComponent = response;
-        console.log(this.currentComponent);
       });
     },
     checkForComments() {
+      // Getting list of documents(ALL) inside comments collection
       let promise = appwrite.database.listDocuments("comments");
       promise.then((response) => {
+        // Filtering each document to check if it relates to the current component
         for (const document of response.documents) {
           if (document.componentId == this.componentId) {
             this.availableComments.push(document);
           }
         }
-        console.log(this.availableComments);
       });
+    },
+    postComment() {
+      //creating appwrite document for the comment while passing comment context
+      this.commentContext = document.querySelector("#commentContext").value;
+      let promise = appwrite.database.createDocument("comments", "unique()", {
+        commentOwner: store.userprofile.name,
+        commentOwnerId: store.userprofile.$id,
+        componentId: this.componentId,
+        commentContext: this.commentContext,
+      });
+
+      // Clear comment text area after adding new comment.
+      document.querySelector("#commentContext").value = "";
+    },
+    // Delete the comment (Passed comment ID value from the loop in template)
+    deleteComment(commentId) {
+      appwrite.database.deleteDocument("comments", commentId);
     },
   },
 };

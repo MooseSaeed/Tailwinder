@@ -33,21 +33,21 @@
             {{ commentContext }}
           </p>
         </div>
+        <slot />
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import { store } from "../store";
-
 export default {
-  props: ["commentOwner", "commentOwnerId", "commentContext"],
-  data() {
-    return {
-      store,
-    };
-  },
+  props: [
+    "commentOwner",
+    "commentOwnerId",
+    "commentContext",
+    "commentId",
+    "document",
+  ],
 };
 </script>
 

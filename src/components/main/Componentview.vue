@@ -93,8 +93,15 @@
         </div></Infobtn
       >
     </div>
-    <Addcomment class="mt-6" />
-    <Comments class="my-6" />
+    <Addcomment :componentId="this.componentId" class="mt-6" />
+    <div v-for="document in availableComments" :key="document.$id">
+      <Comments
+        :commentOwner="document.commentOwner"
+        :commentOwnerId="document.commentOwnerId"
+        :commentContext="document.commentContext"
+        class="my-6"
+      />
+    </div>
   </section>
 </template>
 
@@ -129,10 +136,12 @@ export default {
       componentId: false,
       collectionId: false,
       currentComponent: null,
+      availableComments: [],
     };
   },
   mounted() {
     this.getComponentDetails();
+    this.checkForComments();
   },
   methods: {
     // Getting component details from params and passed to appwrite
@@ -149,6 +158,17 @@ export default {
       promise.then((response) => {
         this.currentComponent = response;
         console.log(this.currentComponent);
+      });
+    },
+    checkForComments() {
+      let promise = appwrite.database.listDocuments("comments");
+      promise.then((response) => {
+        for (const document of response.documents) {
+          if (document.componentId == this.componentId) {
+            this.availableComments.push(document);
+          }
+        }
+        console.log(this.availableComments);
       });
     },
   },

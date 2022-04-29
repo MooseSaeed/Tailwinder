@@ -18,6 +18,9 @@ export default {
 </script>
 
 <style>
+body {
+  scroll-behavior: smooth;
+}
 [v-cloak] {
   display: inline-block;
   width: 80px;

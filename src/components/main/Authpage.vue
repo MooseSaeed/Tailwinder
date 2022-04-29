@@ -26,9 +26,6 @@
         </div>
       </Signup>
     </div>
-    <div v-if="store.userprofile">
-      <Profile v-bind:userprofile="store.userprofile" />
-    </div>
   </div>
 </template>
 
@@ -86,7 +83,7 @@ export default {
       try {
         const response = await appwrite.account.get();
         store.userprofile = response;
-        this.$router.push("/users/" + store.userprofile.$id);
+        this.$router.go(-1);
       } catch (err) {
         if (err == "Error: Unauthorized") return;
         console.error(err);

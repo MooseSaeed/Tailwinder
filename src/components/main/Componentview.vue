@@ -2,7 +2,7 @@
   <section class="mt-28 mx-auto mb-10 text-center min-h-screen">
     <!-- Images swiper -->
     <div
-      class="mx-auto bg-gradient-to-r from-green-500 via-violet-500 to-blue-700 background-animate shadow-md rounded-xl h-max p-1"
+      class="mx-auto bg-gradient-to-r from-green-500 via-violet-500 to-blue-500 shadow-md rounded-xl h-max p-1"
     >
       <div class="bg-blue-50 overflow-hidden shadow-md rounded-xl h-full">
         <Swiper
@@ -42,35 +42,23 @@
         Component description:
       </h4>
       <p class="text-left leading-relaxed">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci ad
-        odio in quidem quia, quas nihil provident voluptatum laudantium quos
-        sint unde eos quam molestias tempore molestiae dolores reiciendis
-        repudiandae sequi voluptatem illo. Aliquid ut possimus iure pariatur
-        incidunt molestias quibusdam facilis repudiandae, beatae molestiae
-        corporis culpa nostrum adipisci velit perferendis voluptate inventore
-        magnam asperiores error mollitia qui libero tempora temporibus delectus.
-        Aliquam necessitatibus consequuntur consectetur vel praesentium magni
-        accusantium ex molestias iure molestiae eius totam quam alias fuga
-        reprehenderit vitae, sequi assumenda, neque deserunt voluptates
-        repudiandae est cumque illo. Dolorum, blanditiis, quia eius perferendis
-        nihil culpa nulla non excepturi tenetur qui minima ut officiis nisi
-        reprehenderit, tempore numquam ex nostrum aliquid! Sunt quibusdam nam
-        omnis quia iure vel odio assumenda, esse, dolores sequi corporis,
-        voluptatum perferendis ut praesentium labore nesciunt saepe voluptatibus
-        ea mollitia? Quia, cupiditate amet. Obcaecati, dolore? At reprehenderit
-        dolore expedita? Atque quaerat officiis nihil. Ipsum, in ullam nesciunt
-        atque culpa facilis reiciendis soluta? Assumenda ullam quaerat sit
-        praesentium rem, voluptatum nihil itaque eaque, fugiat molestiae, et
-        obcaecati voluptas necessitatibus non laboriosam laborum dicta nemo
-        alias iste repellendus ipsa? Voluptatibus vero itaque mollitia provident
-        veniam facilis! Enim ab ipsum ducimus consequatur iure quia molestiae
-        quas voluptates et libero dignissimos, harum consectetur, aliquid
-        veritatis error porro nisi vero qui beatae sed! Sunt odit architecto
-        commodi, doloribus unde similique. A eos amet molestiae earum. Tempora
-        distinctio minima corrupti ea deserunt aperiam sit enim doloremque
-        repellendus architecto! Provident praesentium temporibus vitae ut, omnis
-        voluptates magni laudantium ex repellendus eveniet quod, unde
-        exercitationem est, dolorem non!
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam
+        voluptates illum iure, similique eos sit error laboriosam itaque
+        excepturi veniam deleniti nesciunt pariatur reprehenderit provident
+        soluta aperiam accusantium assumenda alias. Amet deleniti eum natus
+        praesentium suscipit ipsum id impedit, voluptatibus nemo officia quaerat
+        velit, iure, iusto cum consectetur? Voluptatibus sequi sint aspernatur
+        maxime, tempora sit, nihil natus ipsum fugit saepe, eos a. Dolore est
+        odit sunt corporis voluptatibus dolorum quaerat aperiam ex nihil rerum
+        deserunt impedit, laboriosam nulla molestiae consequuntur aliquam
+        officia quibusdam dicta blanditiis magnam quia sequi fugit? Saepe nulla
+        error rerum odio ex aut animi omnis iusto in sint, autem voluptatibus
+        fugit mollitia sapiente ratione fugiat quam esse consequatur, similique
+        optio dicta sequi. Optio suscipit inventore cupiditate amet sequi
+        consectetur alias reprehenderit dolorem ipsum deserunt, dolorum delectus
+        maiores ut sint laudantium magnam nam commodi ea totam iusto ad
+        aspernatur fugiat laborum ratione! Dolores, unde? Iste, incidunt quo
+        culpa possimus molestias quos itaque cupiditate!
       </p>
     </div>
 
@@ -106,6 +94,7 @@
       >
     </div>
     <Addcomment class="mt-6" />
+    <Comments class="my-6" />
   </section>
 </template>
 
@@ -120,6 +109,7 @@ import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper";
 import Infobtn from "../buttons/Infobtn.vue";
 import Addcomment from "../Addcomment.vue";
+import Comments from "../Comments.vue";
 
 export default {
   components: {
@@ -127,6 +117,7 @@ export default {
     SwiperSlide,
     Infobtn,
     Addcomment,
+    Comments,
   },
   setup() {
     return {
@@ -165,22 +156,6 @@ export default {
 </script>
 
 <style scoped>
-.background-animate {
-  background-size: 400%;
-  -webkit-animation: gradColor 3s ease infinite;
-  -moz-animation: gradColor 3s ease infinite;
-  animation: gradColor 3s ease infinite;
-}
-
-@keyframes gradColor {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
 .swiper {
   width: 100%;
   height: 100%;

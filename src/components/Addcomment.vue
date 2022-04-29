@@ -10,20 +10,31 @@
             class="rounded-xl h-12 w-12"
             alt="User Avatar"
           />
-          <h2 class="ml-4 text-black">Want to say something?</h2>
+          <h2 class="ml-4 text-black">Have something to say??</h2>
         </header>
 
         <div class="mt-4">
+          <p v-if="!store.userprofile">
+            Please
+            <span class="hover:text-blue-500 underline cursor-pointer">
+              <router-link to="/auth">Sign Up/Login</router-link>
+            </span>
+            to add comment.
+          </p>
           <textarea
+            v-if="store.userprofile"
             name="body"
             class="rounded-xl w-full text-sm outline-none border-none p-2"
             rows="3"
-            placeholder="Say what you think?"
+            placeholder="Say what's on your mind.."
             required
           ></textarea>
         </div>
 
-        <div class="flex justify-end mt-6 border-t border-gray-200 pt-6">
+        <div
+          v-if="store.userprofile"
+          class="flex justify-end mt-6 border-t border-gray-200 pt-6"
+        >
           <Infobtn class="w-fit cursor-pointer">Post Comment</Infobtn>
         </div>
       </form>
@@ -33,10 +44,16 @@
 
 <script>
 import Infobtn from "./buttons/Infobtn.vue";
+import { store } from "../store";
 
 export default {
   components: {
     Infobtn,
+  },
+  data: () => {
+    return {
+      store,
+    };
   },
 };
 </script>

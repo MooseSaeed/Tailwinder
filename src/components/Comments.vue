@@ -1,7 +1,7 @@
 <template>
   <section>
     <div
-      class="relative bg-gradient-to-r max-w-xl from-green-500 via-violet-500 to-blue-700 background-animate shadow-md rounded-xl h-max p-1"
+      class="relative bg-gradient-to-r max-w-xl from-green-500 via-violet-500 to-blue-700 background-animate shadow-md rounded-xl h-max p-0.5"
     >
       <div
         class="text-black flex flex-col bg-blue-50 bg-option7 p-6 rounded-xl"

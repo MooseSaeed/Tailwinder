@@ -198,22 +198,6 @@ export default {
 </script>
 
 <style scoped>
-.background-animate {
-  background-size: 400%;
-  -webkit-animation: gradColor 3s ease infinite;
-  -moz-animation: gradColor 3s ease infinite;
-  animation: gradColor 3s ease infinite;
-}
-
-@keyframes gradColor {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
 .pyro > .before,
 .pyro > .after {
   position: absolute;

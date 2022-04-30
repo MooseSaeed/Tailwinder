@@ -1,5 +1,8 @@
 <template>
   <section class="mt-28 mx-auto mb-10 text-center min-h-screen">
+    <Flashmessage class="bg-blue-500" v-if="successMsg">
+      {{ successMsg }}
+    </Flashmessage>
     <!-- Images swiper -->
     <div
       class="mx-auto bg-gradient-to-r from-green-500 via-violet-500 to-blue-500 shadow-md rounded-xl h-max p-1"
@@ -83,29 +86,39 @@
         </div></Infobtn
       >
     </div>
-    <Addcomment class="mt-6">
-      <Infobtn @click="postComment" class="w-fit cursor-pointer"
-        >Post Comment</Infobtn
-      >
-    </Addcomment>
+    <div class="relative">
+      <Addcomment class="mt-6">
+        <Infobtn @click="postComment" class="w-fit cursor-pointer"
+          >Post Comment</Infobtn
+        >
+        <div v-if="isLoading" class="absolute bottom-3 left-3">
+          <div class="ripple-loader">
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </Addcomment>
+    </div>
 
     <div v-for="document in availableComments" :key="document.$id">
-      <Comments
-        :commentOwner="document.commentOwner"
-        :commentOwnerId="document.commentOwnerId"
-        :commentContext="document.commentContext"
-        :commentId="document.$id"
-        :dateAndTime="document.dateAndTime"
-        class="my-6"
-      >
-        <div
-          @click="deleteComment(document.$id)"
-          v-if="document.commentOwnerId == store.userprofile.$id"
-          class="w-fit absolute bottom-3 right-6 font-semibold text-sm text-red-500 cursor-pointer hover:text-red-700"
+      <Transition appear name="slide-fade">
+        <Comments
+          :commentOwner="document.commentOwner"
+          :commentOwnerId="document.commentOwnerId"
+          :commentContext="document.commentContext"
+          :commentId="document.$id"
+          :dateAndTime="document.dateAndTime"
+          class="my-6"
         >
-          DELETE
-        </div>
-      </Comments>
+          <div
+            @click="deleteComment(document.$id)"
+            v-if="document.commentOwnerId == store.userprofile.$id"
+            class="w-fit absolute bottom-3 right-6 font-semibold text-sm text-red-500 cursor-pointer hover:text-red-700"
+          >
+            DELETE
+          </div>
+        </Comments>
+      </Transition>
     </div>
   </section>
 </template>
@@ -123,6 +136,7 @@ import { Pagination, Navigation } from "swiper";
 import Infobtn from "../buttons/Infobtn.vue";
 import Addcomment from "../Addcomment.vue";
 import Comments from "../Comments.vue";
+import Flashmessage from "../Flashmessage.vue";
 
 export default {
   components: {
@@ -131,6 +145,7 @@ export default {
     Infobtn,
     Addcomment,
     Comments,
+    Flashmessage,
   },
   setup() {
     return {
@@ -139,6 +154,8 @@ export default {
   },
   data() {
     return {
+      successMsg: false,
+      isLoading: false,
       componentId: false,
       collectionId: false,
       currentComponent: null,
@@ -220,7 +237,10 @@ export default {
       // Clear comment text area after adding new comment.
       document.querySelector("#commentContext").value = "";
       // Give some time for appwrite to load and then check for updated comments
+      this.isLoading = true;
+      this.successMsg = "Your comment has been added 🥳";
       setTimeout(() => {
+        this.isLoading = false;
         this.checkForComments();
       }, 1000);
     },
@@ -229,7 +249,10 @@ export default {
       this.deletedCommentId = commentId;
       appwrite.database.deleteDocument("comments", commentId);
       // Give some time for appwrite to load and then check for updated comments
+      this.isLoading = true;
+      this.successMsg = "Your comment has been deleted ☹️";
       setTimeout(() => {
+        this.isLoading = false;
         this.checkForComments();
       }, 1000);
     },
@@ -237,7 +260,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .swiper {
   width: 100%;
   height: 100%;
@@ -273,5 +296,55 @@ export default {
 .swiper {
   margin-left: auto;
   margin-right: auto;
+}
+.ripple-loader {
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+
+.ripple-loader div {
+  position: absolute;
+  border: 4px solid #454ade;
+  border-radius: 50%;
+  animation: ripple-loader 1s ease-out infinite;
+}
+
+.ripple-loader div:nth-child(2) {
+  animation-delay: -0.5s;
+}
+
+@keyframes ripple-loader {
+  0% {
+    top: 32px;
+    left: 32px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    top: 0;
+    left: 0;
+    width: 64px;
+    height: 64px;
+    opacity: 0;
+  }
+}
+/*
+  Enter and leave animations can use different
+  durations and timing functions.
+*/
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
 }
 </style>

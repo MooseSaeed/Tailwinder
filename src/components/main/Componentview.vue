@@ -91,17 +91,17 @@
 
     <div v-for="document in availableComments" :key="document.$id">
       <Comments
-        :document="document"
         :commentOwner="document.commentOwner"
         :commentOwnerId="document.commentOwnerId"
         :commentContext="document.commentContext"
         :commentId="document.$id"
+        :dateAndTime="document.dateAndTime"
         class="my-6"
       >
         <div
           @click="deleteComment(document.$id)"
           v-if="document.commentOwnerId == store.userprofile.$id"
-          class="w-fit self-end font-semibold text-sm text-red-500 cursor-pointer hover:text-red-700"
+          class="w-fit absolute bottom-3 right-6 font-semibold text-sm text-red-500 cursor-pointer hover:text-red-700"
         >
           DELETE
         </div>
@@ -145,6 +145,7 @@ export default {
       availableComments: [],
       commentContext: null,
       deletedCommentId: false,
+      dateAndTime: false,
       store,
     };
   },
@@ -189,7 +190,23 @@ export default {
         }
       });
     },
+    // get time in EDT333333
+    currentDateTime() {
+      const date = new Date();
+      const currentDT = date.toLocaleString("en-US", {
+        timeZone: "America/New_York",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        timeZoneName: "short",
+      });
+      this.dateAndTime = currentDT;
+    },
     postComment() {
+      this.currentDateTime();
       //creating appwrite document for the comment while passing comment context
       this.commentContext = document.querySelector("#commentContext").value;
       let promise = appwrite.database.createDocument("comments", "unique()", {
@@ -197,6 +214,7 @@ export default {
         commentOwnerId: store.userprofile.$id,
         componentId: this.componentId,
         commentContext: this.commentContext,
+        dateAndTime: this.dateAndTime,
       });
 
       // Clear comment text area after adding new comment.

@@ -1,7 +1,7 @@
 <template>
   <section>
     <div
-      class="bg-gradient-to-r max-w-xl from-green-500 via-violet-500 to-blue-700 background-animate shadow-md rounded-xl h-max p-1"
+      class="relative bg-gradient-to-r max-w-xl from-green-500 via-violet-500 to-blue-700 background-animate shadow-md rounded-xl h-max p-1"
     >
       <div
         class="text-black flex flex-col bg-blue-50 bg-option7 p-6 rounded-xl"
@@ -12,8 +12,10 @@
             class="rounded-full h-12 w-12 mr-2"
             alt="User Avatar"
           />
-          <h5 class="text-black">
-            <span class="font-semibold hover:text-blue-500 cursor-pointer">
+          <div>
+            <h5
+              class="text-black text-left font-semibold hover:text-blue-500 cursor-pointer"
+            >
               <router-link
                 :to="{
                   name: 'UserProfile',
@@ -21,13 +23,15 @@
                 }"
                 >{{ commentOwner }}</router-link
               >
-            </span>
-            Said:
-          </h5>
+            </h5>
+            <p class="block text-gray-500 text-xs">
+              {{ dateAndTime }}
+            </p>
+          </div>
         </header>
 
         <div
-          class="rounded-xl w-full text-sm outline-none border-none text-left mt-2"
+          class="rounded-xl w-full text-sm outline-none border-none text-left mt-3"
         >
           <p>
             {{ commentContext }}
@@ -46,7 +50,7 @@ export default {
     "commentOwnerId",
     "commentContext",
     "commentId",
-    "document",
+    "dateAndTime",
   ],
 };
 </script>

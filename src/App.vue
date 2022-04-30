@@ -1,8 +1,10 @@
 <template>
-  <Navbar />
-  <div class="items-center max-w-7xl px-10 mx-auto">
-    <router-view></router-view>
-  </div>
+  <main>
+    <Navbar />
+    <div class="items-center max-w-7xl px-10 mx-auto">
+      <router-view></router-view>
+    </div>
+  </main>
 </template>
 
 <script>

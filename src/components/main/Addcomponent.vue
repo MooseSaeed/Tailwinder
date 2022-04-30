@@ -1,39 +1,49 @@
 <template>
-  <section class="mx-10 mt-20 relative min-h-screen">
-    <div class="flex gap-5 mt-5">
-      <aside
-        class="px-4 py-16 mx-auto sm:px-6 lg:px-8 basis-4/5 space-y-4 rounded-lg shadow-2xl bg-none"
+  <section class="mt-28 mx-auto mb-10 text-center min-h-screen">
+    <div class="flex gap-5">
+      <div
+        class="mx-auto basis-full h-96 bg-gradient-to-r from-green-500 via-violet-500 to-blue-500 shadow-md rounded-xl p-1"
       >
-        <div>
-          <input
-            class="bg-gray-200 w-full border-black border"
-            type="text"
-            v-model="collectionId"
-            name="collectionId"
-            id="collectionId"
-          />
+        <div class="bg-blue-50 overflow-hidden shadow-md rounded-xl h-full">
+          <div class="py-20 h-screen bg-white px-2">
+            <div
+              class="max-w-md mx-auto rounded-lg overflow-hidden md:max-w-xl"
+            >
+              <div class="md:flex">
+                <div class="w-full p-3">
+                  <div
+                    class="relative h-48 rounded-lg border-dashed border-2 border-blue-700 bg-gray-100 flex justify-center items-center"
+                  >
+                    <div class="absolute">
+                      <div class="flex flex-col items-center">
+                        <i>
+                          <img
+                            src="../../assets/images/upload-icon.png"
+                            alt="upload-icon"
+                            class="h-28"
+                          />
+                        </i>
+                        <span class="block text-gray-400 font-normal"
+                          >Click here to attach your files (Max 3)</span
+                        >
+                        <span class="block text-gray-400 font-normal"
+                          >Accepted Formats: JPG, PNG, GIF, MP4</span
+                        >
+                      </div>
+                    </div>
+                    <input
+                      type="file"
+                      class="h-full w-full opacity-0 cursor-pointer"
+                      name=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div>
-          <input
-            class="bg-gray-200 w-full border-black border"
-            type="text"
-            v-model="documentId"
-            name="documentId"
-            id="documentId"
-          />
-        </div>
-        <div>
-          <input
-            class="bg-gray-200 w-full border-black border"
-            type="text"
-            v-model="buttonData"
-            name="buttonData"
-            id="buttonData"
-          />
-        </div>
-        <button @click="createDocument">save to user</button>
-      </aside>
-      <main class="bg-blue-500 h-80 basis-full"></main>
+      </div>
+      <div class="basis-full bg-blue-500 h-96"></div>
     </div>
   </section>
 </template>
@@ -47,7 +57,6 @@ export default {
       response: false,
       collectionId: null,
       documentId: null,
-      buttonData: { data: "hi" },
     };
   },
   methods: {

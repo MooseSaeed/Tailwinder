@@ -175,8 +175,10 @@ export default {
       this.availableComments = [];
       // Getting list of documents(ALL) inside comments collection
       let promise = appwrite.database.listDocuments("comments");
+
       promise.then((response) => {
         // Filtering each document to check if it relates to the current component
+        // Don't show comments with ID equal to deleted comment ID
         for (const document of response.documents) {
           if (
             document.componentId == this.componentId &&
@@ -199,13 +201,19 @@ export default {
 
       // Clear comment text area after adding new comment.
       document.querySelector("#commentContext").value = "";
-      this.checkForComments();
+      // Give some time for appwrite to load and then check for updated comments
+      setTimeout(() => {
+        this.checkForComments();
+      }, 1000);
     },
     // Delete the comment (Passed comment ID value from the loop in template)
     deleteComment(commentId) {
       this.deletedCommentId = commentId;
       appwrite.database.deleteDocument("comments", commentId);
-      this.checkForComments();
+      // Give some time for appwrite to load and then check for updated comments
+      setTimeout(() => {
+        this.checkForComments();
+      }, 1000);
     },
   },
 };

@@ -117,9 +117,9 @@
             <router-link
               @mouseover="fireWorks"
               @mouseleave="noFireWorks"
-              :class="{ 'md:text-blue-500': $route.path === '/newcomponent' }"
+              :class="{ 'md:text-blue-500': $route.path === '/addcomponent' }"
               class="relative block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-              to="/newcomponent"
+              to="/addcomponent"
             >
               <p
                 class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 background-animate"

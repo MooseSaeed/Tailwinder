@@ -4,7 +4,7 @@ import Authpage from "../components/main/Authpage.vue";
 import Community from "../components/main/Community.vue";
 import Tools from "../components/main/Tools.vue";
 import Profile from "../components/main/Profile.vue";
-import Buttontool from "../components/tailwinderTools/Buttontool.vue";
+import Addcomponent from "../components/main/Addcomponent.vue";
 import Componentview from "../components/main/Componentview.vue";
 
 const routes = [
@@ -35,9 +35,9 @@ const routes = [
     component: Tools,
   },
   {
-    path: "/tools/buttontool",
-    name: "Buttontool",
-    component: Buttontool,
+    path: "/addcomponent",
+    name: "Addcomponent",
+    component: Addcomponent,
   },
   {
     path: "/community/:colname/:id",

@@ -2,7 +2,7 @@
   <section
     class="grid gap-y-10 sm:grid-cols-2 justify-items-center items-center mt-28 mx-auto mb-10 max-w-4xl text-center"
   >
-    <router-link to="/tools/buttontool">
+    <router-link to="">
       <Card dataImage="./images/bereadableposter.png">
         <template v-slot:header>
           <h2 class="text-white text-xl font-bold">Buttons</h2>
@@ -14,7 +14,7 @@
         </template>
       </Card>
     </router-link>
-    <router-link to="/">
+    <router-link to="">
       <Card dataImage="./images/bereadableposter.png">
         <template v-slot:header>
           <h2 class="text-white text-xl font-bold">Navbars</h2>
@@ -26,7 +26,7 @@
         </template>
       </Card>
     </router-link>
-    <router-link to="/">
+    <router-link to="">
       <Card dataImage="./images/bereadableposter.png">
         <template v-slot:header>
           <h2 class="text-white text-xl font-bold">Popup Modals</h2>

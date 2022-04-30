@@ -124,15 +124,16 @@
 </template>
 
 <script>
-import { store } from "../../store";
-import { appwrite } from "../../utils";
 import { Swiper, SwiperSlide } from "swiper/vue";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-// import required modules
+// import required modules for swiper
 import { Pagination, Navigation } from "swiper";
+
+import { store } from "../../store";
+import { appwrite } from "../../utils";
 import Infobtn from "../buttons/Infobtn.vue";
 import Addcomment from "../Addcomment.vue";
 import Comments from "../Comments.vue";
@@ -207,7 +208,7 @@ export default {
         }
       });
     },
-    // get time in EDT333333
+    // get time in EDT
     currentDateTime() {
       const date = new Date();
       const currentDT = date.toLocaleString("en-US", {

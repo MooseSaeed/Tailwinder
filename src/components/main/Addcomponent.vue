@@ -8,8 +8,8 @@
         <form>
           <div class="relative z-0 w-full mb-6 group">
             <select
-              name="category"
-              id="category"
+              name="component_category"
+              id="component_category"
               class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               aria-label="Default select example"
             >
@@ -64,12 +64,11 @@
             >
           </div>
 
-          <button
-            type="submit"
-            class="text-white mb-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          <Primarybtn
+            @click="createDocument"
+            class="w-fit mx-auto mb-4 cursor-pointer"
+            >Submit</Primarybtn
           >
-            Submit
-          </button>
         </form>
       </div>
     </div>
@@ -77,21 +76,42 @@
 </template>
 
 <script>
+import { store } from "../../store.js";
 import { appwrite } from "../../utils";
+import Primarybtn from "../buttons/Primarybtn.vue";
 import Imagesupload from "../Imagesupload.vue";
 export default {
-  components: { Imagesupload },
+  components: { Imagesupload, Primarybtn },
   name: "Buttontool",
   data() {
     return {
+      store,
       inputNumberErr: false,
       response: false,
-      collectionId: null,
-      documentId: null,
       path: null,
+
+      collectionId: false,
+      componentName: false,
+      componentId: null,
+      componentDescription: null,
+      componentCode: null,
     };
   },
   methods: {
+    testing() {
+      this.collectionId = document.querySelector("#component_category").value;
+      this.componentName = document.querySelector("#component_name").value;
+
+      let getName = document.querySelector("#component_name").value;
+      getName = getName.replace(/\s+/g, "-").toLowerCase();
+      this.componentId = getName;
+
+      this.componentDescription = document.querySelector(
+        "#component_description"
+      ).value;
+
+      this.componentCode = document.querySelector("#component_code").value;
+    },
     //Image preview on select
     displayFiles() {
       const input = document.querySelector("#imagesPath");
@@ -107,14 +127,30 @@ export default {
       }
     },
     createDocument() {
+      this.collectionId = document.querySelector("#component_category").value;
+      this.componentName = document.querySelector("#component_name").value;
+
+      let getName = document.querySelector("#component_name").value;
+      getName = getName.replace(/\s+/g, "-").toLowerCase();
+      this.componentId = getName;
+
+      this.componentDescription = document.querySelector(
+        "#component_description"
+      ).value;
+
+      this.componentCode = document.querySelector("#component_code").value;
+
       let promise = appwrite.database.createDocument(
         this.collectionId,
-        this.documentId,
+        this.componentId,
         {
-          buttonName: "My cool button",
-          owner: "this owner",
-          ownerId: "this owner Id",
-          buttonCode: "<h1 class='text-red-500'>hello world</h1>",
+          collectionName: this.collectionId,
+          buttonId: this.componentId,
+          buttonName: this.componentName,
+          owner: store.userprofile.name,
+          ownerId: store.userprofile.$id,
+          buttonCode: this.componentCode,
+          description: this.componentDescription,
         }
       );
       promise.then(

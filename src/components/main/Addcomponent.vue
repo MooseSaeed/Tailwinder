@@ -4,8 +4,15 @@
       <div
         class="mx-auto basis-full h-96 bg-gradient-to-r from-green-500 via-violet-500 to-blue-500 shadow-md rounded-xl p-1"
       >
-        <div class="bg-blue-50 overflow-hidden shadow-md rounded-xl h-full">
-          <div class="py-20 h-screen bg-white px-2">
+        <div
+          class="relative bg-blue-50 overflow-hidden shadow-md rounded-xl h-full flex items-center justify-center"
+        >
+          <div class="relative py-7 px-2">
+            <div class="flex-row gap-10 flex justify-center items-center">
+              <div v-for="image in path" :key="image.id">
+                <img class="max-w-32 max-h-32" :src="image" alt="" />
+              </div>
+            </div>
             <div
               class="max-w-md mx-auto rounded-lg overflow-hidden md:max-w-xl"
             >
@@ -23,20 +30,29 @@
                             class="h-28"
                           />
                         </i>
-                        <span class="block text-gray-400 font-normal"
+                        <span class="block text-gray-400 text-sm"
                           >Click here to attach your files (Max 3)</span
                         >
-                        <span class="block text-gray-400 font-normal"
+                        <span class="block text-gray-400 text-sm"
                           >Accepted Formats: JPG, PNG, GIF, MP4</span
                         >
                       </div>
                     </div>
                     <input
+                      @change="displayFiles"
                       type="file"
+                      id="imagesPath"
+                      name="imagesPath"
                       class="h-full w-full opacity-0 cursor-pointer"
-                      name=""
+                      multiple
                     />
                   </div>
+                  <p
+                    v-if="inputNumberErr"
+                    class="text-red-500 font-xs font-semibold"
+                  >
+                    {{ inputNumberErr }}
+                  </p>
                 </div>
               </div>
             </div>
@@ -54,12 +70,29 @@ export default {
   name: "Buttontool",
   data() {
     return {
+      inputNumberErr: false,
       response: false,
       collectionId: null,
       documentId: null,
+      path: null,
     };
   },
   methods: {
+    displayFiles() {
+      const input = document.querySelector("#imagesPath");
+
+      if (input.files.length <= 3) {
+        this.inputNumberErr = false;
+        this.path = [];
+        for (const file of input.files) {
+          this.path.push(URL.createObjectURL(file));
+        }
+        console.log(this.path);
+      } else {
+        this.inputNumberErr = "Please select maximum of 3 files";
+        console.log(this.inputNumberErr);
+      }
+    },
     createDocument() {
       let promise = appwrite.database.createDocument(
         this.collectionId,

@@ -78,6 +78,7 @@ export default {
     };
   },
   methods: {
+    //Image preview on select
     displayFiles() {
       const input = document.querySelector("#imagesPath");
 
@@ -87,10 +88,8 @@ export default {
         for (const file of input.files) {
           this.path.push(URL.createObjectURL(file));
         }
-        console.log(this.path);
       } else {
         this.inputNumberErr = "Please select maximum of 3 files";
-        console.log(this.inputNumberErr);
       }
     },
     createDocument() {

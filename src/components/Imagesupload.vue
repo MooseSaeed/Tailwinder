@@ -1,6 +1,6 @@
 <template>
   <div
-    class="mx-auto basis-full h-96 bg-gradient-to-r from-green-500 via-violet-500 to-blue-500 shadow-md rounded-xl p-1"
+    class="bg-gradient-to-r transition-all from-green-500 via-violet-500 to-blue-500 shadow-md rounded-xl p-1"
   >
     <div
       class="relative bg-blue-50 overflow-hidden shadow-md rounded-xl h-full flex items-center justify-center"
@@ -8,7 +8,11 @@
       <div class="relative py-7 px-2">
         <div class="flex-row gap-10 flex justify-center items-center">
           <div v-for="image in path" :key="image.id">
-            <img class="max-w-32 max-h-32" :src="image" alt="" />
+            <img
+              class="animate__animated animate__fadeIn max-h-64"
+              :src="image"
+              alt=""
+            />
           </div>
         </div>
         <div class="max-w-md mx-auto rounded-lg overflow-hidden md:max-w-xl">
@@ -30,7 +34,7 @@
                       >Click here to attach your files (Max 3)</span
                     >
                     <span class="block text-gray-400 text-sm"
-                      >Accepted Formats: JPG, PNG, GIF, MP4</span
+                      >Accepted Formats: JPG - PNG - GIF</span
                     >
                   </div>
                 </div>

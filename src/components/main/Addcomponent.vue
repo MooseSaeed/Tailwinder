@@ -3,6 +3,7 @@
     <div class="flex flex-col justify-center items-center gap-5">
       <div class="mx-auto w-full">
         <Imagesupload :path="this.path" :inputNumberErr="this.inputNumberErr" />
+        <button @click="bucketTesting">HELLLOOOOOOOOO</button>
       </div>
       <div class="bg-blue-50/20 w-full shadow-lg rounded-xl">
         <form>
@@ -80,6 +81,9 @@ import { store } from "../../store.js";
 import { appwrite } from "../../utils";
 import Primarybtn from "../buttons/Primarybtn.vue";
 import Imagesupload from "../Imagesupload.vue";
+
+import { createBucket } from "../../services/bucketsService";
+
 export default {
   components: { Imagesupload, Primarybtn },
   name: "Buttontool",
@@ -98,20 +102,6 @@ export default {
     };
   },
   methods: {
-    testing() {
-      this.collectionId = document.querySelector("#component_category").value;
-      this.componentName = document.querySelector("#component_name").value;
-
-      let getName = document.querySelector("#component_name").value;
-      getName = getName.replace(/\s+/g, "-").toLowerCase();
-      this.componentId = getName;
-
-      this.componentDescription = document.querySelector(
-        "#component_description"
-      ).value;
-
-      this.componentCode = document.querySelector("#component_code").value;
-    },
     //Image preview on select
     displayFiles() {
       const input = document.querySelector("#imagesPath");
@@ -125,6 +115,39 @@ export default {
       } else {
         this.inputNumberErr = "Please select maximum 3 files";
       }
+    },
+
+    bucketTesting() {
+      const bucket_id = "first_id";
+      const bucket_name = "first bucket name";
+
+      createBucket(bucket_id, bucket_name).then((response) => {
+        console.log(response);
+      });
+    },
+
+    uploadImages() {
+      const promise = appwrite.storage.createFile(
+        "componentimages",
+        "unique()",
+        document.querySelector("#imagesPath").files[0]
+      );
+
+      promise.then(
+        function (response) {
+          console.log(response); // Success
+        },
+        function (error) {
+          console.log(error); // Failure
+        }
+      );
+    },
+    getPreview() {
+      let result = appwrite.storage.getFilePreview(
+        "componentimages",
+        "626f67c98c704bfbbd56"
+      );
+      console.log(result);
     },
     createDocument() {
       this.collectionId = document.querySelector("#component_category").value;

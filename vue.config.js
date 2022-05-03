@@ -6,7 +6,7 @@ module.exports = defineConfig({
 module.exports = {
   devServer: {
     proxy: {
-      "^/v1/users": {
+      "^/v1/": {
         target: "http://localhost:3080",
         changeOrigin: true,
       },

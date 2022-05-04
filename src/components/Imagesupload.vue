@@ -30,10 +30,10 @@
                         class="h-28"
                       />
                     </i>
-                    <span class="block text-gray-400 text-sm"
+                    <span class="block text-gray-400 text-xs sm:text-sm"
                       >Click here to attach your files (Max 3)</span
                     >
-                    <span class="block text-gray-400 text-sm"
+                    <span class="block text-gray-400 text-xs sm:text-sm"
                       >Accepted Formats: JPG - PNG - GIF</span
                     >
                   </div>
@@ -45,6 +45,7 @@
                   name="imagesPath"
                   class="h-full w-full opacity-0 cursor-pointer"
                   multiple
+                  required
                 />
               </div>
               <p

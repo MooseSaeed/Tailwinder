@@ -1,20 +1,23 @@
 <template>
   <section class="mt-28 mx-auto mb-10 text-center min-h-screen">
-    <div class="flex flex-col justify-center items-center gap-5">
-      <div class="mx-auto w-full">
-        <Imagesupload :path="this.path" :inputNumberErr="this.inputNumberErr" />
-        <button @click="bucketTesting">HELLLOOOOOOOOO</button>
-      </div>
-      <div class="bg-blue-50/20 w-full shadow-lg rounded-xl">
-        <form>
+    <form @submit="createDocument">
+      <div class="flex flex-col justify-center items-center gap-5">
+        <div class="mx-auto w-full">
+          <Imagesupload
+            :path="this.path"
+            :inputNumberErr="this.inputNumberErr"
+          />
+        </div>
+        <div class="bg-blue-50/20 w-full shadow-lg rounded-xl">
           <div class="relative z-0 w-full mb-6 group">
             <select
+              required
               name="component_category"
               id="component_category"
               class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-              aria-label="Default select example"
+              v-model="collectionId"
             >
-              <option selected>Click to select category</option>
+              <option selected value="">Click to select category</option>
               <option value="buttons">Buttons</option>
             </select>
           </div>
@@ -25,11 +28,12 @@
               id="component_name"
               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder="Name your component."
+              v-model="componentName"
               required
             />
             <label
               for="component_name"
-              class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              class="peer-focus:font-medium -top-3 left-0 peer-focus:right-auto peer-focus:top-3 right-0 absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
               >Component Name</label
             >
           </div>
@@ -40,11 +44,12 @@
               name="component_description"
               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder="Write max 155 letters description for your component."
+              v-model="componentDescription"
               required
             />
             <label
               for="component_description"
-              class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              class="peer-focus:font-medium -top-3 left-0 peer-focus:right-auto peer-focus:top-3 right-0 absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
               >Component Description</label
             >
           </div>
@@ -56,23 +61,24 @@
               cols="30"
               rows="10"
               placeholder="Paste your component code."
+              v-model="componentCode"
               required
             ></textarea>
             <label
               for="component_code"
-              class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              class="peer-focus:font-medium -top-3 left-0 peer-focus:right-auto peer-focus:top-3 right-0 absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
               >Component Code</label
             >
           </div>
 
-          <Primarybtn
-            @click="createDocument"
-            class="w-fit mx-auto mb-4 cursor-pointer"
-            >Submit</Primarybtn
-          >
-        </form>
+          <button type="submit">
+            <Primarybtn class="w-fit mx-auto mb-4 cursor-pointer"
+              >Submit</Primarybtn
+            >
+          </button>
+        </div>
       </div>
-    </div>
+    </form>
   </section>
 </template>
 
@@ -94,15 +100,16 @@ export default {
       response: false,
       path: null,
 
-      collectionId: false,
-      componentName: false,
+      collectionId: "",
+      componentName: "",
       componentId: null,
-      componentDescription: null,
-      componentCode: null,
+      componentDescription: "",
+      componentCode: "",
     };
   },
   methods: {
-    //Image preview on select
+    //Immediate selected images display
+    //This function is accessed from child component
     displayFiles() {
       const input = document.querySelector("#imagesPath");
 
@@ -116,53 +123,46 @@ export default {
         this.inputNumberErr = "Please select maximum 3 files";
       }
     },
+    uploadImages() {
+      //Create a bucket for this component
+      const bucket_id = this.componentId;
+      const bucket_name = this.componentName;
 
-    bucketTesting() {
-      const bucket_id = "first_id";
-      const bucket_name = "first bucket name";
-
+      //Once bucket created, proceed with adding images files
       createBucket(bucket_id, bucket_name).then((response) => {
-        console.log(response);
+        const input = document.querySelector("#imagesPath");
+
+        //For each selected file, add file to bucket
+        for (const file of input.files) {
+          const promise = appwrite.storage.createFile(
+            response.$id,
+            "unique()",
+            file,
+            ["role:all"]
+          );
+          promise.then(
+            function (response) {
+              console.log(response); // Success
+            },
+            function (error) {
+              console.log(error); // Failure
+            }
+          );
+        }
       });
     },
 
-    uploadImages() {
-      const promise = appwrite.storage.createFile(
-        "componentimages",
-        "unique()",
-        document.querySelector("#imagesPath").files[0]
-      );
-
-      promise.then(
-        function (response) {
-          console.log(response); // Success
-        },
-        function (error) {
-          console.log(error); // Failure
-        }
-      );
-    },
-    getPreview() {
-      let result = appwrite.storage.getFilePreview(
-        "componentimages",
-        "626f67c98c704bfbbd56"
-      );
-      console.log(result);
-    },
-    createDocument() {
-      this.collectionId = document.querySelector("#component_category").value;
-      this.componentName = document.querySelector("#component_name").value;
-
+    createDocument(e) {
+      e.preventDefault();
+      //Making ComponentId value equals to component name with some restrictions
       let getName = document.querySelector("#component_name").value;
       getName = getName.replace(/\s+/g, "-").toLowerCase();
       this.componentId = getName;
 
-      this.componentDescription = document.querySelector(
-        "#component_description"
-      ).value;
+      //Saving images files in a bucket
+      this.uploadImages();
 
-      this.componentCode = document.querySelector("#component_code").value;
-
+      //Creating the component document
       let promise = appwrite.database.createDocument(
         this.collectionId,
         this.componentId,

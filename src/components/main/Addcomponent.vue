@@ -1,5 +1,12 @@
 <template>
   <section class="mt-28 mx-auto mb-10 text-center min-h-screen">
+    <div v-if="errors.length">
+      <Flashmessage v-for="error in errors" :key="error.id" class="bg-red-500">
+        <li class="text-left text-sm text-white">
+          {{ error }}
+        </li>
+      </Flashmessage>
+    </div>
     <form @submit="createDocument">
       <div class="flex flex-col justify-center items-center gap-5">
         <div class="mx-auto w-full">
@@ -8,6 +15,7 @@
             :inputNumberErr="this.inputNumberErr"
           />
         </div>
+
         <div class="bg-blue-50/20 w-full shadow-lg rounded-xl">
           <div class="relative z-0 w-full mb-6 group">
             <select
@@ -87,11 +95,12 @@ import { store } from "../../store.js";
 import { appwrite } from "../../utils";
 import Primarybtn from "../buttons/Primarybtn.vue";
 import Imagesupload from "../Imagesupload.vue";
+import Flashmessage from "../Flashmessage.vue";
 
 import { createBucket } from "../../services/bucketsService";
 
 export default {
-  components: { Imagesupload, Primarybtn },
+  components: { Imagesupload, Primarybtn, Flashmessage },
   name: "Buttontool",
   data() {
     return {
@@ -105,6 +114,8 @@ export default {
       componentId: null,
       componentDescription: "",
       componentCode: "",
+      validated: false,
+      errors: "",
     };
   },
   methods: {
@@ -128,62 +139,118 @@ export default {
       const bucket_id = this.componentId;
       const bucket_name = this.componentName;
 
-      //Once bucket created, proceed with adding images files
-      createBucket(bucket_id, bucket_name).then((response) => {
-        const input = document.querySelector("#imagesPath");
+      const input = document.querySelector("#imagesPath");
+      if (input.files.length <= 3) {
+        //Once bucket created, proceed with adding images files
+        createBucket(bucket_id, bucket_name).then((response) => {
+          //For each selected file, add file to bucket
+          for (const file of input.files) {
+            const promise = appwrite.storage.createFile(
+              response.$id,
+              "unique()",
+              file,
+              ["role:all"]
+            );
+            promise.then(
+              function (response) {
+                console.log(response); // Success
+              },
+              function (error) {
+                console.log(error); // Failure
+              }
+            );
+          }
+        });
+      }
+    },
 
-        //For each selected file, add file to bucket
-        for (const file of input.files) {
-          const promise = appwrite.storage.createFile(
-            response.$id,
-            "unique()",
-            file,
-            ["role:all"]
-          );
-          promise.then(
-            function (response) {
-              console.log(response); // Success
-            },
-            function (error) {
-              console.log(error); // Failure
-            }
-          );
-        }
-      });
+    formValidation() {
+      this.errors = [];
+      //Images Validation
+      const images = document.querySelector("#imagesPath").files.length;
+      if (images <= 0) {
+        this.errors.push("Please choose 1 to 3 images");
+        return false;
+      }
+      if (images > 3) {
+        this.errors.push("Please select up to 3 images only");
+        return false;
+      }
+      //Collection ID Validation
+      if (!this.collectionId) {
+        this.errors.push("Please select category");
+        return false;
+      }
+      //ComponentName Validation
+      if (!this.componentName) {
+        this.errors.push("Please write component name");
+        return false;
+      }
+      if (this.componentName.length >= 36) {
+        this.errors.push("Component name maximum chars is 36");
+        return false;
+      }
+      var lettersValidation = /^[0-9a-zA-Z_ -]+$/;
+      if (!this.componentName.match(lettersValidation)) {
+        this.errors.push(
+          "Only numbers, letters, underscore, dashes and spaces are accepted in component name"
+        );
+        return false;
+      }
+      //ComponentDescription Validation
+      if (this.componentDescription.length > 155) {
+        this.errors.push(
+          "You can insert up to 155 characters in component description"
+        );
+        return false;
+      }
+      if (!this.componentDescription.match(lettersValidation)) {
+        this.errors.push(
+          "Only numbers, letters, underscore, dashes and spaces are accepted in component description"
+        );
+        return false;
+      } else {
+        return true;
+      }
     },
 
     createDocument(e) {
       e.preventDefault();
-      //Making ComponentId value equals to component name with some restrictions
-      let getName = document.querySelector("#component_name").value;
-      getName = getName.replace(/\s+/g, "-").toLowerCase();
-      this.componentId = getName;
 
-      //Saving images files in a bucket
-      this.uploadImages();
+      this.formValidation();
 
-      //Creating the component document
-      let promise = appwrite.database.createDocument(
-        this.collectionId,
-        this.componentId,
-        {
-          collectionName: this.collectionId,
-          buttonId: this.componentId,
-          buttonName: this.componentName,
-          owner: store.userprofile.name,
-          ownerId: store.userprofile.$id,
-          buttonCode: this.componentCode,
-          description: this.componentDescription,
-        }
-      );
-      promise.then(
-        function (response) {
-          console.log(response); // Success
-        },
-        function (error) {
-          console.log(error); // Failure
-        }
-      );
+      if (this.formValidation() === true) {
+        //Making ComponentId value equals to component name with some restrictions
+        let getName = document.querySelector("#component_name").value;
+        getName = getName.replace(/\s+/g, "-").toLowerCase();
+        this.componentId = getName;
+
+        //Saving images files in a bucket
+        this.uploadImages();
+
+        //Creating the component document
+        let promise = appwrite.database.createDocument(
+          this.collectionId,
+          this.componentId,
+          {
+            collectionName: this.collectionId,
+            buttonId: this.componentId,
+            buttonName: this.componentName,
+            owner: store.userprofile.name,
+            ownerId: store.userprofile.$id,
+            buttonCode: this.componentCode,
+            description: this.componentDescription,
+          }
+        );
+        promise.then(
+          function (response) {
+            console.log(response); // Success
+          },
+          function (error) {
+            console.log(error); // Failure
+          }
+        );
+      }
     },
   },
 };

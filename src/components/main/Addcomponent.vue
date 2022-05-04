@@ -144,10 +144,11 @@ export default {
         //Once bucket created, proceed with adding images files
         createBucket(bucket_id, bucket_name).then((response) => {
           //For each selected file, add file to bucket
+          let i = 0;
           for (const file of input.files) {
             const promise = appwrite.storage.createFile(
               response.$id,
-              "unique()",
+              this.componentId + ++i,
               file,
               ["role:all"]
             );

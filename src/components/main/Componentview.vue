@@ -18,24 +18,13 @@
           :modules="modules"
           class="mySwiper"
         >
-          <Swiper-slide class=""
-            ><img
-              class="rounded-xl py-2"
-              src="../../assets/images/test2.png"
-              alt=""
-          /></Swiper-slide>
-          <Swiper-slide class=""
-            ><img
-              class="rounded-xl py-2"
-              src="../../assets/images/test2.png"
-              alt=""
-          /></Swiper-slide>
-          <Swiper-slide class=""
-            ><img
-              class="rounded-xl py-2"
-              src="../../assets/images/test2.png"
-              alt=""
-          /></Swiper-slide>
+          <Swiper-slide
+            class="flex justify-center items-center"
+            v-for="file of availableFiles"
+            :key="file"
+          >
+            <img class="rounded-xl py-2" :src="file" alt="" />
+          </Swiper-slide>
         </Swiper>
       </div>
     </div>
@@ -139,6 +128,8 @@ import Addcomment from "../Addcomment.vue";
 import Comments from "../Comments.vue";
 import Flashmessage from "../Flashmessage.vue";
 
+import { getFiles } from "../../services/bucketsService";
+
 export default {
   components: {
     Swiper,
@@ -164,11 +155,13 @@ export default {
       commentContext: null,
       deletedCommentId: false,
       dateAndTime: false,
+      availableFiles: [],
       store,
     };
   },
   mounted() {
     this.getComponentDetails();
+    this.getAllFiles();
     this.checkForComments();
   },
 
@@ -205,6 +198,21 @@ export default {
           ) {
             this.availableComments.push(document);
           }
+        }
+      });
+    },
+    getAllFiles() {
+      //Using Node SDK to fetch all files in bucket
+      getFiles(this.componentId).then((response) => {
+        //loop over files
+        for (const file of response.files) {
+          // Get file preview for each file using web sdk
+          let result = appwrite.storage.getFilePreview(
+            this.componentId,
+            file.$id
+          );
+          console.log(result);
+          this.availableFiles.push(result.href);
         }
       });
     },
@@ -261,7 +269,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .swiper {
   width: 100%;
   height: 100%;
@@ -347,5 +355,8 @@ export default {
 .slide-fade-leave-to {
   transform: translateX(20px);
   opacity: 0;
+}
+img {
+  width: 30rem !important;
 }
 </style>

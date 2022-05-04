@@ -11,3 +11,8 @@ export async function createBucket(bucket_id, bucket_name) {
   });
   return await response.json();
 }
+
+export async function getFiles(bucketId) {
+  const response = await fetch("/v1/storage/buckets/" + bucketId + "/files");
+  return await response.json();
+}

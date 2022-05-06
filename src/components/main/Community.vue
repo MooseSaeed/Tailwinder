@@ -66,7 +66,7 @@ export default {
       setTimeout(() => {
         this.isLoading = false;
         this.checkForComments();
-      }, 1500);
+      }, 1000);
     },
     getListOfCollections() {
       // get me all Collections using appwrite node SDK

@@ -238,11 +238,11 @@ export default {
           this.componentId,
           {
             collectionName: this.collectionId,
-            buttonId: this.componentId,
-            buttonName: this.componentName,
+            id: this.componentId,
+            name: this.componentName,
             owner: store.userprofile.name,
             ownerId: store.userprofile.$id,
-            buttonCode: this.componentCode,
+            code: this.componentCode,
             description: this.componentDescription,
           }
         );

@@ -17,14 +17,10 @@
       >
       <div class="mt-4">
         <router-link :to="buttonUrl">
-          <h1 class="text-3xl font-bold">{{ buttonName }}</h1>
+          <h1 class="text-xl font-bold">{{ name }}</h1>
         </router-link>
       </div>
     </header>
-
-    <div class="text-sm mt-8 z-10">
-      <p>{{ description }}</p>
-    </div>
 
     <footer
       class="z-10 flex flex-col sm:flex-row gap-4 justify-between items-center mt-8"
@@ -58,14 +54,7 @@
 import Infobtn from "./buttons/Infobtn.vue";
 
 export default {
-  props: [
-    "collectionName",
-    "buttonId",
-    "buttonName",
-    "owner",
-    "ownerId",
-    "description",
-  ],
+  props: ["collectionName", "buttonId", "name", "owner", "ownerId"],
   data() {
     return {
       userAccUrl: "/users/" + this.ownerId,

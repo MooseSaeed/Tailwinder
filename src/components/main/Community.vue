@@ -4,7 +4,6 @@
     <div v-for="category in categories" :key="category.$id">
       <!-- show category only if it has any documents inside -->
       <div
-        v-if="documents[categories.indexOf(category)] > 0"
         class="relative bg-gradient-to-r from-gray-900 via-violet-900 to-blue-900 background-animate focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 h-2 rounded-full mb-8"
       >
         <span
@@ -18,16 +17,15 @@
         <div
           v-for="document in documents[categories.indexOf(category)]"
           :key="document.$id"
-          class="mb-5"
+          class="mb-8"
         >
           <div v-if="document.$collection == category.$id">
             <Componentcards
               :collectionName="document.$collection"
               :buttonId="document.$id"
-              :buttonName="document.buttonName"
+              :name="document.name"
               :owner="document.owner"
               :ownerId="document.ownerId"
-              :description="document.description"
             />
           </div>
         </div>
@@ -60,8 +58,15 @@ export default {
         // Loop over them and exclude "comments" collection
         for (const category of response.collections) {
           if (category.name !== "Comments") {
-            // Add all the categories to this categories array
-            this.categories.push(category);
+            //checking if this specific category has any documents in the first place
+            //Solving the issue where category is showing up even if empty
+            let promise = appwrite.database.listDocuments(category.$id);
+            promise.then((response) => {
+              if (response.documents.length > 0) {
+                // Add all the categories to this categories array
+                this.categories.push(category);
+              }
+            });
             // Get me all documents related to this category
             this.getAllDocuments(category.$id);
           }

@@ -31,6 +31,10 @@
     </div>
 
     <div class="mt-6">
+      <h4 class="text-left text-lg font-semibold mb-3">Component Name:</h4>
+      <p class="text-left leading-relaxed">a Name</p>
+    </div>
+    <div class="mt-6">
       <h4 class="text-left text-lg font-semibold mb-3">
         Component description:
       </h4>
@@ -184,6 +188,7 @@ export default {
       promise.then((response) => {
         // Getting current component details
         this.currentComponent = response;
+        console.log(this.currentComponent);
       });
     },
     checkForComments() {
@@ -214,7 +219,6 @@ export default {
             this.componentId,
             file.$id
           );
-          console.log(result);
           this.availableFiles.push(result.href);
         }
       });

@@ -32,20 +32,16 @@
 
     <div class="mt-6">
       <h4 class="text-left text-lg font-semibold mb-3">Component Name:</h4>
-      <p class="text-left leading-relaxed">a Name</p>
+      <p class="text-left leading-relaxed">
+        {{ name }}
+      </p>
     </div>
     <div class="mt-6">
       <h4 class="text-left text-lg font-semibold mb-3">
         Component description:
       </h4>
       <p class="text-left leading-relaxed">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam
-        voluptates illum iure, similique eos sit error laboriosam itaque
-        excepturi veniam deleniti nesciunt pariatur reprehenderit provident
-        soluta aperiam accusantium assumenda alias. Amet deleniti eum natus
-        praesentium suscipit ipsum id impedit, voluptatibus nemo officia quaerat
-        velit, iure, iusto cum consectetur? Voluptatibus sequi sint aspernatur
-        maxime, tempora sit, nihil natus ipsum fugit saepe, eos a. Dolore est.
+        {{ description }}
       </p>
     </div>
 
@@ -53,16 +49,26 @@
       class="mx-auto mt-6 flex-col gap-3 w-fit sm:w-full justify-center sm:justify-between items-center sm:items-stretch sm:gap-0 sm:flex-row bg-gradient-to-r from-green-400/20 to-blue-500/20 rounded-xl p-2 flex"
     >
       <div class="flex items-center gap-2 group">
-        <router-link to="#">
+        <router-link
+          :to="{
+            name: 'UserProfile',
+            params: { id: this.ownerId },
+          }"
+        >
           <img
             src="../../assets/images/test.jpg"
             class="rounded-full h-12 w-12 border-black border-2 transition-transform group-hover:scale-110 z-50"
             alt=""
           />
         </router-link>
-        <router-link to="#">
+        <router-link
+          :to="{
+            name: 'UserProfile',
+            params: { id: this.ownerId },
+          }"
+        >
           <h4 class="font-semibold hover:text-blue-500 text-sm sm:text-base">
-            Mostafa Said
+            {{ owner }}
           </h4>
         </router-link>
       </div>
@@ -153,11 +159,14 @@ export default {
   },
   data() {
     return {
+      name: null,
+      description: null,
+      owner: false,
+      ownerId: false,
       successMsg: false,
       isLoading: false,
       componentId: false,
       collectionId: false,
-      currentComponent: null,
       availableComments: [],
       commentContext: null,
       deletedCommentId: false,
@@ -187,8 +196,10 @@ export default {
 
       promise.then((response) => {
         // Getting current component details
-        this.currentComponent = response;
-        console.log(this.currentComponent);
+        this.name = response.name;
+        this.description = response.description;
+        this.owner = response.owner;
+        this.ownerId = response.ownerId;
       });
     },
     checkForComments() {

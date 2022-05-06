@@ -80,10 +80,10 @@ export default {
               if (response.documents.length > 0) {
                 // Add all the categories to this categories array
                 this.categories.push(category);
+                // Get me all documents related to this category
+                this.getAllDocuments(category.$id);
               }
             });
-            // Get me all documents related to this category
-            this.getAllDocuments(category.$id);
           }
         }
       });

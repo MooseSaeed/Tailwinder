@@ -193,31 +193,55 @@ export default {
       }
     },
     updateAccount() {
+      this.isLoading = true;
       // Update name
-      appwrite.account.updateName(this.name);
-      this.userprofile.name = this.name;
+      setTimeout(() => {
+        this.updateName();
+      }, 100);
+
+      // Update Email if any changes occured in email input
+      setTimeout(() => {
+        this.updateEmail();
+      }, 300);
 
       // Update bio, country, twitter, github
-      appwrite.account.updatePrefs({
+      setTimeout(() => {
+        this.updatePrefs();
+        this.isLoading = false;
+      }, 600);
+
+      this.activateEdit = false;
+    },
+    updateName() {
+      appwrite.account.updateName(this.name);
+      this.userprofile.name = this.name;
+    },
+    updatePrefs() {
+      let promise = appwrite.account.updatePrefs({
         bio: this.bio,
         country: this.country,
         github: this.github,
         twitter: this.twitter,
       });
+
+      promise.then(
+        function (response) {
+          console.log(response); // Success
+        },
+        function (error) {
+          console.log(error); // Failure
+        }
+      );
+
       this.userPrefs.bio = this.bio;
       this.userPrefs.country = this.country;
       this.userPrefs.github = this.github;
       this.userPrefs.twitter = this.twitter;
-
-      // Update Email if any changes occured in email input
-      if (this.userprofile.email !== this.email) {
-        this.updateEmail();
-      }
-
-      this.activateEdit = false;
     },
     updateEmail() {
-      appwrite.account.updateEmail(this.email, this.password);
+      if (this.userprofile.email !== this.email) {
+        appwrite.account.updateEmail(this.email, this.password);
+      }
       this.userprofile.email = this.email;
     },
     loadPage() {

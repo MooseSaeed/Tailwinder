@@ -217,21 +217,12 @@ export default {
       this.userprofile.name = this.name;
     },
     updatePrefs() {
-      let promise = appwrite.account.updatePrefs({
+      appwrite.account.updatePrefs({
         bio: this.bio,
         country: this.country,
         github: this.github,
         twitter: this.twitter,
       });
-
-      promise.then(
-        function (response) {
-          console.log(response); // Success
-        },
-        function (error) {
-          console.log(error); // Failure
-        }
-      );
 
       this.userPrefs.bio = this.bio;
       this.userPrefs.country = this.country;

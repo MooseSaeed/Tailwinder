@@ -69,11 +69,21 @@ export default {
         return false;
       }
     },
-    async signup(username, password, email) {
+    async signup(username, nameOfUser, password, email) {
       try {
-        await appwrite.account.create("unique()", email, password, username);
+        await appwrite.account.create(username, email, password, nameOfUser);
         await appwrite.account.createSession(email, password);
         this.checkLogin();
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
+    },
+    async updateUsername(username) {
+      try {
+        await appwrite.account.updatePrefs({
+          username: username,
+        });
       } catch (error) {
         console.error(error);
         return false;

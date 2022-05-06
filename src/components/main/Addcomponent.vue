@@ -227,8 +227,6 @@ export default {
         getName = getName.replace(/\s+/g, "-").toLowerCase();
         this.componentId = getName;
 
-        console.log(this.collectionId);
-
         //Saving images files in a bucket
         this.uploadImages();
 

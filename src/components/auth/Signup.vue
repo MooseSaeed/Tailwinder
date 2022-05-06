@@ -18,7 +18,7 @@
           <p class="text-lg font-medium">Sign up new account</p>
 
           <div>
-            <label for="username" class="text-sm font-medium">Username</label>
+            <label for="nameOfUser" class="text-sm font-medium">Username</label>
 
             <div class="relative mt-1">
               <input
@@ -27,6 +27,22 @@
                 id="username"
                 required
                 placeholder="Enter username"
+                class="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
+              />
+            </div>
+          </div>
+          <div>
+            <label for="nameOfUser" class="text-sm font-medium"
+              >Your Name</label
+            >
+
+            <div class="relative mt-1">
+              <input
+                v-model="nameOfUser"
+                type="text"
+                id="nameOfUser"
+                required
+                placeholder="Enter your name"
                 class="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
               />
             </div>
@@ -98,6 +114,7 @@ export default {
   data: () => {
     return {
       username: "",
+      nameOfUser: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -122,20 +139,33 @@ export default {
         this.error = "Error: Password must be between 6 and 32 characters.";
         return;
       }
-      if (this.username.length >= 100) {
+      if (this.nameOfUser.length >= 100) {
         this.error = "Error: Name can not exceed 100 characters";
         return;
       }
+      if (this.username.length >= 50) {
+        this.error = "Error: username can not exceed 50 characters";
+        return;
+      }
       this.loading = true;
+
+      let username = this.username;
+      username = username.replace(/\s+/g, "-").toLowerCase();
+
       if (
         (await this.$parent.signup(
-          this.username,
+          username,
+          this.nameOfUser,
           this.password,
           this.email
         )) === false
       ) {
         this.error =
           "Something went wrong while registering, Check console for more details.";
+      } else {
+        setTimeout(() => {
+          this.$parent.updateUsername(username);
+        }, 300);
       }
     },
   },

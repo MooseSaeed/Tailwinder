@@ -65,7 +65,6 @@ export default {
       this.isLoading = true;
       setTimeout(() => {
         this.isLoading = false;
-        this.checkForComments();
       }, 1000);
     },
     getListOfCollections() {

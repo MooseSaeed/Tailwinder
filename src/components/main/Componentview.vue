@@ -5,12 +5,13 @@
     </Flashmessage>
     <!-- Images swiper -->
     <div
-      class="mx-auto bg-gradient-to-r from-green-500 via-violet-500 to-blue-500 shadow-md rounded-xl h-max p-1"
+      class="mx-auto bg-gradient-to-r from-green-500 via-violet-500 to-blue-500 shadow-md rounded-xl p-1"
     >
-      <div class="bg-blue-50 overflow-hidden shadow-md rounded-xl h-full">
-        <Swiper
+      <div class="bg-blue-50 overflow-hidden shadow-md rounded-xl">
+        <swiper
           :slidesPerView="1"
           :spaceBetween="30"
+          :loop="true"
           :pagination="{
             clickable: true,
           }"
@@ -25,7 +26,7 @@
           >
             <img class="rounded-xl py-2" :src="file" alt="" />
           </Swiper-slide>
-        </Swiper>
+        </swiper>
       </div>
     </div>
 
@@ -116,8 +117,10 @@
 import { Swiper, SwiperSlide } from "swiper/vue";
 // Import Swiper styles
 import "swiper/css";
+
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+
 // import required modules for swiper
 import { Pagination, Navigation } from "swiper";
 
@@ -190,7 +193,7 @@ export default {
 
       promise.then((response) => {
         // Filtering each document to check if it relates to the current component
-        // Don't show comments with ID equal to deleted comment ID
+        // Don't show comments with ID equal to deleted comment ID (For immediate view purposes)
         for (const document of response.documents) {
           if (
             document.componentId == this.componentId &&
@@ -202,7 +205,7 @@ export default {
       });
     },
     getAllFiles() {
-      //Using Node SDK to fetch all files in bucket
+      //Using Node SDK to fetch all files (images) in the desired bucket
       getFiles(this.componentId).then((response) => {
         //loop over files
         for (const file of response.files) {
@@ -297,8 +300,7 @@ export default {
 
 .swiper-slide img {
   display: block;
-  width: 70%;
-  height: 70%;
+  max-height: 25rem;
   object-fit: cover;
 }
 
@@ -306,6 +308,7 @@ export default {
   margin-left: auto;
   margin-right: auto;
 }
+
 .ripple-loader {
   position: relative;
   width: 64px;
@@ -355,8 +358,5 @@ export default {
 .slide-fade-leave-to {
   transform: translateX(20px);
   opacity: 0;
-}
-img {
-  width: 30rem !important;
 }
 </style>

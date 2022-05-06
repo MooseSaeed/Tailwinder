@@ -27,6 +27,7 @@
             >
               <option selected value="">Click to select category</option>
               <option value="buttons">Buttons</option>
+              <option value="cards">Cards</option>
             </select>
           </div>
           <div class="relative z-0 w-full mb-6 group">
@@ -225,6 +226,8 @@ export default {
         let getName = document.querySelector("#component_name").value;
         getName = getName.replace(/\s+/g, "-").toLowerCase();
         this.componentId = getName;
+
+        console.log(this.collectionId);
 
         //Saving images files in a bucket
         this.uploadImages();

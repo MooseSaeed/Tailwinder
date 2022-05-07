@@ -1,5 +1,5 @@
 <template>
-  <section class="mx-10 mt-20 min-h-screen">
+  <section class="mx-10 my-5 mt-20 min-h-screen">
     <div v-if="isLoading" class="absolute left-2/4 top-2/4">
       <div class="ripple-loader">
         <div></div>
@@ -15,7 +15,7 @@
         ></div>
         <img
           class="animate__animated animate__pulse animate__repeat-2 rounded-full -top-9 mx-auto left-0 right-0 absolute h-28 w-28 transition-transform group-hover:scale-110 z-50"
-          src="../../assets/images/test.jpg"
+          :src="profilePic"
           alt=""
         />
       </header>
@@ -74,6 +74,32 @@
             v-if="accountOverview"
           >
             <div v-if="activateEdit">
+              <h3 class="font-semibold mt-3">Update Profile Picture:</h3>
+              <div class="flex items-center">
+                <input
+                  @change="displayFiles"
+                  type="file"
+                  id="profileImgUpdate"
+                  name="profileImgUpdate"
+                  class="mt-2 bg-white border-black border px-2 py-1 rounded-xl w-fit"
+                />
+                <div
+                  v-if="!picturePath && !profilePic"
+                  class="bg-gray-500 h-32 w-32 inline-block rounded-xl ml-5"
+                ></div>
+                <img
+                  v-if="!picturePath"
+                  class="animate__animated animate__fadeIn max-h-32 ml-5 rounded-xl"
+                  :src="profilePic"
+                  alt=""
+                />
+                <img
+                  v-if="picturePath"
+                  class="animate__animated animate__fadeIn max-h-32 ml-5 rounded-xl"
+                  :src="picturePath"
+                  alt=""
+                />
+              </div>
               <h3 class="font-semibold mt-3">Name:</h3>
               <input
                 class="mt-2 bg-white border-black border px-2 py-1 w-full rounded-xl"
@@ -162,11 +188,14 @@
 <script>
 import { getAllUsers } from "../../services/UserService";
 import { getUserPref } from "../../services/UserService";
+import { createBucket } from "../../services/bucketsService";
+import { deleteBucket } from "../../services/bucketsService";
 import { store } from "../../store.js";
 import Secondarybtn from "../buttons/Secondarybtn.vue";
 import { appwrite } from "../../utils";
 import Primarybtn from "../buttons/Primarybtn.vue";
 import Contributions from "../Contributions.vue";
+import { Query } from "appwrite";
 export default {
   components: { Secondarybtn, Primarybtn, Contributions },
   name: "Profile",
@@ -187,13 +216,79 @@ export default {
       github: null,
       twitter: null,
       password: null,
+      picturePath: null,
+      selectedPic: null,
+      profilePic: null,
+      picExsists: true,
+      userId: null,
     };
   },
   mounted() {
     this.getThisUser();
+
+    setTimeout(() => {
+      this.checkIfProfilePic();
+    }, 200);
+
     this.loadPage();
   },
   methods: {
+    checkIfProfilePic() {
+      this.profilePic = null;
+      this.userId = this.id;
+      let promise = appwrite.storage.listFiles(
+        this.userId,
+        Query.equal(this.userId, ["bucketId", this.userId])
+      );
+
+      promise.then(
+        (response) => {
+          if (response.files.length) {
+            let promise = appwrite.storage.getFilePreview(this.id, this.id);
+            this.profilePic = promise.href;
+          } else {
+            this.profilePic = null;
+            this.getAvatar();
+          }
+        },
+        (error) => {
+          this.profilePic = null;
+          this.getAvatar();
+        }
+      );
+    },
+    getAvatar() {
+      let result = appwrite.avatars.getInitials(this.userprofile.name);
+
+      this.profilePic = result;
+    },
+
+    updateProfileImg() {
+      if (this.picExsists) {
+        deleteBucket(this.id);
+
+        setTimeout(() => {
+          this.makeBucket();
+        }, 300);
+      } else {
+        this.makeBucket();
+      }
+    },
+
+    makeBucket() {
+      let bucket_id = this.userId;
+      let bucket_name = this.userprofile.name;
+      //using appwrite Node SDK to create a bucket for the profile picture
+      createBucket(bucket_id, bucket_name).then((response) => {
+        appwrite.storage.createFile(
+          this.userId, //bucket id
+          this.userprofile.$id, //name of bucket
+          this.selectedPic,
+          ["role:all"]
+        );
+      });
+    },
+
     switchToOverview() {
       this.accountOverview = true;
     },
@@ -229,11 +324,16 @@ export default {
         this.updateEmail();
       }, 300);
 
+      // Update profile img if any changes occured in img input
+      setTimeout(() => {
+        this.updateProfileImg();
+      }, 500);
+
       // Update bio, country, twitter, github
       setTimeout(() => {
         this.updatePrefs();
         this.isLoading = false;
-      }, 600);
+      }, 800);
 
       // The setTimeout is a workaround for issues occures due to multible
       // requests at the same time. Not the best solution but i'll keep it simple.
@@ -283,6 +383,12 @@ export default {
       getUserPref(userid).then((response) => {
         this.userPrefs = response;
       });
+    },
+    displayFiles() {
+      const input = document.querySelector("#profileImgUpdate").files[0];
+      this.selectedPic = input;
+
+      this.picturePath = URL.createObjectURL(input);
     },
   },
 };

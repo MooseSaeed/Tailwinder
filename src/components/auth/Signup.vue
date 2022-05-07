@@ -150,7 +150,7 @@ export default {
       this.loading = true;
 
       let username = this.username;
-      username = username.replace(/\s+/g, "-").toLowerCase();
+      username = username.replace(/\s+/g, "").toLowerCase();
 
       if (
         (await this.$parent.signup(

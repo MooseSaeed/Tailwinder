@@ -137,6 +137,7 @@ export default {
     },
     uploadImages() {
       //Create a bucket for this component
+      //Make the id and the name matches the component
       const bucket_id = this.componentId;
       const bucket_name = this.componentName;
 

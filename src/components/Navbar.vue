@@ -22,7 +22,10 @@
           v-if="store.userprofile"
           class="text-sm bg-gradient-to-r from-green-400 to-blue-500 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
         >
-          <Dropdown>
+          <Dropdown
+            :userId="store.userprofile.$id"
+            :userName="store.userprofile.name"
+          >
             <Dropdowncontent>
               <div class="ml-2 text-sm">
                 <router-link

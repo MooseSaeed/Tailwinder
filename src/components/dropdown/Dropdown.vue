@@ -9,7 +9,7 @@
     >
       <img
         class="rounded-full left-3 -top-2 absolute h-12 w-12 border-black border-2 transition-transform group-hover:scale-110 z-50"
-        :src="this.avatar"
+        :src="this.profilePic"
         alt=""
       />
 
@@ -47,26 +47,51 @@
 <script>
 import vClickOutside from "click-outside-vue3";
 import { appwrite } from "../../utils";
+import { Query } from "appwrite";
 import { ref, provide } from "vue";
 export default {
   name: "Dropdown",
-  props: ["title"],
+  props: ["title", "userId", "userName"],
   directives: {
     clickOutside: vClickOutside.directive,
   },
   data() {
     return {
-      avatar: null,
+      profilePic: null,
     };
   },
   mounted() {
-    this.getAvatar();
+    this.checkForProfilePic();
   },
   methods: {
-    getAvatar() {
-      let result = appwrite.avatars.getInitials("Mostafa Said");
+    checkForProfilePic() {
+      this.profilePic = null;
+      let promise = appwrite.storage.listFiles(
+        this.userId,
+        Query.equal(this.userId, ["bucketId", this.userId])
+      );
 
-      this.avatar = result;
+      promise.then(
+        (response) => {
+          if (response.files.length) {
+            let promise = appwrite.storage.getFilePreview(
+              this.userId,
+              this.userId
+            );
+            this.profilePic = promise.href;
+          } else {
+            this.getAvatar();
+          }
+        },
+        (error) => {
+          this.getAvatar();
+        }
+      );
+    },
+    getAvatar() {
+      let result = appwrite.avatars.getInitials(this.userName);
+
+      this.profilePic = result;
     },
   },
   setup() {

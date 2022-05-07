@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Homepage from "../components/main/Homepage.vue";
 import Authpage from "../components/main/Authpage.vue";
-import Community from "../components/main/Community.vue";
+import Components from "../components/main/Components.vue";
 import Tools from "../components/main/Tools.vue";
 import Profile from "../components/main/Profile.vue";
 import Addcomponent from "../components/main/Addcomponent.vue";
@@ -19,9 +19,9 @@ const routes = [
     component: Authpage,
   },
   {
-    path: "/community",
-    name: "Community",
-    component: Community,
+    path: "/components",
+    name: "Components",
+    component: Components,
   },
   {
     path: "/users/:id",
@@ -40,7 +40,7 @@ const routes = [
     component: Addcomponent,
   },
   {
-    path: "/community/:colname/:id",
+    path: "/components/:colname/:id",
     name: "Componentview",
     component: Componentview,
     props: true,

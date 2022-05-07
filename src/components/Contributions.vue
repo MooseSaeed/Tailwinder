@@ -4,7 +4,7 @@
   >
     <div v-for="document in documents" :key="document.$id" class="py-2">
       <router-link
-        :to="'/community/' + document.$collection + '/' + document.$id"
+        :to="'/components/' + document.$collection + '/' + document.$id"
       >
         <h4
           class="font-semibold inline-block hover:text-blue-500 cursor-pointer"

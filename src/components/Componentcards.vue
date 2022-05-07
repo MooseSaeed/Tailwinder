@@ -58,7 +58,7 @@ export default {
   data() {
     return {
       userAccUrl: "/users/" + this.ownerId,
-      buttonUrl: "/community/" + this.collectionName + "/" + this.buttonId,
+      buttonUrl: "/components/" + this.collectionName + "/" + this.buttonId,
     };
   },
   components: {

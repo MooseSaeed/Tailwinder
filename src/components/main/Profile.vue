@@ -35,21 +35,35 @@
         <div class="flex gap-5 mt-5">
           <aside>
             <div
-              class="bg-gray-50 border border-gray-300 rounded-xl text-left px-4"
+              class="bg-gray-50 border border-gray-300 rounded-xl text-left px-4 w-max"
             >
-              <h3 class="py-1 font-semibold text-lg">About</h3>
-              <h3 class="py-1 font-semibold text-lg border-gray-400 border-t">
+              <h3
+                @click="switchToOverview"
+                class="py-1 font-semibold text-md cursor-pointer"
+                :class="{ 'text-blue-500': accountOverview }"
+              >
+                Account Overview
+              </h3>
+              <h3
+                @click="switchToConts"
+                class="py-1 font-semibold text-md border-gray-400 border-t cursor-pointer"
+                :class="{ 'text-blue-500': !accountOverview }"
+              >
                 Contributions
               </h3>
             </div>
             <Secondarybtn
               @click="activateEditing"
-              v-if="store.userprofile.$id == userprofile.$id && !activateEdit"
+              v-if="
+                store.userprofile.$id == userprofile.$id &&
+                !activateEdit &&
+                accountOverview
+              "
               class="mt-5 cursor-pointer"
               >Edit Profile</Secondarybtn
             >
             <Primarybtn
-              v-if="activateEdit"
+              v-if="activateEdit && accountOverview"
               @click="updateAccount"
               class="mt-5 cursor-pointer"
               >Save Edits</Primarybtn
@@ -57,6 +71,7 @@
           </aside>
           <div
             class="bg-gray-50/25 border border-gray-300 rounded-xl w-full text-left px-5 py-5"
+            v-if="accountOverview"
           >
             <div v-if="activateEdit">
               <h3 class="font-semibold mt-3">Name:</h3>
@@ -137,6 +152,7 @@
               v-model="twitter"
             />
           </div>
+          <Contributions :userId="userprofile.$id" v-if="!accountOverview" />
         </div>
       </main>
     </div>
@@ -150,12 +166,14 @@ import { store } from "../../store.js";
 import Secondarybtn from "../buttons/Secondarybtn.vue";
 import { appwrite } from "../../utils";
 import Primarybtn from "../buttons/Primarybtn.vue";
+import Contributions from "../Contributions.vue";
 export default {
-  components: { Secondarybtn, Primarybtn },
+  components: { Secondarybtn, Primarybtn, Contributions },
   name: "Profile",
   props: ["id"],
   data() {
     return {
+      accountOverview: true,
       emailChanged: false,
       userPrefs: false,
       activateEdit: false,
@@ -176,6 +194,13 @@ export default {
     this.loadPage();
   },
   methods: {
+    switchToOverview() {
+      this.accountOverview = true;
+    },
+    switchToConts() {
+      this.accountOverview = false;
+    },
+    //Watching changes in email input to show password input accordingly
     watchEmailChanges() {
       if (this.userprofile.email !== this.email) {
         this.emailChanged = true;
@@ -210,6 +235,9 @@ export default {
         this.isLoading = false;
       }, 600);
 
+      // The setTimeout is a workaround for issues occures due to multible
+      // requests at the same time. Not the best solution but i'll keep it simple.
+
       this.activateEdit = false;
     },
     updateName() {
@@ -242,13 +270,16 @@ export default {
       }, 1000);
     },
     getThisUser() {
+      // Using appwrite Node SDK to fetch this specific user
       getAllUsers(this.id).then((response) => {
         this.userprofile = response;
 
+        // Getting user prefs for this user
         this.getPrefs(this.userprofile.$id);
       });
     },
     getPrefs(userid) {
+      // Using appwrite Node SDK to fetch the prefs for the user
       getUserPref(userid).then((response) => {
         this.userPrefs = response;
       });

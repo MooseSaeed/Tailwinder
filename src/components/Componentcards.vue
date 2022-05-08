@@ -3,11 +3,7 @@
     class="hover:bg-blue-100 focus:ring-4 relative text-black dark:text-white transition-colors py-6 px-5 flex flex-col justify-between duration-300 border border-gray-200 rounded-xl"
   >
     <div class="z-10">
-      <img
-        src="../assets/images/pic-sample-2.jpg"
-        alt="thumbnail"
-        class="rounded-xl"
-      />
+      <img :src="thumbnail" alt="thumbnail" class="rounded-xl" />
     </div>
 
     <header class="mt-4 z-10">
@@ -28,7 +24,7 @@
       <div class="flex justify-center items-center gap-2 group">
         <router-link :to="userAccUrl">
           <img
-            src="../assets/images/test.jpg"
+            :src="profilePic"
             class="rounded-full h-12 w-12 border-black border-2 transition-transform group-hover:scale-110 z-50"
             alt=""
           />
@@ -52,6 +48,8 @@
 
 <script>
 import Infobtn from "./buttons/Infobtn.vue";
+import { getFiles } from "../services/bucketsService";
+import { appwrite } from "../utils";
 
 export default {
   props: ["collectionName", "buttonId", "name", "owner", "ownerId"],
@@ -59,10 +57,43 @@ export default {
     return {
       userAccUrl: "/users/" + this.ownerId,
       buttonUrl: "/components/" + this.collectionName + "/" + this.buttonId,
+      thumbnails: [],
+      thumbnail: "",
+      profilePic: "",
     };
   },
   components: {
     Infobtn,
+  },
+  mounted() {
+    this.getThumbnail();
+    this.getProfilePic();
+  },
+  methods: {
+    getThumbnail() {
+      //Using Node SDK to fetch all files (images) in the desired bucket
+      getFiles(this.buttonId).then((response) => {
+        //loop over files
+        for (const file of response.files) {
+          // Get file preview for each file using web sdk
+          let result = appwrite.storage.getFilePreview(this.buttonId, file.$id);
+          let thumbnails = [];
+          this.thumbnails.push(result);
+        }
+        this.thumbnail = this.thumbnails[0].href;
+      });
+    },
+    getProfilePic() {
+      //Using Node SDK to fetch all files (images) in the desired bucket
+      getFiles(this.ownerId).then((response) => {
+        //loop over files
+        for (const file of response.files) {
+          // Get file preview for each file using web sdk
+          let result = appwrite.storage.getFilePreview(this.ownerId, file.$id);
+          this.profilePic = result;
+        }
+      });
+    },
   },
 };
 </script>

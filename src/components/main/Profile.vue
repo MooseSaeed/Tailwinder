@@ -230,21 +230,20 @@ export default {
   mounted() {
     this.getThisUser();
 
-    setTimeout(() => {
-      this.checkIfProfilePic();
-    }, 400);
+    this.checkIfProfilePic();
 
     this.loadPage();
   },
   methods: {
     async updateProfilePic() {
-      if (this.profilePic) {
-        deleteBucket(this.id).then((response) => {
-          console.log("deleted pic");
-          this.makeBucket();
-        });
+      if (this.selectedPic) {
+        if (this.profilePic) {
+          await deleteBucket(this.id).then((response) => {
+            this.makeBucket();
+          });
+        }
+        this.makeBucket();
       }
-      this.makeBucket();
     },
 
     async makeBucket() {
@@ -254,15 +253,15 @@ export default {
       let fileName = this.selectedPicName.replace(/[^a-zA-Z0-9]+/g, "");
       try {
         await createBucket(bucket_id, bucket_name).then((response) => {
-          console.log("created pic");
           appwrite.storage.createFile(
             this.userId, //bucket id
             fileName, //file id ( file id = name of the file in input )
             this.selectedPic,
             ["role:all"]
           );
+          this.checkIfProfilePic();
         });
-        this.checkIfProfilePic();
+
         return true;
       } catch (error) {
         console.error(error);
@@ -273,21 +272,21 @@ export default {
     async checkIfProfilePic() {
       this.userId = this.id;
       try {
-        await //Using Node SDK to fetch all files (images) in the desired bucket
-        getFiles(this.userId).then(
+        //Using Node SDK to fetch all files (images) in the desired bucket
+        await getFiles(this.userId).then(
           (response) => {
             //If file is 404 then show avatar
             if (response.code) {
               this.profilePic = null;
               this.getAvatar();
             } else {
-              for (const file of response.files) {
+              let files = response.files;
+              for (const file of files) {
                 let result = appwrite.storage.getFilePreview(
                   this.userId,
                   file.$id
                 );
                 this.profilePic = result.href;
-                console.log("pic found");
               }
             }
           },
@@ -335,54 +334,61 @@ export default {
         this.github = this.userPrefs.github;
       }
     },
-    updateAccount() {
-      this.isLoading = true;
+    async updateAccount() {
       // Update name
-      setTimeout(() => {
-        this.updateName();
-      }, 100);
+
+      await this.updateName();
 
       // Update Email if any changes occured in email input
-      setTimeout(() => {
-        this.updateEmail();
-      }, 300);
+      await this.updateEmail();
 
       // Update profile img if any changes occured in img input
-      setTimeout(() => {
-        this.updateProfilePic();
-      }, 500);
+      if (this.selectedPic) {
+        await this.updateProfilePic();
+      }
 
       // Update bio, country, twitter, github
-      setTimeout(() => {
-        this.updatePrefs();
-        this.isLoading = false;
-      }, 800);
-
-      // The setTimeout is a workaround for issues occures due to multible
-      // requests at the same time. Not the best solution but i'll keep it simple.
+      await this.updatePrefs();
 
       this.activateEdit = false;
     },
-    updateName() {
-      appwrite.account.updateName(this.name);
-      this.userprofile.name = this.name;
+    async updateName() {
+      this.isLoading = true;
+      try {
+        await appwrite.account.updateName(this.name);
+        this.userprofile.name = this.name;
+        this.isLoading = false;
+      } catch (error) {
+        console.log(error);
+      }
     },
-    updatePrefs() {
-      appwrite.account.updatePrefs({
-        bio: this.bio,
-        country: this.country,
-        github: this.github,
-        twitter: this.twitter,
-      });
+    async updatePrefs() {
+      try {
+        await appwrite.account.updatePrefs({
+          bio: this.bio,
+          country: this.country,
+          github: this.github,
+          twitter: this.twitter,
+        });
 
-      this.userPrefs.bio = this.bio;
-      this.userPrefs.country = this.country;
-      this.userPrefs.github = this.github;
-      this.userPrefs.twitter = this.twitter;
+        this.userPrefs.bio = this.bio;
+        this.userPrefs.country = this.country;
+        this.userPrefs.github = this.github;
+        this.userPrefs.twitter = this.twitter;
+      } catch (error) {
+        console.log(error);
+      }
     },
-    updateEmail() {
+    async updateEmail() {
       if (this.userprofile.email !== this.email) {
-        appwrite.account.updateEmail(this.email, this.password);
+        try {
+          await appwrite.account.updateEmail(this.email, this.password);
+          this.userprofile.email = this.email;
+          return true;
+        } catch (error) {
+          console.error(error);
+          return false;
+        }
       }
       this.userprofile.email = this.email;
     },

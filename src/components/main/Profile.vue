@@ -188,53 +188,120 @@
 </template>
 
 <script>
+// Vue JS 3 Store
+import { store } from "../../store.js";
+
+//appwrite Node SDK
 import { getAllUsers } from "../../services/UserService";
 import { getUserPref } from "../../services/UserService";
 import { createBucket } from "../../services/bucketsService";
 import { deleteBucket } from "../../services/bucketsService";
 import { getFiles } from "../../services/bucketsService";
 
-import { store } from "../../store.js";
-import Secondarybtn from "../buttons/Secondarybtn.vue";
+//appwrite web sdk
 import { appwrite } from "../../utils";
+
+//Components
+import Secondarybtn from "../buttons/Secondarybtn.vue";
 import Primarybtn from "../buttons/Primarybtn.vue";
 import Contributions from "../Contributions.vue";
-import { Query } from "appwrite";
+
 export default {
   components: { Secondarybtn, Primarybtn, Contributions },
   name: "Profile",
   props: ["id"],
   data() {
     return {
+      // Page Switcher
       accountOverview: true,
-      emailChanged: false,
-      userPrefs: false,
       activateEdit: false,
+
+      // Watch E-mail input
+      emailChanged: false,
+
+      // Getting user details
+      userPrefs: false,
       userprofile: false,
-      isLoading: false,
-      store,
       name: null,
       bio: null,
       email: null,
       country: null,
       github: null,
       twitter: null,
-      password: null,
-      picturePath: null,
-      selectedPic: null,
-      selectedPicName: "",
-      profilePic: null,
       userId: null,
+      password: null,
+
+      isLoading: false,
+
+      // Path of selected picture for immediate display
+      picturePath: null,
+      // Selected file in input
+      selectedPic: null,
+      // Selected file in input name
+      selectedPicName: "",
+      // appwrite get file preview response
+      profilePic: null,
+
+      store,
     };
   },
   mounted() {
+    // Get user details
     this.getThisUser();
 
+    // Check if the user has profile pic
     this.checkIfProfilePic();
 
+    // Loading to give time for appwrite to connect
     this.loadPage();
   },
   methods: {
+    switchToOverview() {
+      this.accountOverview = true;
+    },
+    switchToConts() {
+      this.accountOverview = false;
+    },
+    //Watching changes in email input to show password input accordingly
+    watchEmailChanges() {
+      if (this.userprofile.email !== this.email) {
+        this.emailChanged = true;
+      }
+    },
+    // Once edit is activated, show user details in input fields
+    activateEditing() {
+      this.activateEdit = !this.activateEdit;
+      if (this.activateEdit) {
+        this.name = this.userprofile.name;
+        this.email = this.userprofile.email;
+        this.bio = this.userPrefs.bio;
+        this.country = this.userPrefs.country;
+        this.twitter = this.userPrefs.twitter;
+        this.github = this.userPrefs.github;
+      }
+    },
+    async updateAccount() {
+      this.isLoading = true;
+
+      // Update name
+      await this.updateName();
+
+      // Update Email if any changes occured in email input
+      await this.updateEmail();
+
+      // Update profile img if any changes occured in img input
+      if (this.selectedPic) {
+        await this.updateProfilePic();
+      }
+
+      // Update bio, country, twitter, github
+      await this.updatePrefs();
+
+      await this.loadPage();
+
+      this.activateEdit = false;
+    },
+    // Using appwrite node SDK, delete the old bucket if exists and create new one
     async updateProfilePic() {
       if (this.selectedPic) {
         if (this.profilePic) {
@@ -310,54 +377,10 @@ export default {
         return false;
       }
     },
-
-    switchToOverview() {
-      this.accountOverview = true;
-    },
-    switchToConts() {
-      this.accountOverview = false;
-    },
-    //Watching changes in email input to show password input accordingly
-    watchEmailChanges() {
-      if (this.userprofile.email !== this.email) {
-        this.emailChanged = true;
-      }
-    },
-    activateEditing() {
-      this.activateEdit = !this.activateEdit;
-      if (this.activateEdit) {
-        this.name = this.userprofile.name;
-        this.email = this.userprofile.email;
-        this.bio = this.userPrefs.bio;
-        this.country = this.userPrefs.country;
-        this.twitter = this.userPrefs.twitter;
-        this.github = this.userPrefs.github;
-      }
-    },
-    async updateAccount() {
-      // Update name
-
-      await this.updateName();
-
-      // Update Email if any changes occured in email input
-      await this.updateEmail();
-
-      // Update profile img if any changes occured in img input
-      if (this.selectedPic) {
-        await this.updateProfilePic();
-      }
-
-      // Update bio, country, twitter, github
-      await this.updatePrefs();
-
-      this.activateEdit = false;
-    },
     async updateName() {
-      this.isLoading = true;
       try {
         await appwrite.account.updateName(this.name);
         this.userprofile.name = this.name;
-        this.isLoading = false;
       } catch (error) {
         console.log(error);
       }
@@ -392,11 +415,11 @@ export default {
       }
       this.userprofile.email = this.email;
     },
-    loadPage() {
+    async loadPage() {
       this.isLoading = true;
       setTimeout(() => {
         this.isLoading = false;
-      }, 1000);
+      }, 1500);
     },
     getThisUser() {
       // Using appwrite Node SDK to fetch this specific user

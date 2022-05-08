@@ -199,7 +199,6 @@ import Secondarybtn from "../buttons/Secondarybtn.vue";
 import { appwrite } from "../../utils";
 import Primarybtn from "../buttons/Primarybtn.vue";
 import Contributions from "../Contributions.vue";
-import { Query } from "appwrite";
 export default {
   components: { Secondarybtn, Primarybtn, Contributions },
   name: "Profile",
@@ -236,14 +235,13 @@ export default {
   },
   methods: {
     async updateProfilePic() {
-      if (this.selectedPic) {
-        if (this.profilePic) {
-          await deleteBucket(this.id).then((response) => {
-            this.makeBucket();
-          });
-        }
-        this.makeBucket();
+      if (this.profilePic) {
+        deleteBucket(this.id).then((response) => {
+          console.log("deleted pic");
+          this.makeBucket();
+        });
       }
+      this.makeBucket();
     },
 
     async makeBucket() {
@@ -253,14 +251,16 @@ export default {
       let fileName = this.selectedPicName.replace(/[^a-zA-Z0-9]+/g, "");
       try {
         await createBucket(bucket_id, bucket_name).then((response) => {
+          console.log("created pic");
           appwrite.storage.createFile(
             this.userId, //bucket id
             fileName, //file id ( file id = name of the file in input )
             this.selectedPic,
             ["role:all"]
           );
-          this.checkIfProfilePic();
         });
+        console.log("finding pic");
+        this.checkIfProfilePic();
 
         return true;
       } catch (error) {
@@ -279,6 +279,7 @@ export default {
             if (response.code) {
               this.profilePic = null;
               this.getAvatar();
+              console.log("pic not found");
             } else {
               let files = response.files;
               for (const file of files) {
@@ -287,6 +288,7 @@ export default {
                   file.$id
                 );
                 this.profilePic = result.href;
+                console.log("pic found");
               }
             }
           },

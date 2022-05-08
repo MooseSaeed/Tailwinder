@@ -47,7 +47,7 @@
 <script>
 import vClickOutside from "click-outside-vue3";
 import { appwrite } from "../../utils";
-import { Query } from "appwrite";
+import { getFiles } from "../../services/bucketsService";
 import { ref, provide } from "vue";
 export default {
   name: "Dropdown",
@@ -65,26 +65,26 @@ export default {
   },
   methods: {
     checkForProfilePic() {
-      this.profilePic = null;
-      let promise = appwrite.storage.listFiles(
-        this.userId,
-        Query.equal(this.userId, ["bucketId", this.userId])
-      );
-
-      promise.then(
+      //Using Node SDK to fetch all files (images) in the desired bucket
+      getFiles(this.userId).then(
         (response) => {
-          if (response.files.length) {
-            let promise = appwrite.storage.getFilePreview(
-              this.userId,
-              this.userId
-            );
-            this.profilePic = promise.href;
-          } else {
+          if (response.code == 404) {
+            this.profilePic = null;
+            this.picExsists = false;
             this.getAvatar();
+          } else {
+            for (const file of response.files) {
+              let result = appwrite.storage.getFilePreview(
+                this.userId,
+                file.$id
+              );
+              this.picExsists = true;
+              this.profilePic = result.href;
+            }
           }
         },
         (error) => {
-          this.getAvatar();
+          console.log(error);
         }
       );
     },

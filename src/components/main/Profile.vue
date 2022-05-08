@@ -75,6 +75,7 @@
           >
             <div v-if="activateEdit">
               <h3 class="font-semibold mt-3">Update Profile Picture:</h3>
+
               <div class="flex items-center">
                 <input
                   @change="displayFiles"
@@ -83,6 +84,7 @@
                   name="profileImgUpdate"
                   class="mt-2 bg-white border-black border px-2 py-1 rounded-xl w-fit"
                 />
+
                 <div
                   v-if="!picturePath && !profilePic"
                   class="bg-gray-500 h-32 w-32 inline-block rounded-xl ml-5"
@@ -99,6 +101,12 @@
                   :src="picturePath"
                   alt=""
                 />
+                <button
+                  @click="deleteCurrentPic"
+                  class="w-fit bg-red-500 py-1 px-2 text-white font-semibold rounded-xl"
+                >
+                  Delete Current
+                </button>
               </div>
               <h3 class="font-semibold mt-3">Name:</h3>
               <input
@@ -190,6 +198,8 @@ import { getAllUsers } from "../../services/UserService";
 import { getUserPref } from "../../services/UserService";
 import { createBucket } from "../../services/bucketsService";
 import { deleteBucket } from "../../services/bucketsService";
+import { getFiles } from "../../services/bucketsService";
+
 import { store } from "../../store.js";
 import Secondarybtn from "../buttons/Secondarybtn.vue";
 import { appwrite } from "../../utils";
@@ -219,7 +229,6 @@ export default {
       picturePath: null,
       selectedPic: null,
       profilePic: null,
-      picExsists: true,
       userId: null,
     };
   },
@@ -233,27 +242,48 @@ export default {
     this.loadPage();
   },
   methods: {
-    checkIfProfilePic() {
-      this.profilePic = null;
-      this.userId = this.id;
-      let promise = appwrite.storage.listFiles(
-        this.userId,
-        Query.equal(this.userId, ["bucketId", this.userId])
-      );
+    deleteCurrentPic() {
+      deleteBucket(this.id).then((response) => {
+        this.picDeleted = true;
+        console.log("deleted pic");
+      });
+    },
+    makeBucket() {
+      console.log("making a pic");
+      let bucket_id = this.userId;
+      let bucket_name = this.userprofile.name;
 
-      promise.then(
+      //using appwrite Node SDK to create a bucket for the profile picture
+      createBucket(bucket_id, bucket_name).then((response) => {
+        appwrite.storage.createFile(
+          this.userId, //bucket id
+          this.selectedPic.name, //file id ( file id = name of the file in input )
+          this.selectedPic,
+          ["role:all"]
+        );
+      });
+    },
+    checkIfProfilePic() {
+      this.userId = this.id;
+      //Using Node SDK to fetch all files (images) in the desired bucket
+      getFiles(this.userId).then(
         (response) => {
-          if (response.files.length) {
-            let promise = appwrite.storage.getFilePreview(this.id, this.id);
-            this.profilePic = promise.href;
-          } else {
+          //If file is 404 then show avatar
+          if (response.code == 404) {
             this.profilePic = null;
             this.getAvatar();
+          } else {
+            for (const file of response.files) {
+              let result = appwrite.storage.getFilePreview(
+                this.userId,
+                file.$id
+              );
+              this.profilePic = result.href;
+            }
           }
         },
         (error) => {
-          this.profilePic = null;
-          this.getAvatar();
+          console.log(error);
         }
       );
     },
@@ -261,32 +291,6 @@ export default {
       let result = appwrite.avatars.getInitials(this.userprofile.name);
 
       this.profilePic = result;
-    },
-
-    updateProfileImg() {
-      if (this.picExsists) {
-        deleteBucket(this.id);
-
-        setTimeout(() => {
-          this.makeBucket();
-        }, 300);
-      } else {
-        this.makeBucket();
-      }
-    },
-
-    makeBucket() {
-      let bucket_id = this.userId;
-      let bucket_name = this.userprofile.name;
-      //using appwrite Node SDK to create a bucket for the profile picture
-      createBucket(bucket_id, bucket_name).then((response) => {
-        appwrite.storage.createFile(
-          this.userId, //bucket id
-          this.userprofile.$id, //name of bucket
-          this.selectedPic,
-          ["role:all"]
-        );
-      });
     },
 
     switchToOverview() {
@@ -326,7 +330,7 @@ export default {
 
       // Update profile img if any changes occured in img input
       setTimeout(() => {
-        this.updateProfileImg();
+        this.makeBucket();
       }, 500);
 
       // Update bio, country, twitter, github

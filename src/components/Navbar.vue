@@ -188,7 +188,6 @@ export default {
         store.userprofile = response;
       } catch (err) {
         if (err == "Error: Unauthorized") return;
-        console.error(err);
       }
     },
     logout() {

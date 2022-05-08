@@ -228,6 +228,7 @@ export default {
       password: null,
       picturePath: null,
       selectedPic: null,
+      selectedPicName: "",
       profilePic: null,
       userId: null,
     };
@@ -252,12 +253,14 @@ export default {
       console.log("making a pic");
       let bucket_id = this.userId;
       let bucket_name = this.userprofile.name;
-
+      this.selectedPicName = this.selectedPic.name;
+      let fileName = this.selectedPicName.replace(/[^a-zA-Z]+/g, "");
+      console.log(fileName);
       //using appwrite Node SDK to create a bucket for the profile picture
       createBucket(bucket_id, bucket_name).then((response) => {
         appwrite.storage.createFile(
           this.userId, //bucket id
-          this.selectedPic.name, //file id ( file id = name of the file in input )
+          fileName, //file id ( file id = name of the file in input )
           this.selectedPic,
           ["role:all"]
         );

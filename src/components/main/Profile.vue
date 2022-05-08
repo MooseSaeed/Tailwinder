@@ -101,12 +101,6 @@
                   :src="picturePath"
                   alt=""
                 />
-                <button
-                  @click="deleteCurrentPic"
-                  class="w-fit bg-red-500 py-1 px-2 text-white font-semibold rounded-xl"
-                >
-                  Delete Current
-                </button>
               </div>
               <h3 class="font-semibold mt-3">Name:</h3>
               <input
@@ -238,33 +232,39 @@ export default {
 
     setTimeout(() => {
       this.checkIfProfilePic();
-    }, 200);
+    }, 400);
 
     this.loadPage();
   },
   methods: {
     deleteCurrentPic() {
-      deleteBucket(this.id).then((response) => {
-        this.picDeleted = true;
-        console.log("deleted pic");
-      });
+      if (this.profilePic) {
+        deleteBucket(this.id).then((response) => {
+          console.log("deleted pic");
+        });
+      }
     },
     makeBucket() {
       console.log("making a pic");
       let bucket_id = this.userId;
       let bucket_name = this.userprofile.name;
       this.selectedPicName = this.selectedPic.name;
-      let fileName = this.selectedPicName.replace(/[^a-zA-Z]+/g, "");
+      let fileName = this.selectedPicName.replace(/[^a-zA-Z0-9]+/g, "");
       console.log(fileName);
       //using appwrite Node SDK to create a bucket for the profile picture
-      createBucket(bucket_id, bucket_name).then((response) => {
-        appwrite.storage.createFile(
-          this.userId, //bucket id
-          fileName, //file id ( file id = name of the file in input )
-          this.selectedPic,
-          ["role:all"]
-        );
-      });
+      this.deleteCurrentPic();
+
+      setTimeout(() => {
+        createBucket(bucket_id, bucket_name).then((response) => {
+          console.log("created pic");
+          appwrite.storage.createFile(
+            this.userId, //bucket id
+            fileName, //file id ( file id = name of the file in input )
+            this.selectedPic,
+            ["role:all"]
+          );
+        });
+      }, 300);
     },
     checkIfProfilePic() {
       this.userId = this.id;

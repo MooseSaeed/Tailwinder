@@ -234,6 +234,7 @@ export default {
     this.loadPage();
   },
   methods: {
+    // If profile pic exsists already in a bucket (delete then update)
     async updateProfilePic() {
       if (this.profilePic) {
         deleteBucket(this.id).then((response) => {
@@ -241,10 +242,14 @@ export default {
           this.makeBucket();
         });
       }
+      // If it doesn't exsist, make a bucket and a profile pic
       this.makeBucket();
     },
 
+    // Finally working
+    // Making a bucket with a file for the new profile picture
     async makeBucket() {
+      this.isLoading = true;
       let bucket_id = this.userId;
       let bucket_name = this.userprofile.name;
       this.selectedPicName = this.selectedPic.name;
@@ -259,6 +264,7 @@ export default {
             ["role:all"]
           );
         });
+        this.isLoading = false;
         console.log("finding pic");
         this.checkIfProfilePic();
 
@@ -269,6 +275,7 @@ export default {
       }
     },
 
+    // Check if the user has a profile pic, if not display appwrite initials
     async checkIfProfilePic() {
       this.userId = this.id;
       try {
@@ -283,12 +290,7 @@ export default {
             } else {
               let files = response.files;
               for (const file of files) {
-                let result = appwrite.storage.getFilePreview(
-                  this.userId,
-                  file.$id
-                );
-                this.profilePic = result.href;
-                console.log("pic found");
+                this.extractHref(file);
               }
             }
           },
@@ -300,6 +302,14 @@ export default {
       } catch (error) {
         return false;
       }
+    },
+
+    async extractHref(file) {
+      console.log("found pic");
+      let result = await appwrite.storage.getFilePreview(this.userId, file.$id);
+      let userProfilePic = result.href;
+      this.profilePic = userProfilePic;
+      return true;
     },
 
     async getAvatar() {
@@ -355,15 +365,15 @@ export default {
       this.activateEdit = false;
     },
     async updateName() {
-      this.isLoading = true;
       try {
         await appwrite.account.updateName(this.name);
         this.userprofile.name = this.name;
-        this.isLoading = false;
       } catch (error) {
         console.log(error);
       }
     },
+
+    // Update prefs for immediate display on edit
     async updatePrefs() {
       try {
         await appwrite.account.updatePrefs({

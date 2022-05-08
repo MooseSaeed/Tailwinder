@@ -237,25 +237,23 @@ export default {
     this.loadPage();
   },
   methods: {
-    deleteCurrentPic() {
+    async updateProfilePic() {
       if (this.profilePic) {
         deleteBucket(this.id).then((response) => {
           console.log("deleted pic");
+          this.makeBucket();
         });
       }
+      this.makeBucket();
     },
-    makeBucket() {
-      console.log("making a pic");
+
+    async makeBucket() {
       let bucket_id = this.userId;
       let bucket_name = this.userprofile.name;
       this.selectedPicName = this.selectedPic.name;
       let fileName = this.selectedPicName.replace(/[^a-zA-Z0-9]+/g, "");
-      console.log(fileName);
-      //using appwrite Node SDK to create a bucket for the profile picture
-      this.deleteCurrentPic();
-
-      setTimeout(() => {
-        createBucket(bucket_id, bucket_name).then((response) => {
+      try {
+        await createBucket(bucket_id, bucket_name).then((response) => {
           console.log("created pic");
           appwrite.storage.createFile(
             this.userId, //bucket id
@@ -264,36 +262,54 @@ export default {
             ["role:all"]
           );
         });
-      }, 300);
+        this.checkIfProfilePic();
+        return true;
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
     },
-    checkIfProfilePic() {
-      this.userId = this.id;
-      //Using Node SDK to fetch all files (images) in the desired bucket
-      getFiles(this.userId).then(
-        (response) => {
-          //If file is 404 then show avatar
-          if (response.code == 404) {
-            this.profilePic = null;
-            this.getAvatar();
-          } else {
-            for (const file of response.files) {
-              let result = appwrite.storage.getFilePreview(
-                this.userId,
-                file.$id
-              );
-              this.profilePic = result.href;
-            }
-          }
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    },
-    getAvatar() {
-      let result = appwrite.avatars.getInitials(this.userprofile.name);
 
-      this.profilePic = result;
+    async checkIfProfilePic() {
+      this.userId = this.id;
+      try {
+        await //Using Node SDK to fetch all files (images) in the desired bucket
+        getFiles(this.userId).then(
+          (response) => {
+            //If file is 404 then show avatar
+            if (response.code) {
+              this.profilePic = null;
+              this.getAvatar();
+            } else {
+              for (const file of response.files) {
+                let result = appwrite.storage.getFilePreview(
+                  this.userId,
+                  file.$id
+                );
+                this.profilePic = result.href;
+                console.log("pic found");
+              }
+            }
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+        return true;
+      } catch (error) {
+        return false;
+      }
+    },
+
+    async getAvatar() {
+      try {
+        let result = appwrite.avatars.getInitials(this.userprofile.name);
+        this.profilePic = result;
+        return true;
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
     },
 
     switchToOverview() {
@@ -333,7 +349,7 @@ export default {
 
       // Update profile img if any changes occured in img input
       setTimeout(() => {
-        this.makeBucket();
+        this.updateProfilePic();
       }, 500);
 
       // Update bio, country, twitter, github

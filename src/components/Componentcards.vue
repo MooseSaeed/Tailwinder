@@ -1,11 +1,10 @@
 <template>
   <article
-    class="hover:bg-blue-100 focus:ring-4 relative text-black dark:text-white transition-colors py-6 px-5 flex flex-col justify-between duration-300 border border-gray-200 rounded-xl"
+    class="hover:bg-blue-100 h-full focus:ring-4 relative text-black dark:text-white w-full transition-colors py-6 px-5 flex flex-col justify-between duration-300 border border-gray-200 rounded-xl flex-1"
   >
     <div class="z-10">
       <img :src="thumbnail" alt="thumbnail" class="rounded-xl" />
     </div>
-
     <header class="mt-4 z-10">
       <span
         class="text-white text-xs font-semibold bg-gradient-to-r from-gray-900 via-violet-900 to-blue-900 background-animate focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 px-3 py-1 rounded-xl"
@@ -17,7 +16,6 @@
         </router-link>
       </div>
     </header>
-
     <footer
       class="z-10 flex flex-col sm:flex-row gap-4 justify-between items-center mt-8"
     >
@@ -33,7 +31,6 @@
           <h4 class="font-semibold">{{ owner }}</h4>
         </router-link>
       </div>
-
       <router-link
         :to="{
           name: 'Componentview',

@@ -4,16 +4,19 @@
     <div class="items-center max-w-7xl px-10 mx-auto">
       <router-view></router-view>
     </div>
+    <Footer />
   </main>
 </template>
 
 <script>
 import Navbar from "./components/Navbar.vue";
+import Footer from "./components/Footer.vue";
 
 export default {
   name: "App",
   components: {
     Navbar,
+    Footer,
   },
   methods: {},
 };

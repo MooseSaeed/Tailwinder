@@ -11,29 +11,28 @@
       <div v-for="category in categories" :key="category.$id">
         <!-- show category only if it has any documents inside -->
         <div
-          class="relative bg-gradient-to-r from-gray-900 via-violet-900 to-blue-900 background-animate focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 h-2 rounded-full mb-8"
+          class="relative bg-gradient-to-r from-gray-900 via-violet-900 to-blue-900 background-animate focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 h-2 rounded-full my-10"
         >
           <span
             class="absolute text-2xl font-semibold -top-4 left-5 rounded-full bg-gradient-to-r from-gray-900 via-violet-900 to-blue-900 background-animate focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 px-3 py-1 text-white"
             >{{ category.name }}</span
           >
         </div>
-        <div class="lg:grid lg:grid-cols-3 gap-5">
+        <div class="myGrid lg:grid lg:grid-cols-3 gap-5 grid-flow-col">
           <!-- Loop over all documents and get me only the ones related to this specific category -->
           <div
             v-for="document in documents[categories.indexOf(category)]"
             :key="document.$id"
-            class="mb-8"
+            class="h-full"
           >
-            <div v-if="document.$collection == category.$id">
-              <Componentcards
-                :collectionName="document.$collection"
-                :buttonId="document.$id"
-                :name="document.name"
-                :owner="document.owner"
-                :ownerId="document.ownerId"
-              />
-            </div>
+            <Componentcards
+              v-if="document.$collection == category.$id"
+              :collectionName="document.$collection"
+              :buttonId="document.$id"
+              :name="document.name"
+              :owner="document.owner"
+              :ownerId="document.ownerId"
+            />
           </div>
         </div>
       </div>

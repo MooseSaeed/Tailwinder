@@ -3,11 +3,11 @@
     <Navbar
       :class="
         (scrollingUp
-          ? 'animate__animated animate__fadeInDown'
-          : 'animate__animated animate__fadeOutUp',
+          ? 'animate__animated animate__fadeInDown '
+          : 'animate__animated animate__fadeOutUp ',
         scrollingDown
-          ? 'animate__animated animate__fadeOutUp'
-          : 'animate__animated animate__fadeInDown')
+          ? 'animate__animated animate__fadeOutUp '
+          : 'animate__animated animate__fadeInDown ')
       "
     />
     <div class="items-center max-w-7xl px-10 mx-auto">

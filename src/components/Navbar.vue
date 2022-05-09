@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="bg-gray-900/25 backdrop-blur-md md:px-0 py-4 w-full fixed z-50 top-0"
+    class="bg-slate-900/25 backdrop-blur-md md:px-0 py-4 w-full fixed z-50 top-0"
   >
     <div
       class="max-w-7xl px-5 md:px-10 flex flex-wrap justify-between items-center mx-auto"
@@ -51,12 +51,13 @@
         </div>
 
         <button
-          data-collapse-toggle="mobile-menu-2"
+          @click="navToggle"
           type="button"
           class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
         >
           <span class="sr-only">Open main menu</span>
           <svg
+            v-if="!toggle"
             class="w-6 h-6"
             fill="currentColor"
             viewBox="0 0 20 20"
@@ -69,7 +70,8 @@
             ></path>
           </svg>
           <svg
-            class="hidden w-6 h-6"
+            v-if="toggle"
+            class="w-6 h-6"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
@@ -83,8 +85,8 @@
         </button>
       </div>
       <div
+        id="mobile-menu"
         class="hidden justify-between items-center w-full md:flex md:w-auto md:order-1"
-        id="mobile-menu-2"
       >
         <ul
           class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium"
@@ -125,7 +127,7 @@
               to="/addcomponent"
             >
               <p
-                class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 background-animate"
+                class="hover:text-transparent hover:font-bold hover:bg-clip-text hover:bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 background-animate"
               >
                 Add Component
               </p>
@@ -157,6 +159,7 @@ export default {
   data() {
     return {
       store,
+      toggle: false,
     };
   },
   mounted() {
@@ -194,6 +197,14 @@ export default {
       store.userprofile = false;
       appwrite.account.deleteSession("current");
       this.$router.push("/");
+    },
+    navToggle() {
+      this.toggle = !this.toggle;
+      if (this.toggle) {
+        document.getElementById("mobile-menu").classList.remove("hidden");
+      } else {
+        document.getElementById("mobile-menu").classList.add("hidden");
+      }
     },
   },
 };

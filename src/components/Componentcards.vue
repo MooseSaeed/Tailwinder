@@ -1,6 +1,6 @@
 <template>
   <article
-    class="hover:bg-blue-100 h-full focus:ring-4 relative text-black dark:text-white w-full transition-colors py-6 px-5 flex flex-col justify-between duration-300 border border-gray-200 rounded-xl flex-1"
+    class="hover:bg-blue-100 dark:hover:bg-gray-900 h-full relative text-black dark:text-white w-full transition-colors py-6 px-5 flex flex-col justify-between duration-300 border dark:border-0 border-gray-200 shadow-md dark:shadow-gray-900 rounded-xl flex-1"
   >
     <div class="z-10 h-72">
       <img :src="thumbnail" alt="thumbnail" class="cardThumbnail rounded-xl" />

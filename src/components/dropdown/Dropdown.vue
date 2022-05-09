@@ -8,7 +8,7 @@
       class="flex max-h-52 overflow-auto py-2 pl-3 text-sm font-semibold lg:inline-flex w-28 h-8"
     >
       <div
-        class="rounded-full flex justify-center items-center overflow-hidden -top-1.5 mx-auto left-3 absolute h-12 w-12 ring-offset-2 ring-offset-black ring-2 ring-white transition-transform group-hover:scale-110"
+        class="rounded-full flex justify-center items-center overflow-hidden -top-1.5 mx-auto left-3 absolute h-12 w-12 ring-offset-2 ring-offset-gray-900 ring-2 ring-white transition-transform group-hover:scale-110"
       >
         <div
           class="relative w-14 h-14 flex-col flex justify-center items-center"

@@ -2,8 +2,8 @@
   <article
     class="hover:bg-blue-100 h-full focus:ring-4 relative text-black dark:text-white w-full transition-colors py-6 px-5 flex flex-col justify-between duration-300 border border-gray-200 rounded-xl flex-1"
   >
-    <div class="z-10">
-      <img :src="thumbnail" alt="thumbnail" class="rounded-xl" />
+    <div class="z-10 h-72">
+      <img :src="thumbnail" alt="thumbnail" class="cardThumbnail rounded-xl" />
     </div>
     <header class="mt-4 z-10">
       <span
@@ -96,4 +96,10 @@ export default {
 </script>
 Secondarybtn
 
-<style scoped></style>
+<style scoped>
+.cardThumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+</style>

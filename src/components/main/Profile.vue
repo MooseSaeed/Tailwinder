@@ -11,13 +11,18 @@
         class="rounded-full relative h-10 mt-32 text-sm bg-gradient-to-r from-gray-900 via-green-900 to-blue-900 background-animate focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800"
       >
         <div
-          class="rounded-full -top-11 mx-auto left-0 right-0 absolute h-32 w-32 outline outline-white outline-offset-8 border-4 border-white transition-transform group-hover:scale-110 z-30 bg-gradient-to-r from-gray-900 via-green-900 to-blue-900 background-animate focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800"
-        ></div>
-        <img
-          class="animate__animated animate__pulse animate__repeat-2 rounded-full -top-9 mx-auto left-0 right-0 absolute h-28 w-28 transition-transform group-hover:scale-110 z-50"
-          :src="profilePic"
-          alt=""
-        />
+          class="rounded-full flex justify-center items-center overflow-hidden -top-11 mx-auto left-0 right-0 absolute h-32 w-32 outline outline-white outline-offset-8 border-4 border-white transition-transform z-30 bg-gradient-to-r from-gray-900 via-green-900 to-blue-900 background-animate focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800"
+        >
+          <div
+            class="relative w-36 h-36 flex-col flex justify-center items-center"
+          >
+            <img
+              class="animate__animated object-cover flex-1 animate__pulse animate__repeat-2 transition-transform"
+              :src="profilePic"
+              alt=""
+            />
+          </div>
+        </div>
       </header>
       <main class="text-center mt-14">
         <div class="px-10">

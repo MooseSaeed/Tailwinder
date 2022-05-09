@@ -2,11 +2,16 @@
   <section class="mt-28 mx-auto mb-10 text-center min-h-screen">
     <div v-if="errors.length">
       <Flashmessage v-for="error in errors" :key="error.id" class="bg-red-500">
-        <li class="text-left text-sm text-white">
+        <p class="text-left text-sm text-white">
           {{ error }}
-        </li>
+        </p>
       </Flashmessage>
     </div>
+    <Flashmessage class="bg-blue-500" v-if="success">
+      <p class="text-left text-sm text-white">
+        {{ success }}
+      </p>
+    </Flashmessage>
     <form @submit="createDocument">
       <div class="flex flex-col justify-center items-center gap-5">
         <div class="mx-auto w-full">
@@ -117,12 +122,14 @@ export default {
       componentCode: "",
       validated: false,
       errors: "",
+      success: "",
     };
   },
   methods: {
     //Immediate selected images display
     //This function is accessed from child component
-    displayFiles() {
+
+    async displayFiles() {
       const input = document.querySelector("#imagesPath");
 
       if (input.files.length <= 3) {
@@ -135,7 +142,7 @@ export default {
         this.inputNumberErr = "Please select maximum 3 files";
       }
     },
-    uploadImages() {
+    async uploadImages() {
       //Create a bucket for this component
       //Make the id and the name matches the component
       const bucket_id = this.componentId;
@@ -144,7 +151,7 @@ export default {
       const input = document.querySelector("#imagesPath");
       if (input.files.length <= 3) {
         //Once bucket created, proceed with adding images files
-        createBucket(bucket_id, bucket_name).then((response) => {
+        await createBucket(bucket_id, bucket_name).then((response) => {
           //For each selected file, add file to bucket
           let i = 0;
           for (const file of input.files) {
@@ -217,7 +224,7 @@ export default {
       }
     },
 
-    createDocument(e) {
+    async createDocument(e) {
       e.preventDefault();
 
       this.formValidation();
@@ -232,7 +239,7 @@ export default {
         this.uploadImages();
 
         //Creating the component document
-        let promise = appwrite.database.createDocument(
+        await appwrite.database.createDocument(
           this.collectionId,
           this.componentId,
           {
@@ -245,15 +252,17 @@ export default {
             description: this.componentDescription,
           }
         );
-        promise.then(
-          function (response) {
-            console.log(response); // Success
-          },
-          function (error) {
-            console.log(error); // Failure
-          }
-        );
+        this.success = "Please wait, you will be directed to your component";
+        this.routeRedirect();
       }
+    },
+    async routeRedirect() {
+      setTimeout(() => {
+        this.$router.push({
+          name: "Componentview",
+          params: { colname: this.collectionId, id: this.componentId },
+        });
+      }, 3000);
     },
   },
 };

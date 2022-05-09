@@ -6,6 +6,7 @@
         <div></div>
       </div>
     </div>
+
     <div v-if="!isLoading">
       <!-- Loop over all categories and spit out category name -->
       <div v-for="category in categories" :key="category.$id">
@@ -18,12 +19,12 @@
             >{{ category.name }}</span
           >
         </div>
-        <div class="myGrid lg:grid lg:grid-cols-3 gap-5 grid-flow-col">
+        <div class="myGrid lg:grid lg:grid-cols-3 gap-5">
           <!-- Loop over all documents and get me only the ones related to this specific category -->
           <div
             v-for="document in documents[categories.indexOf(category)]"
             :key="document.$id"
-            class="h-full"
+            class="h-full max-w-sm"
           >
             <Componentcards
               v-if="document.$collection == category.$id"

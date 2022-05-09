@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bgDark {
+  @apply bg-gradient-to-br from-gray-800 via-slate-900 to-gray-800;
+}

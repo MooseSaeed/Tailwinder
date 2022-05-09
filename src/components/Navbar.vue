@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="bg-white/50 border-b-2 md:px-0 border-gray-900 py-4 dark:bg-gray-800 w-full absolute z-50 top-0"
+    class="bg-gray-900/25 backdrop-blur-md md:px-0 py-4 w-full fixed z-50 top-0"
   >
     <div
       class="max-w-7xl px-5 md:px-10 flex flex-wrap justify-between items-center mx-auto"

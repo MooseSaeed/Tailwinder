@@ -1,6 +1,15 @@
 <template>
-  <main class="">
-    <Navbar />
+  <main>
+    <Navbar
+      :class="
+        (scrollingUp
+          ? 'animate__animated animate__fadeInDown'
+          : 'animate__animated animate__fadeOutUp',
+        scrollingDown
+          ? 'animate__animated animate__fadeOutUp'
+          : 'animate__animated animate__fadeInDown')
+      "
+    />
     <div class="items-center max-w-7xl px-10 mx-auto">
       <router-view></router-view>
     </div>
@@ -18,7 +27,32 @@ export default {
     Navbar,
     Footer,
   },
-  methods: {},
+  data() {
+    return {
+      lastScrollTop: 0,
+      scrollingDown: false,
+      scrollingUp: false,
+    };
+  },
+  created() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.handleScroll);
+  },
+  methods: {
+    handleScroll: function (e) {
+      let st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+      if (st > this.lastScrollTop) {
+        this.scrollingDown = true;
+        this.scrollingUp = false;
+      } else {
+        this.scrollingDown = false;
+        this.scrollingUp = true;
+      }
+      this.lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+    },
+  },
 };
 </script>
 
@@ -27,7 +61,7 @@ html {
   scroll-behavior: smooth;
 }
 
-body {
+.bgBright {
   background-color: rgb(255, 255, 255);
   background-image: radial-gradient(
       at 0% 0%,
@@ -40,7 +74,6 @@ body {
     radial-gradient(at 29% 0%, rgb(254, 252, 232) 0, transparent 15%),
     radial-gradient(at 100% 54%, rgb(255, 228, 230) 0, transparent 15%);
 }
-
 .background-animate {
   background-size: 400%;
   -webkit-animation: gradColor 3s ease infinite;

@@ -8,9 +8,16 @@
       >
         <header class="flex items-center text-white">
           <img
-            src="../assets/images/test.jpg"
+            v-if="profilePic"
+            :src="profilePic"
             class="rounded-xl h-12 w-12"
             alt="User Avatar"
+          />
+          <img
+            src="../assets/images/guest-icon.png"
+            v-if="!profilePic"
+            class="rounded-xl h-12 w-12"
+            alt="guest icon"
           />
           <h2 class="ml-4 text-black dark:text-white">
             Have something to say??
@@ -50,6 +57,7 @@
 <script>
 import { store } from "../store";
 export default {
+  props: ["profilePic"],
   data() {
     return {
       store,

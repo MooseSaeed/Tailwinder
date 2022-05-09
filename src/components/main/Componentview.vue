@@ -58,7 +58,7 @@
           }"
         >
           <img
-            src="../../assets/images/test.jpg"
+            :src="profilePic"
             class="rounded-full h-12 w-12 border-black dark:border-white border-2 transition-transform group-hover:scale-110 z-50"
             alt=""
           />
@@ -91,7 +91,7 @@
       >
     </div>
     <div class="relative">
-      <Addcomment class="mt-6">
+      <Addcomment :profilePic="this.loggedInProfilePic" class="mt-6">
         <Infobtn @click="postComment" class="w-fit cursor-pointer"
           >Post Comment</Infobtn
         >
@@ -159,6 +159,7 @@ export default {
   setup() {
     return {
       modules: [Pagination, Navigation],
+      store,
     };
   },
   data() {
@@ -176,18 +177,21 @@ export default {
       deletedCommentId: false,
       dateAndTime: false,
       availableFiles: [],
-      store,
+      profilePic: "",
+      loggedInId: store.userprofile.$id,
+      loggedInProfilePic: "",
     };
   },
   mounted() {
     this.getComponentDetails();
     this.getAllFiles();
     this.checkForComments();
+    this.getLoggedInProfilePic(this.loggedInId);
   },
 
   methods: {
     // Getting component details from params and passed to appwrite
-    getComponentDetails() {
+    async getComponentDetails() {
       // Fetch component ID and colleciton ID from the params in route
       this.componentId = this.$route.params.id;
       this.collectionId = this.$route.params.colname;
@@ -198,20 +202,22 @@ export default {
         this.componentId
       );
 
-      promise.then((response) => {
+      await promise.then((response) => {
         // Getting current component details
         this.name = response.name;
         this.description = response.description;
         this.owner = response.owner;
         this.ownerId = response.ownerId;
       });
+
+      this.getProfilePic();
     },
-    checkForComments() {
+    async checkForComments() {
       this.availableComments = [];
       // Getting list of documents(ALL) inside comments collection
       let promise = appwrite.database.listDocuments("comments");
 
-      promise.then((response) => {
+      await promise.then((response) => {
         // Filtering each document to check if it relates to the current component
         // Don't show comments with ID equal to deleted comment ID (For immediate view purposes)
         for (const document of response.documents) {
@@ -224,9 +230,9 @@ export default {
         }
       });
     },
-    getAllFiles() {
+    async getAllFiles() {
       //Using Node SDK to fetch all files (images) in the desired bucket
-      getFiles(this.componentId).then((response) => {
+      await getFiles(this.componentId).then((response) => {
         //loop over files
         for (const file of response.files) {
           // Get file preview for each file using web sdk
@@ -253,7 +259,7 @@ export default {
       });
       this.dateAndTime = currentDT;
     },
-    postComment() {
+    async postComment() {
       this.currentDateTime();
       //creating appwrite document for the comment while passing comment context
       this.commentContext = document.querySelector("#commentContext").value;
@@ -276,9 +282,9 @@ export default {
       }, 1000);
     },
     // Delete the comment (Passed comment ID value from the loop in template)
-    deleteComment(commentId) {
+    async deleteComment(commentId) {
       this.deletedCommentId = commentId;
-      appwrite.database.deleteDocument("comments", commentId);
+      await appwrite.database.deleteDocument("comments", commentId);
       // Give some time for appwrite to load and then check for updated comments
       this.isLoading = true;
       this.successMsg = "Your comment has been deleted ☹️";
@@ -286,6 +292,27 @@ export default {
         this.isLoading = false;
         this.checkForComments();
       }, 1000);
+    },
+    async getProfilePic() {
+      //Using Node SDK to fetch all files (images) in the desired bucket
+      await getFiles(this.ownerId).then((response) => {
+        //loop over files
+        for (const file of response.files) {
+          // Get file preview for each file using web sdk
+          let result = appwrite.storage.getFilePreview(this.ownerId, file.$id);
+          this.profilePic = result.href;
+        }
+      });
+    },
+    async getLoggedInProfilePic(loggedInId) {
+      await getFiles(loggedInId).then((response) => {
+        //loop over files
+        for (const file of response.files) {
+          // Get file preview for each file using web sdk
+          let result = appwrite.storage.getFilePreview(loggedInId, file.$id);
+          this.loggedInProfilePic = result.href;
+        }
+      });
     },
   },
 };

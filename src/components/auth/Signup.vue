@@ -149,6 +149,8 @@ export default {
       }
       this.loading = true;
 
+      //I need a username here to make dynamic users routes
+
       let username = this.username;
       username = username.replace(/\s+/g, "").toLowerCase();
 

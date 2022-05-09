@@ -1,5 +1,5 @@
 <template>
-  <section class="mx-10 my-5 mt-20 min-h-screen">
+  <section class="mx-10 my-5 min-h-screen flex flex-col justify-between">
     <div v-if="isLoading" class="absolute left-2/4 top-2/4">
       <div class="ripple-loader">
         <div></div>

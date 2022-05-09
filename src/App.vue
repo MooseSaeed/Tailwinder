@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="">
     <Navbar />
     <div class="items-center max-w-7xl px-10 mx-auto">
       <router-view></router-view>
@@ -25,6 +25,20 @@ export default {
 <style>
 html {
   scroll-behavior: smooth;
+}
+
+body {
+  background-color: rgb(255, 255, 255);
+  background-image: radial-gradient(
+      at 0% 0%,
+      rgb(191, 219, 254) 0,
+      transparent 30%
+    ),
+    radial-gradient(at 2% 28%, rgb(220, 252, 231) 0, transparent 17%),
+    radial-gradient(at 99% 69%, rgb(209, 250, 229) 0, transparent 11%),
+    radial-gradient(at 100% 81%, rgb(219, 234, 254) 0, transparent 21%),
+    radial-gradient(at 29% 0%, rgb(254, 252, 232) 0, transparent 15%),
+    radial-gradient(at 100% 54%, rgb(255, 228, 230) 0, transparent 15%);
 }
 
 .background-animate {

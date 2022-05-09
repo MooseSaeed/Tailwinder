@@ -2,22 +2,25 @@
   <div
     class="bg-gray-50/25 border border-gray-300 rounded-xl w-full text-left px-5 py-5"
   >
-    <div v-for="document in documents" :key="document.$id" class="py-2">
-      <router-link
-        :to="'/components/' + document.$collection + '/' + document.$id"
-      >
-        <h4
-          class="font-semibold inline-block hover:text-blue-500 cursor-pointer"
-        >
-          {{ document.name }}
-        </h4>
-      </router-link>
+    <p v-if="!documents">I don't have contributions, yet!</p>
 
-      <p
-        class="ml-2 text-white font-semibold inline-block py-1 px-3 text-xs bg-gradient-to-r from-green-400 to-blue-500 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-      >
-        {{ document.$collection }}
-      </p>
+    <div v-if="documents">
+      <div v-for="document in documents" :key="document.$id" class="py-2">
+        <router-link
+          :to="'/components/' + document.$collection + '/' + document.$id"
+        >
+          <h4
+            class="font-semibold inline-block hover:text-blue-500 cursor-pointer"
+          >
+            {{ document.name }}
+          </h4>
+        </router-link>
+        <p
+          class="ml-2 text-white font-semibold inline-block py-1 px-3 text-xs bg-gradient-to-r from-green-400 to-blue-500 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+        >
+          {{ document.$collection }}
+        </p>
+      </div>
     </div>
   </div>
 </template>

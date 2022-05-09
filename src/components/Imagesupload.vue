@@ -1,9 +1,9 @@
 <template>
   <div
-    class="bg-gradient-to-r transition-all from-green-500 via-violet-500 to-blue-500 shadow-md rounded-xl p-1"
+    class="bg-gradient-to-r dark:bg-none dark:shadow-lg transition-all from-green-500 via-violet-500 to-blue-500 shadow-md rounded-xl p-1"
   >
     <div
-      class="relative bg-blue-50 overflow-hidden shadow-md rounded-xl h-full flex items-center justify-center"
+      class="relative bg-blue-50 dark:bg-gray-700/50 overflow-hidden shadow-md rounded-xl h-full flex items-center justify-center"
     >
       <div class="relative py-7 px-2">
         <div class="flex-row gap-10 flex justify-center items-center">
@@ -19,7 +19,7 @@
           <div class="md:flex">
             <div class="w-full p-3">
               <div
-                class="relative h-48 rounded-lg border-dashed border-2 border-blue-700 bg-gray-100 flex justify-center items-center"
+                class="relative h-48 rounded-lg border-dashed border-2 border-blue-700 bg-gray-100 dark:bg-slate-900 flex justify-center items-center"
               >
                 <div class="absolute">
                   <div class="flex flex-col items-center">
@@ -30,10 +30,12 @@
                         class="h-28"
                       />
                     </i>
-                    <span class="block text-gray-400 text-xs sm:text-sm"
+                    <span
+                      class="block text-gray-400 dark:text-gray-200 text-xs sm:text-sm"
                       >Click here to attach your files (Max 3)</span
                     >
-                    <span class="block text-gray-400 text-xs sm:text-sm"
+                    <span
+                      class="block text-gray-400 dark:text-gray-200 text-xs sm:text-sm"
                       >Accepted Formats: JPG - PNG - GIF</span
                     >
                   </div>

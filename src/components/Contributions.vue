@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-gray-50/25 border border-gray-300 rounded-xl w-full text-left px-5 py-5"
+    class="dark:bg-slate-900/25 backdrop-blur-md dark:text-gray-300 border-gray-300 rounded-xl w-full text-left px-5 py-5"
   >
     <p v-if="!documents">I don't have contributions, yet!</p>
 
@@ -10,7 +10,7 @@
           :to="'/components/' + document.$collection + '/' + document.$id"
         >
           <h4
-            class="font-semibold inline-block hover:text-blue-500 cursor-pointer"
+            class="font-semibold inline-block hover:text-blue-500 dark:hover:text-white cursor-pointer"
           >
             {{ document.name }}
           </h4>

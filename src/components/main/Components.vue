@@ -1,5 +1,5 @@
 <template>
-  <section class="min-h-screen mt-28">
+  <section class="min-h-screen mt-16 flex flex-col justify-center items-center">
     <div v-if="isLoading" class="absolute left-2/4 top-2/4">
       <div class="ripple-loader">
         <div></div>
@@ -8,14 +8,28 @@
     </div>
 
     <div v-if="!isLoading">
+      <div class="fles justify-center items-center">
+        <h1
+          class="text-2xl mt-10 font-bold text-center dark:text-white sm:text-3xl"
+        >
+          Community Components
+        </h1>
+        <h2 class="mt-5 text-center dark:text-gray-200">
+          Here you will find amazing components submitted by TailwindCSS
+          community.
+        </h2>
+        <h2 class="mb-5 text-center dark:text-gray-200">
+          Feel free to check as many as you want.
+        </h2>
+      </div>
       <!-- Loop over all categories and spit out category name -->
       <div v-for="category in categories" :key="category.$id">
         <!-- show category only if it has any documents inside -->
         <div
-          class="relative bg-gradient-to-r from-gray-900 via-violet-900 to-blue-900 background-animate focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 h-2 rounded-full my-10"
+          class="relative bg-gradient-to-r from-gray-900 via-slate-800 to-gray-900 background-animate shadow-md focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 h-2 rounded-full my-10"
         >
           <span
-            class="absolute text-2xl font-semibold -top-4 left-5 rounded-full bg-gradient-to-r from-gray-900 via-violet-900 to-blue-900 background-animate focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 px-3 py-1 text-white"
+            class="absolute text-2xl font-semibold -top-4 left-5 rounded-full bg-gradient-to-r from-gray-900 via-slate-800 to-gray-900 background-animate focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 px-3 py-1 text-white"
             >{{ category.name }}</span
           >
         </div>

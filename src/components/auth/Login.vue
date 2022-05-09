@@ -1,15 +1,15 @@
 <template>
   <main class="relative">
-    <div class="px-4 py-16 mx-auto sm:px-6 lg:px-8">
+    <div class="px-4 py-10 mt-20 mx-auto sm:px-6 lg:px-8">
       <div class="max-w-lg mx-auto">
-        <h1 class="text-2xl font-bold text-center text-white sm:text-3xl">
+        <h1 class="text-2xl font-bold text-center dark:text-white sm:text-3xl">
           Login
         </h1>
         <p v-if="error" class="text-red-500 text-sm">{{ error }}</p>
         <form
           @submit="processLogin"
           action=""
-          class="p-8 mt-6 mb-0 space-y-4 rounded-lg shadow-2xl bg-none"
+          class="p-8 mt-6 mb-0 space-y-4 rounded-xl shadow-md dark:bg-gray-700/50 backdrop-blur-md bg-none dark:text-white"
         >
           <p class="text-lg font-medium">Login to your account</p>
 
@@ -22,7 +22,7 @@
                 type="email"
                 id="email"
                 required
-                class="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
+                class="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm dark:text-black"
                 placeholder="Enter email"
               />
             </div>
@@ -37,7 +37,7 @@
                 type="password"
                 id="password"
                 required
-                class="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
+                class="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm dark:text-black"
                 placeholder="Enter password"
               />
             </div>

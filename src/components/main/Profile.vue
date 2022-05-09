@@ -8,13 +8,13 @@
     </div>
     <div v-if="!isLoading">
       <header
-        class="rounded-full relative h-10 mt-32 text-sm bg-gradient-to-r from-gray-900 via-green-900 to-blue-900 background-animate focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800"
+        class="rounded-full relative h-10 mt-32 text-sm bg-gradient-to-r from-blue-900 via-green-400 to-blue-500 background-animate focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800"
       >
         <div
-          class="rounded-full flex justify-center items-center overflow-hidden -top-11 mx-auto left-0 right-0 absolute h-32 w-32 outline outline-white outline-offset-8 border-4 border-white transition-transform z-30 bg-gradient-to-r from-gray-900 via-green-900 to-blue-900 background-animate focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800"
+          class="rounded-full flex justify-center items-center overflow-hidden -top-11 mx-auto left-0 right-0 absolute h-32 w-32 outline outline-white outline-offset-8 border-4 border-white"
         >
           <div
-            class="relative w-36 h-36 flex-col flex justify-center items-center"
+            class="relative w-36 h-36 flex-col flex justify-center items-center bg-blue-500"
           >
             <img
               class="animate__animated object-cover flex-1 animate__pulse animate__repeat-2 transition-transform"
@@ -26,33 +26,39 @@
       </header>
       <main class="text-center mt-14">
         <div class="px-10">
-          <h2 class="font-bold text-3xl relative">
+          <h2 class="font-bold text-3xl dark:text-white relative">
             {{ userprofile.name }}
           </h2>
 
-          <p v-if="!userPrefs.bio" class="mt-2 text-center max-w-2xl mx-auto">
+          <p
+            v-if="!userPrefs.bio"
+            class="dark:text-white mt-2 text-center max-w-2xl mx-auto"
+          >
             I didn't update my bio.
           </p>
-          <p v-if="userPrefs.bio" class="mt-2 text-center max-w-2xl mx-auto">
+          <p
+            v-if="userPrefs.bio"
+            class="dark:text-white mt-2 text-center max-w-2xl mx-auto"
+          >
             {{ userPrefs.bio }}
           </p>
         </div>
         <div class="flex gap-5 mt-5">
           <aside>
             <div
-              class="bg-gray-50 border border-gray-300 rounded-xl text-left px-4 w-max"
+              class="dark:bg-slate-900/25 backdrop-blur-md dark:text-gray-500 border-gray-300 rounded-xl text-left px-4 w-max"
             >
               <h3
                 @click="switchToOverview"
-                class="py-1 font-semibold text-md cursor-pointer"
-                :class="{ 'text-blue-500': accountOverview }"
+                class="py-1 font-semibold text-md cursor-pointer dark:hover:text-white"
+                :class="{ 'text-blue-500 dark:text-white': accountOverview }"
               >
                 Account Overview
               </h3>
               <h3
                 @click="switchToConts"
-                class="py-1 font-semibold text-md border-gray-400 border-t cursor-pointer"
-                :class="{ 'text-blue-500': !accountOverview }"
+                class="py-1 font-semibold text-md border-gray-400 border-t cursor-pointer dark:hover:text-white"
+                :class="{ 'text-blue-500 dark:text-white': !accountOverview }"
               >
                 Contributions
               </h3>
@@ -75,7 +81,7 @@
             >
           </aside>
           <div
-            class="bg-gray-50/25 border border-gray-300 rounded-xl w-full text-left px-5 py-5"
+            class="bg-gray-500/25 shadow-xl rounded-xl w-full dark:text-white text-left px-5 py-5"
             v-if="accountOverview"
           >
             <div v-if="activateEdit">
@@ -87,7 +93,7 @@
                   type="file"
                   id="profileImgUpdate"
                   name="profileImgUpdate"
-                  class="mt-2 bg-white border-black border px-2 py-1 rounded-xl w-fit"
+                  class="mt-2 bg-white border-black text-black border px-2 py-1 rounded-xl w-fit"
                 />
 
                 <div
@@ -109,19 +115,19 @@
               </div>
               <h3 class="font-semibold mt-3">Name:</h3>
               <input
-                class="mt-2 bg-white border-black border px-2 py-1 w-full rounded-xl"
+                class="mt-2 bg-white border-black border px-2 py-1 w-full rounded-xl text-black"
                 v-model="name"
               />
               <h3 class="font-semibold mt-3">Bio:</h3>
               <input
-                class="mt-2 bg-white border-black border px-2 py-1 w-full rounded-xl"
+                class="mt-2 bg-white border-black border px-2 py-1 w-full rounded-xl text-black"
                 v-model="bio"
               />
             </div>
             <h3 class="font-semibold mt-3">Email:</h3>
             <p
               v-if="!activateEdit"
-              class="mt-2 bg-gray-100 px-2 py-1 rounded-xl"
+              class="mt-2 bg-gray-100 dark:bg-transparent px-2 py-1 rounded-xl"
             >
               {{ userprofile.email }}
             </p>
@@ -129,7 +135,8 @@
             <input
               @change="watchEmailChanges"
               v-if="activateEdit"
-              class="mt-2 bg-white border-black border px-2 py-1 w-full rounded-xl"
+              type="email"
+              class="mt-2 bg-white border-black border px-2 py-1 w-full rounded-xl text-black"
               v-model="email"
             />
             <div v-if="emailChanged">
@@ -142,7 +149,7 @@
                   v-if="activateEdit"
                   id="userPassword"
                   type="password"
-                  class="mt-2 bg-white border-black border px-2 py-1 w-full rounded-xl inline-block"
+                  class="mt-2 bg-white border-black border px-2 py-1 w-full rounded-xl inline-block text-black"
                   v-model="password"
                 />
               </p>
@@ -151,37 +158,37 @@
             <h3 class="font-semibold mt-3">Country:</h3>
             <p
               v-if="!activateEdit"
-              class="mt-2 bg-gray-100 px-2 py-1 rounded-xl"
+              class="mt-2 bg-gray-100 px-2 py-1 rounded-xl dark:bg-transparent"
             >
               {{ userPrefs.country }}
             </p>
             <input
               v-if="activateEdit"
-              class="mt-2 bg-white border-black border px-2 py-1 w-full rounded-xl"
+              class="mt-2 bg-white border-black border px-2 py-1 w-full rounded-xl text-black"
               v-model="country"
             />
             <h3 class="font-semibold mt-3">Github:</h3>
             <p
               v-if="!activateEdit"
-              class="mt-2 bg-gray-100 px-2 py-1 rounded-xl"
+              class="mt-2 bg-gray-100 px-2 py-1 rounded-xl dark:bg-transparent"
             >
               {{ userPrefs.github }}
             </p>
             <input
               v-if="activateEdit"
-              class="mt-2 bg-white border-black border px-2 py-1 w-full rounded-xl"
+              class="mt-2 bg-white border-black border px-2 py-1 w-full rounded-xl text-black"
               v-model="github"
             />
             <h3 class="font-semibold mt-3">Twitter:</h3>
             <p
               v-if="!activateEdit"
-              class="mt-2 bg-gray-100 px-2 py-1 rounded-xl"
+              class="mt-2 bg-gray-100 px-2 py-1 rounded-xl dark:bg-transparent"
             >
               {{ userPrefs.twitter }}
             </p>
             <input
               v-if="activateEdit"
-              class="mt-2 bg-white border-black border px-2 py-1 w-full rounded-xl"
+              class="mt-2 bg-white border-black border px-2 py-1 w-full rounded-xl text-black"
               v-model="twitter"
             />
           </div>

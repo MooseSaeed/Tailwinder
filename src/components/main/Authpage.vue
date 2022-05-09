@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen">
+  <div>
     <div v-if="!store.userprofile">
       <Login v-if="!pageSwitch">
         <div>

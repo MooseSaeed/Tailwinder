@@ -13,7 +13,10 @@
       </router-link>
       <div class="flex items-center md:order-2">
         <div class="font-semibold" v-if="!store.userprofile">
-          <router-link class="hover:text-blue-500 font-semibold" to="/auth">
+          <router-link
+            class="hover:text-blue-500 dark:text-white font-semibold"
+            to="/auth"
+          >
             SIGN UP / LOGIN
           </router-link>
         </div>

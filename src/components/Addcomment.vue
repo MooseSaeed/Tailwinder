@@ -1,16 +1,20 @@
 <template>
   <section>
     <div
-      class="bg-gradient-to-r max-w-xl from-green-500 via-violet-500 to-blue-700 background-animate shadow-md rounded-xl h-max p-1"
+      class="bg-gradient-to-r max-w-xl dark:bg-none from-green-500 via-violet-500 to-blue-700 background-animate shadow-md rounded-xl h-max p-1"
     >
-      <div class="text-black bg-blue-50 bg-option7 p-6 rounded-xl">
+      <div
+        class="text-black bg-blue-50 bg-option7 p-6 rounded-xl dark:shadow-md dark:bg-gray-700/50 dark:backdrop-blur-md"
+      >
         <header class="flex items-center text-white">
           <img
             src="../assets/images/test.jpg"
             class="rounded-xl h-12 w-12"
             alt="User Avatar"
           />
-          <h2 class="ml-4 text-black">Have something to say??</h2>
+          <h2 class="ml-4 text-black dark:text-white">
+            Have something to say??
+          </h2>
         </header>
 
         <div class="mt-4">

@@ -5,9 +5,9 @@
     </Flashmessage>
     <!-- Images swiper -->
     <div
-      class="mx-auto bg-gradient-to-r from-green-500 via-violet-500 to-blue-500 shadow-md rounded-xl p-1"
+      class="dark:bg-gray-700/50 backdrop-blur-md dark:bg-none mx-auto bg-gradient-to-r from-green-500 via-violet-500 to-blue-500 shadow-md rounded-xl p-1"
     >
-      <div class="bg-blue-50 overflow-hidden shadow-md rounded-xl">
+      <div class="bg-blue-50 overflow-hidden rounded-xl">
         <swiper
           :slidesPerView="1"
           :spaceBetween="30"
@@ -17,7 +17,7 @@
           }"
           :navigation="true"
           :modules="modules"
-          class="mySwiper"
+          class="mySwiper dark:bg-gray-700"
         >
           <Swiper-slide
             class="flex justify-center items-center"
@@ -30,23 +30,25 @@
       </div>
     </div>
 
-    <div class="mt-6">
-      <h4 class="text-left text-lg font-semibold mb-3">Component Name:</h4>
-      <p class="text-left leading-relaxed">
-        {{ name }}
-      </p>
-    </div>
-    <div class="mt-6">
-      <h4 class="text-left text-lg font-semibold mb-3">
-        Component description:
-      </h4>
-      <p class="text-left leading-relaxed">
-        {{ description }}
-      </p>
+    <div class="dark:text-white">
+      <div class="mt-6">
+        <h4 class="text-left text-lg font-semibold mb-3">Component Name:</h4>
+        <p class="text-left dark:text-gray-200 leading-relaxed">
+          {{ name }}
+        </p>
+      </div>
+      <div class="mt-6">
+        <h4 class="text-left text-lg font-semibold mb-3">
+          Component description:
+        </h4>
+        <p class="text-left dark:text-gray-200 leading-relaxed">
+          {{ description }}
+        </p>
+      </div>
     </div>
 
     <div
-      class="mx-auto mt-6 flex-col gap-3 w-fit sm:w-full justify-center sm:justify-between items-center sm:items-stretch sm:gap-0 sm:flex-row bg-gradient-to-r from-green-400/20 to-blue-500/20 rounded-xl p-2 flex"
+      class="mx-auto mt-6 flex-col gap-3 w-fit sm:w-full justify-center sm:justify-between items-center sm:items-stretch sm:gap-0 sm:flex-row bg-gradient-to-r from-green-400/20 to-blue-500/20 dark:from-gray-900 dark:via-slate-800 dark:to-gray-900 background-animate shadow-md rounded-xl p-2 flex"
     >
       <div class="flex items-center gap-2 group">
         <router-link
@@ -57,7 +59,7 @@
         >
           <img
             src="../../assets/images/test.jpg"
-            class="rounded-full h-12 w-12 border-black border-2 transition-transform group-hover:scale-110 z-50"
+            class="rounded-full h-12 w-12 border-black dark:border-white border-2 transition-transform group-hover:scale-110 z-50"
             alt=""
           />
         </router-link>
@@ -67,7 +69,9 @@
             params: { id: this.ownerId },
           }"
         >
-          <h4 class="font-semibold hover:text-blue-500 text-sm sm:text-base">
+          <h4
+            class="font-semibold hover:text-blue-500 text-sm sm:text-base dark:text-gray-300 dark:hover:text-white"
+          >
             {{ owner }}
           </h4>
         </router-link>
@@ -296,7 +300,6 @@ export default {
 .swiper-slide {
   text-align: center;
   font-size: 18px;
-  background: #fff;
 
   /* Center slide text vertically */
   display: -webkit-box;

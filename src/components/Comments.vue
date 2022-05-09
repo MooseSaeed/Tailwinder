@@ -1,10 +1,10 @@
 <template>
   <section>
     <div
-      class="relative bg-gradient-to-r max-w-xl from-green-500 via-violet-500 to-blue-700 background-animate shadow-md rounded-xl h-max p-0.5"
+      class="relative bg-gradient-to-r max-w-xl dark:bg-none from-green-500 via-violet-500 to-blue-700 background-animate shadow-md rounded-xl h-max p-0.5"
     >
       <div
-        class="text-black flex flex-col bg-blue-50 bg-option7 p-6 rounded-xl"
+        class="text-black flex flex-col dark:shadow-md dark:bg-gray-700/50 dark:backdrop-blur-md dark:text-white bg-blue-50 bg-option7 p-6 rounded-xl"
       >
         <header class="items-center flex">
           <img
@@ -14,7 +14,7 @@
           />
           <div>
             <h5
-              class="text-black text-left font-semibold hover:text-blue-500 cursor-pointer"
+              class="font-semibold hover:text-blue-500 text-left text-sm sm:text-base dark:text-gray-300 dark:hover:text-white"
             >
               <router-link
                 :to="{

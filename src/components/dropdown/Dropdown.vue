@@ -90,7 +90,6 @@ export default {
               this.picExsists = true;
               this.profilePic = result.href;
               store.userprofilePic = result.href;
-              console.log(store.userprofilePic);
             }
           }
         },

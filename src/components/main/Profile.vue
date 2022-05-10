@@ -393,6 +393,7 @@ export default {
           country: this.country,
           github: this.github,
           twitter: this.twitter,
+          theme: this.userPrefs.theme,
         });
 
         this.userPrefs.bio = this.bio;

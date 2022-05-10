@@ -86,7 +86,10 @@ export default {
       getAllCollections().then((response) => {
         // Loop over them and exclude "comments" collection
         for (const category of response.collections) {
-          if (category.name !== "Comments") {
+          if (
+            category.name !== "Comments" &&
+            category.name !== "tailwinderAcademy"
+          ) {
             //checking if this specific category has any documents in the first place
             //Solving the issue where category is showing up even if empty
             let promise = appwrite.database.listDocuments(category.$id);

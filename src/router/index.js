@@ -8,6 +8,7 @@ import Addcomponent from "../components/main/Addcomponent.vue";
 import Componentview from "../components/main/Componentview.vue";
 import Academy from "../components/main/Academy.vue";
 import Addacademy from "../components/main/Addacademy.vue";
+import Videoview from "../components/main/Videoview.vue";
 
 const routes = [
   {
@@ -76,6 +77,15 @@ const routes = [
     path: "/academy",
     name: "Academy",
     component: Academy,
+    meta: {
+      enterClass: "animate__animated animate__fadeIn animate__faster",
+      leaveClass: "animate__animated animate__fadeOut animate__faster",
+    },
+  },
+  {
+    path: "/academy/:videoId",
+    name: "Videoview",
+    component: Videoview,
     meta: {
       enterClass: "animate__animated animate__fadeIn animate__faster",
       leaveClass: "animate__animated animate__fadeOut animate__faster",

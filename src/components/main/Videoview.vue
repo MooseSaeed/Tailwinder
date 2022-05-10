@@ -5,9 +5,21 @@
     </Flashmessage>
     <!-- Images swiper -->
     <div
-      class="dark:bg-gray-700/50 backdrop-blur-md dark:bg-none mx-auto bg-gradient-to-r from-green-500 via-violet-500 to-blue-500 shadow-md rounded-xl p-1"
+      class="flex justify-center items-center dark:bg-gray-700/50 backdrop-blur-md dark:bg-none mx-auto bg-gradient-to-r from-green-500 via-violet-500 to-blue-500 shadow-md rounded-xl p-1"
     >
-      <div class="bg-blue-50 overflow-hidden rounded-xl">{{ YTvideoId }}</div>
+      <div
+        class="overflow-hidden rounded-xl flex justify-center items-center w-fit"
+      >
+        <iframe
+          width="560"
+          height="315"
+          :src="'https://www.youtube.com/embed/' + YTvideoId"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
     </div>
 
     <div class="dark:text-white">

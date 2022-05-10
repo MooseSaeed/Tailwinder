@@ -1,11 +1,12 @@
 <template>
-  <footer class="text-center bg-gray-900 text-white mt-10">
-    <div class="container px-4 pt-6">
+  <footer class="text-center dark:bg-gray-900 bg-gray-700/25 text-white mt-10">
+    <div class="px-4 pt-6">
       <div class="flex justify-center mb-6">
         <a
-          href="#!"
+          href="https://www.facebook.com/Mosta.Sa3iD/"
+          target="_blank"
           type="button"
-          class="rounded-full border-2 border-white text-white leading-normal uppercase hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out w-9 h-9 m-1"
+          class="rounded-full border-2 border-black text-black dark:border-white dark:text-white leading-normal uppercase hover:scale-125 hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out w-9 h-9 m-1"
         >
           <svg
             aria-hidden="true"
@@ -25,9 +26,10 @@
         </a>
 
         <a
-          href="#!"
+          href="https://twitter.com/Moose_Said"
+          target="_blank"
           type="button"
-          class="rounded-full border-2 border-white text-white leading-normal uppercase hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out w-9 h-9 m-1"
+          class="rounded-full border-2 border-black text-black dark:border-white dark:text-white leading-normal uppercase hover:scale-125 hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out w-9 h-9 m-1"
         >
           <svg
             aria-hidden="true"
@@ -47,9 +49,9 @@
         </a>
 
         <a
-          href="#!"
+          href="mailto:mostafasaid1994@gmail.com"
           type="button"
-          class="rounded-full border-2 border-white text-white leading-normal uppercase hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out w-9 h-9 m-1"
+          class="rounded-full border-2 border-black text-black dark:border-white dark:text-white leading-normal uppercase hover:scale-125 hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out w-9 h-9 m-1"
         >
           <svg
             aria-hidden="true"
@@ -69,9 +71,10 @@
         </a>
 
         <a
-          href="#!"
+          href="https://www.instagram.com/mostafasa3id_"
+          target="_blank"
           type="button"
-          class="rounded-full border-2 border-white text-white leading-normal uppercase hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out w-9 h-9 m-1"
+          class="rounded-full border-2 border-black text-black dark:border-white dark:text-white leading-normal uppercase hover:scale-125 hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out w-9 h-9 m-1"
         >
           <svg
             aria-hidden="true"
@@ -91,9 +94,10 @@
         </a>
 
         <a
-          href="#!"
+          href="https://www.linkedin.com/in/moosesaid/"
+          target="_blank"
           type="button"
-          class="rounded-full border-2 border-white text-white leading-normal uppercase hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out w-9 h-9 m-1"
+          class="rounded-full border-2 border-black text-black dark:border-white dark:text-white leading-normal uppercase hover:scale-125 hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out w-9 h-9 m-1"
         >
           <svg
             aria-hidden="true"
@@ -113,9 +117,10 @@
         </a>
 
         <a
-          href="#!"
+          href="https://github.com/MooseSaeed"
+          target="_blank"
           type="button"
-          class="rounded-full border-2 border-white text-white leading-normal uppercase hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out w-9 h-9 m-1"
+          class="rounded-full border-2 border-black text-black dark:border-white dark:text-white leading-normal uppercase hover:scale-125 hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out w-9 h-9 m-1"
         >
           <svg
             aria-hidden="true"
@@ -136,11 +141,11 @@
       </div>
     </div>
 
-    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.2)">
-      Made by:
-      <a class="text-whitehite" href="https://tailwind-elements.com/"
-        >Mostafa Said</a
-      >
+    <div
+      class="text-center p-4 dark:text-white text-black"
+      style="background-color: rgba(0, 0, 0, 0.2)"
+    >
+      Made with ❤️, Appwrite, Tailwind and Vue.
     </div>
   </footer>
 </template>

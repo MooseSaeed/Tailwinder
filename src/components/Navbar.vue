@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="bg-slate-900/25 backdrop-blur-md md:px-0 py-4 w-full fixed z-50 top-0"
+    class="dark:bg-slate-900/25 bg-gray-300/25 backdrop-blur-md md:px-0 py-4 w-full fixed z-50 top-0"
   >
     <div
       class="max-w-7xl px-5 md:px-10 flex flex-wrap justify-between items-center mx-auto"

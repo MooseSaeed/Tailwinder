@@ -1,5 +1,5 @@
 <template>
-  <section class="mt-28 mx-auto mb-10 text-center min-h-screen">
+  <section class="mt-24 mx-auto mb-32 text-center min-h-screen">
     <div v-if="errors.length">
       <Flashmessage v-for="error in errors" :key="error.id" class="bg-red-500">
         <p class="text-left text-sm text-white">
@@ -12,6 +12,16 @@
         {{ success }}
       </p>
     </Flashmessage>
+
+    <div class="mb-10">
+      <h1 class="text-2xl font-bold text-center dark:text-white sm:text-3xl">
+        Add Component
+      </h1>
+      <h2 class="mt-5 text-center dark:text-gray-200">
+        Thank you in advance for your contribution ❤️
+      </h2>
+    </div>
+
     <form @submit="createDocument">
       <div class="flex flex-col justify-center items-center gap-5">
         <div class="mx-auto w-full">

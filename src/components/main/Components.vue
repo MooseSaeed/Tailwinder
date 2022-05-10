@@ -8,7 +8,7 @@
     </div>
 
     <div v-if="!isLoading">
-      <div class="fles justify-center items-center">
+      <div>
         <h1
           class="text-2xl mt-10 font-bold text-center dark:text-white sm:text-3xl"
         >

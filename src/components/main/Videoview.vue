@@ -62,6 +62,7 @@
             <span
               ><img
                 src="../../assets/images/github.png"
+                id="githubIcon"
                 alt=""
                 class="inline-block sm:w-10 w-6"
             /></span>
@@ -269,4 +270,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+#githubIcon {
+  max-width: 1.5rem !important;
+}
+</style>

@@ -40,7 +40,7 @@
         </div>
 
         <div class="bg-blue-50/20 w-full shadow-lg rounded-xl px-5">
-          <div class="relative z-0 w-full mb-6 group mt-5">
+          <div class="relative z-0 w-full mb-10 group mt-10">
             <input
               type="text"
               name="video_name"
@@ -56,7 +56,7 @@
               >Video Name</label
             >
           </div>
-          <div class="relative z-0 w-full mb-6 group">
+          <div class="relative z-0 w-full mb-10 group">
             <input
               type="text"
               id="video_description"

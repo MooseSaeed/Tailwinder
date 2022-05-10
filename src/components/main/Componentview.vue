@@ -85,7 +85,8 @@
               ><img
                 src="../../assets/images/github.png"
                 alt=""
-                class="inline-block sm:w-10 w-6"
+                id="githubIcon"
+                class="inline-block sm:w-10"
             /></span>
             Github
           </div></Infobtn
@@ -319,6 +320,9 @@ export default {
 </script>
 
 <style scoped>
+#githubIcon {
+  max-width: 1.5rem !important;
+}
 .swiper {
   width: 100%;
   height: 100%;

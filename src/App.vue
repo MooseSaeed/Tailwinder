@@ -10,7 +10,7 @@
           : 'animate__animated animate__fadeInDown ')
       "
     />
-    <div class="items-center max-w-7xl px-10 mx-auto">
+    <div class="items-center max-w-7xl px-10 mx-auto min-h-screen">
       <router-view v-slot="{ Component, route }">
         <transition
           :enter-active-class="route.meta.enterClass"

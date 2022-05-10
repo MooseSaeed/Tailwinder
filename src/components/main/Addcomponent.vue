@@ -200,7 +200,7 @@ export default {
         this.errors.push("Component name maximum chars is 36");
         return false;
       }
-      var lettersValidation = /^[0-9a-zA-Z_ -]+$/;
+      var lettersValidation = /^[0-9a-zA-Z_ -.]+$/;
       if (!this.componentName.match(lettersValidation)) {
         this.errors.push(
           "Only numbers, letters, underscore, dashes and spaces are accepted in component name"

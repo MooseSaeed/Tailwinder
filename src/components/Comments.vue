@@ -8,7 +8,7 @@
       >
         <header class="items-center flex">
           <img
-            src="../assets/images/test.jpg"
+            :src="profilePic"
             class="rounded-full h-12 w-12 mr-2"
             alt="User Avatar"
           />
@@ -44,7 +44,15 @@
 </template>
 
 <script>
+import { appwrite } from "../utils";
+import { getFiles } from "../services/bucketsService";
+
 export default {
+  data() {
+    return {
+      profilePic: "",
+    };
+  },
   props: [
     "commentOwner",
     "commentOwnerId",
@@ -52,6 +60,21 @@ export default {
     "commentId",
     "dateAndTime",
   ],
+  mounted() {
+    this.getLoggedInProfilePic();
+  },
+  methods: {
+    async getLoggedInProfilePic() {
+      await getFiles(this.commentOwnerId).then((response) => {
+        let fileId = response.files[0].$id;
+        let result = appwrite.storage.getFilePreview(
+          this.commentOwnerId,
+          fileId
+        );
+        this.profilePic = result.href;
+      });
+    },
+  },
 };
 </script>
 

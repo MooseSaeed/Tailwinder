@@ -54,6 +54,7 @@
 
 <script>
 import vClickOutside from "click-outside-vue3";
+import { store } from "../../store";
 import { appwrite } from "../../utils";
 import { getFiles } from "../../services/bucketsService";
 import { ref, provide } from "vue";
@@ -88,6 +89,8 @@ export default {
               );
               this.picExsists = true;
               this.profilePic = result.href;
+              store.userprofilePic = result.href;
+              console.log(store.userprofilePic);
             }
           }
         },

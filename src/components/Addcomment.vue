@@ -8,14 +8,14 @@
       >
         <header class="flex items-center text-white">
           <img
-            v-if="profilePic"
-            :src="profilePic"
+            v-if="store.userprofilePic"
+            :src="store.userprofilePic"
             class="rounded-xl h-12 w-12"
             alt="User Avatar"
           />
           <img
             src="../assets/images/guest-icon.png"
-            v-if="!profilePic"
+            v-if="!store.userprofilePic"
             class="rounded-xl h-12 w-12"
             alt="guest icon"
           />
@@ -57,7 +57,6 @@
 <script>
 import { store } from "../store";
 export default {
-  props: ["profilePic"],
   data() {
     return {
       store,

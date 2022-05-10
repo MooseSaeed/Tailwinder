@@ -76,22 +76,24 @@
           </h4>
         </router-link>
       </div>
-      <Infobtn class="max-w-fit cursor-pointer">
-        <div
-          class="flex justify-center items-center gap-1 text-sm sm:text-base"
+      <a :href="'//' + gitHubAcc" target="_blank">
+        <Infobtn class="max-w-fit cursor-pointer">
+          <div
+            class="flex justify-center items-center gap-1 text-sm sm:text-base"
+          >
+            <span
+              ><img
+                src="../../assets/images/github.png"
+                alt=""
+                class="inline-block sm:w-10 w-6"
+            /></span>
+            Github
+          </div></Infobtn
         >
-          <span
-            ><img
-              src="../../assets/images/github.png"
-              alt=""
-              class="inline-block sm:w-10 w-6"
-          /></span>
-          Github
-        </div></Infobtn
-      >
+      </a>
     </div>
     <div class="relative">
-      <Addcomment :profilePic="this.loggedInProfilePic" class="mt-6">
+      <Addcomment class="mt-6">
         <Infobtn @click="postComment" class="w-fit cursor-pointer"
           >Post Comment</Infobtn
         >
@@ -112,8 +114,10 @@
           :commentContext="document.commentContext"
           :commentId="document.$id"
           :dateAndTime="document.dateAndTime"
+          :commentProfilePic="this.commentProfilePic"
           class="my-6"
         >
+          <!-- show edit button only if the logged in user is the comment owner -->
           <div
             @click="deleteComment(document.$id)"
             v-if="document.commentOwnerId == store.userprofile.$id"
@@ -146,6 +150,7 @@ import Comments from "../Comments.vue";
 import Flashmessage from "../Flashmessage.vue";
 
 import { getFiles } from "../../services/bucketsService";
+import { getUserPref } from "../../services/UserService";
 
 export default {
   components: {
@@ -168,6 +173,7 @@ export default {
       description: null,
       owner: false,
       ownerId: false,
+      gitHubAcc: "",
       successMsg: false,
       isLoading: false,
       componentId: false,
@@ -178,15 +184,13 @@ export default {
       dateAndTime: false,
       availableFiles: [],
       profilePic: "",
-      loggedInId: store.userprofile.$id,
-      loggedInProfilePic: "",
+      commentProfilePic: "",
     };
   },
   mounted() {
     this.getComponentDetails();
     this.getAllFiles();
     this.checkForComments();
-    this.getLoggedInProfilePic(this.loggedInId);
   },
 
   methods: {
@@ -211,6 +215,12 @@ export default {
       });
 
       this.getProfilePic();
+      this.getGithub();
+    },
+    async getGithub() {
+      await getUserPref(this.ownerId).then((response) => {
+        this.gitHubAcc = response.github;
+      });
     },
     async checkForComments() {
       this.availableComments = [];
@@ -301,16 +311,6 @@ export default {
           // Get file preview for each file using web sdk
           let result = appwrite.storage.getFilePreview(this.ownerId, file.$id);
           this.profilePic = result.href;
-        }
-      });
-    },
-    async getLoggedInProfilePic(loggedInId) {
-      await getFiles(loggedInId).then((response) => {
-        //loop over files
-        for (const file of response.files) {
-          // Get file preview for each file using web sdk
-          let result = appwrite.storage.getFilePreview(loggedInId, file.$id);
-          this.loggedInProfilePic = result.href;
         }
       });
     },

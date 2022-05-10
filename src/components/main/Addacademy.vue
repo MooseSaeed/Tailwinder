@@ -36,9 +36,6 @@
               class="rounded-xl py-2 px-5"
               required
             />
-            <Infobtn class="max-w-fit mt-10 cursor-pointer"
-              >Check Video</Infobtn
-            >
           </div>
         </div>
 
@@ -182,14 +179,14 @@ export default {
           YTvideoId: this.YTvideoId,
         });
         this.success = "Please wait, you will be directed to your video";
-        /* this.routeRedirect(); */
+        this.routeRedirect();
       }
     },
     async routeRedirect() {
       setTimeout(() => {
         this.$router.push({
-          name: "Componentview",
-          params: { colname: this.collectionId, id: this.componentId },
+          name: "Videoview",
+          params: { videoId: this.id },
         });
       }, 3000);
     },

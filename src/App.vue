@@ -11,7 +11,17 @@
       "
     />
     <div class="items-center max-w-7xl px-10 mx-auto">
-      <router-view></router-view>
+      <router-view v-slot="{ Component, route }">
+        <transition
+          :enter-active-class="route.meta.enterClass"
+          :leave-active-class="route.meta.leaveClass"
+          mode="out-in"
+        >
+          <div :key="route.name">
+            <Component :is="Component" />
+          </div>
+        </transition>
+      </router-view>
     </div>
     <Footer />
   </main>

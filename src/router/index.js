@@ -12,38 +12,63 @@ const routes = [
     path: "/",
     name: "Homepage",
     component: Homepage,
+    meta: {},
   },
   {
     path: "/auth",
     name: "Authpage",
     component: Authpage,
+    meta: {
+      enterClass: "animate__animated animate__fadeIn animate__faster",
+      leaveClass: "animate__animated animate__fadeOut animate__faster",
+    },
   },
   {
     path: "/components",
     name: "Components",
     component: Components,
+    meta: {
+      enterClass: "animate__animated animate__fadeIn animate__faster",
+      leaveClass: "animate__animated animate__fadeOut animate__faster",
+    },
   },
   {
     path: "/users/:id",
     name: "UserProfile",
     component: Profile,
     props: true,
+    meta: {
+      enterClass: "animate__animated animate__fadeIn animate__faster",
+      leaveClass: "animate__animated animate__fadeOut animate__faster",
+    },
   },
   {
     path: "/tools",
     name: "Tools",
     component: Tools,
+    meta: {
+      enterClass: "animate__animated animate__fadeIn animate__faster",
+      leaveClass: "animate__animated animate__fadeOut animate__faster",
+    },
   },
   {
     path: "/addcomponent",
     name: "Addcomponent",
     component: Addcomponent,
+    meta: {
+      enterClass: "animate__animated animate__fadeIn animate__faster",
+      leaveClass: "animate__animated animate__fadeOut animate__faster",
+    },
   },
   {
     path: "/components/:colname/:id",
     name: "Componentview",
     component: Componentview,
     props: true,
+    meta: {
+      enterClass: "animate__animated animate__fadeIn animate__faster",
+      leaveClass: "animate__animated animate__fadeOut animate__faster",
+    },
   },
 ];
 

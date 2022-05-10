@@ -6,6 +6,8 @@ import Tools from "../components/main/Tools.vue";
 import Profile from "../components/main/Profile.vue";
 import Addcomponent from "../components/main/Addcomponent.vue";
 import Componentview from "../components/main/Componentview.vue";
+import Academy from "../components/main/Academy.vue";
+import Addacademy from "../components/main/Addacademy.vue";
 
 const routes = [
   {
@@ -65,6 +67,24 @@ const routes = [
     name: "Componentview",
     component: Componentview,
     props: true,
+    meta: {
+      enterClass: "animate__animated animate__fadeIn animate__faster",
+      leaveClass: "animate__animated animate__fadeOut animate__faster",
+    },
+  },
+  {
+    path: "/academy",
+    name: "Academy",
+    component: Academy,
+    meta: {
+      enterClass: "animate__animated animate__fadeIn animate__faster",
+      leaveClass: "animate__animated animate__fadeOut animate__faster",
+    },
+  },
+  {
+    path: "/Addvideo",
+    name: "Addacademy",
+    component: Addacademy,
     meta: {
       enterClass: "animate__animated animate__fadeIn animate__faster",
       leaveClass: "animate__animated animate__fadeOut animate__faster",

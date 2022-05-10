@@ -34,6 +34,7 @@
               id="youtubeId"
               type="text"
               class="rounded-xl py-2 px-5"
+              required
             />
             <Infobtn class="max-w-fit mt-10 cursor-pointer"
               >Check Video</Infobtn

@@ -79,7 +79,6 @@ export default {
         (response) => {
           if (response.code == 404) {
             this.profilePic = null;
-            this.picExsists = false;
             this.getAvatar();
           } else {
             for (const file of response.files) {
@@ -87,7 +86,6 @@ export default {
                 this.userId,
                 file.$id
               );
-              this.picExsists = true;
               this.profilePic = result.href;
               store.userprofilePic = result.href;
             }

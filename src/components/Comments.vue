@@ -61,18 +61,33 @@ export default {
     "dateAndTime",
   ],
   mounted() {
-    this.getLoggedInProfilePic();
+    this.getCommentProfPic();
   },
   methods: {
-    async getLoggedInProfilePic() {
-      await getFiles(this.commentOwnerId).then((response) => {
-        let fileId = response.files[0].$id;
-        let result = appwrite.storage.getFilePreview(
-          this.commentOwnerId,
-          fileId
-        );
-        this.profilePic = result.href;
-      });
+    async getCommentProfPic() {
+      await getFiles(this.commentOwnerId).then(
+        (response) => {
+          if (response.code) {
+            this.profilePic = null;
+            this.getAvatar();
+          } else {
+            let fileId = response.files[0].$id;
+            let result = appwrite.storage.getFilePreview(
+              this.commentOwnerId,
+              fileId
+            );
+            this.profilePic = result.href;
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+    getAvatar() {
+      let result = appwrite.avatars.getInitials(this.commentOwner);
+
+      this.profilePic = result;
     },
   },
 };

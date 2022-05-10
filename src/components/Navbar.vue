@@ -212,14 +212,15 @@ export default {
     },
     // Simply add and remove theme
     themeToggleCondition() {
-      console.log("theme condition");
       if (this.dark) {
         document.documentElement.classList.add("dark");
+        document.getElementById("webBody").classList.remove("bgBright");
         document.getElementById("webBody").classList.add("bgDark");
         this.updateUserTheme("dark");
       } else if (!this.dark) {
         document.documentElement.classList.remove("dark");
         document.getElementById("webBody").classList.remove("bgDark");
+        document.getElementById("webBody").classList.add("bgBright");
         this.updateUserTheme("bright");
       }
     },

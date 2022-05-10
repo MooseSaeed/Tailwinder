@@ -65,7 +65,7 @@ html {
   background-color: rgb(255, 255, 255);
   background-image: radial-gradient(
       at 0% 0%,
-      rgb(191, 219, 254) 0,
+      rgb(209, 229, 255) 0,
       transparent 30%
     ),
     radial-gradient(at 2% 28%, rgb(220, 252, 231) 0, transparent 17%),

@@ -250,7 +250,6 @@ export default {
     async updateProfilePic() {
       if (this.profilePic) {
         deleteBucket(this.id).then((response) => {
-          console.log("deleted pic");
           this.makeBucket();
         });
       }
@@ -268,7 +267,6 @@ export default {
       let fileName = this.selectedPicName.replace(/[^a-zA-Z0-9]+/g, "");
       try {
         await createBucket(bucket_id, bucket_name).then((response) => {
-          console.log("created pic");
           appwrite.storage.createFile(
             this.userId, //bucket id
             fileName, //file id ( file id = name of the file in input )
@@ -277,7 +275,6 @@ export default {
           );
         });
         this.isLoading = false;
-        console.log("finding pic");
         this.checkIfProfilePic();
 
         return true;
@@ -298,7 +295,6 @@ export default {
             if (response.code) {
               this.profilePic = null;
               this.getAvatar();
-              console.log("pic not found");
             } else {
               let files = response.files;
               for (const file of files) {
@@ -317,7 +313,6 @@ export default {
     },
 
     async extractHref(file) {
-      console.log("found pic");
       let result = await appwrite.storage.getFilePreview(this.userId, file.$id);
       let userProfilePic = result.href;
       this.profilePic = userProfilePic;

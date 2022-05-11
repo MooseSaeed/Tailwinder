@@ -92,7 +92,8 @@ export default {
         for (const category of response.collections) {
           if (
             category.name !== "Comments" &&
-            category.name !== "tailwinderAcademy"
+            category.name !== "tailwinderAcademy" &&
+            category.name !== "Discussions"
           ) {
             //checking if this specific category has any documents in the first place
             //Solving the issue where category is showing up even if empty

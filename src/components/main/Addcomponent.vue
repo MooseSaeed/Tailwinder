@@ -165,19 +165,11 @@ export default {
           //For each selected file, add file to bucket
           let i = 0;
           for (const file of input.files) {
-            const promise = appwrite.storage.createFile(
+            appwrite.storage.createFile(
               response.$id,
               this.componentId + ++i,
               file,
               ["role:all"]
-            );
-            promise.then(
-              function (response) {
-                console.log(response); // Success
-              },
-              function (error) {
-                console.log(error); // Failure
-              }
             );
           }
         });
@@ -218,7 +210,7 @@ export default {
         return false;
       }
       //ComponentDescription Validation
-      if (this.componentDescription.length > 155) {
+      if (document.querySelector("#component_description").value.length > 155) {
         this.errors.push(
           "You can insert up to 155 characters in component description"
         );
@@ -230,7 +222,6 @@ export default {
 
     async createDocument(e) {
       e.preventDefault();
-
       this.formValidation();
 
       if (this.formValidation() === true) {

@@ -1,32 +1,42 @@
 <template>
   <main class="min-h-screen flex justify-center items-center">
-    <div
-      class="flex md:flex-row flex-col justify-center items-center mt-12 gap-10"
-    >
-      <section class="basis-full order-2 md:-order-none p-2">
-        <header class="py-2 overflow-hidden">
+    <div class="flex flex-col justify-center items-center sm:mt-8 mt-20">
+      <div class="max-w-72 order-1 md:-order-none">
+        <div
+          class="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg animate__animated animate__flipInX"
+        >
+          <Tailwinder />
+        </div>
+      </div>
+      <section class="order-2 md:-order-none p-2">
+        <header
+          class="py-2 overflow-hidden flex flex-col justify-center items-center"
+        >
           <h1
-            class="dark:text-white text-black font-bold text-3xl leading-relaxed animate__animated animate__bounceInUp"
+            class="dark:text-white text-center text-black font-bold text-3xl leading-relaxed animate__animated animate__bounceInUp"
           >
-            <div class="">
-              Open source tool for<span class="inline">
-                <keep-alive>
-                  <Changingname />
-                </keep-alive> </span
-              >tailwinders.
+            <div class="text-center">
+              <p>
+                Open source Community for
+                <span class="inline">
+                  <keep-alive>
+                    <Changingname />
+                  </keep-alive> </span
+                >tailwinders.
+              </p>
             </div>
           </h1>
           <p
-            class="text-lg dark:text-white text-black animate__animated animate__bounceInUp animate__slow"
+            class="mt-5 text-lg dark:text-white text-center max-w-lg text-black animate__animated animate__bounceInUp animate__slow"
           >
-            Create the best button design patterns for your website. Sign up to
-            be able to save your favourite patterns in your profile or publish
-            you creative patterns to the word.
+            This is the right place for you if you love using TailwindCSS to
+            create interresting stuff. Feel free to contribute and interact with
+            fellow tailwinders.
           </p>
         </header>
         <footer>
           <div
-            class="flex flex-col sm:flex-row gap-4 items-center overflow-hidden py-5 px-2"
+            class="flex flex-col sm:flex-row gap-4 items-center justify-center overflow-hidden py-5 px-2"
           >
             <router-link
               to="/tools"
@@ -40,33 +50,27 @@
               class="ml-3 animate__animated animate__bounceInUp animate__slow animate__delay-1s"
               to="/components"
             >
-              <Secondarybtn class="text-sm sm:text-base">
+              <Infobtn class="text-sm sm:text-base">
                 Explore Components
-              </Secondarybtn>
+              </Infobtn>
             </router-link>
           </div>
         </footer>
       </section>
-      <div class="max-w-72 basis-4/5 order-1 md:-order-none mt-28 md:mt-0">
-        <!--   <img src="../../assets/images/robotthumbnail.png" alt="" /> -->
-        <div class="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
-          <Tailwinder />
-        </div>
-      </div>
     </div>
   </main>
 </template>
 
 <script>
 import Primarybtn from "../buttons/Primarybtn.vue";
-import Secondarybtn from "../buttons/Secondarybtn.vue";
+import Infobtn from "../buttons/Infobtn.vue";
 import Changingname from "../Changingname.vue";
 import Tailwinder from "../Tailwinder.vue";
 export default {
   name: "Homepage",
   components: {
     Primarybtn,
-    Secondarybtn,
+    Infobtn,
     Changingname,
     Tailwinder,
   },

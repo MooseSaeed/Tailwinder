@@ -52,6 +52,7 @@ export default {
     this.checkLogin();
   },
   methods: {
+    // Logout the current logged in user in store.js
     async logout() {
       store.userprofile = false;
       appwrite.account.deleteSession("current");
@@ -79,6 +80,7 @@ export default {
         return false;
       }
     },
+    // Using username to have a dynamic routes for user profiles
     async updateUsername(username) {
       try {
         await appwrite.account.updatePrefs({
@@ -93,6 +95,7 @@ export default {
       try {
         const response = await appwrite.account.get();
         store.userprofile = response;
+        // Once action done, get the user back to the previous page.
         this.$router.go(-1);
       } catch (err) {
         if (err == "Error: Unauthorized") return;

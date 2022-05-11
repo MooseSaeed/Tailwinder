@@ -62,6 +62,7 @@ export default {
     this.loadPage();
   },
   methods: {
+    // Get me all documents in the academy collection
     getAllDocuments() {
       let promise = appwrite.database.listDocuments("tailwinderAcademy");
 

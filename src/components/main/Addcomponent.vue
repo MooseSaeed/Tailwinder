@@ -43,6 +43,7 @@
               <option selected value="">Click to select category</option>
               <option value="buttons">Buttons</option>
               <option value="cards">Cards</option>
+              <option value="tables">Tables</option>
             </select>
           </div>
           <div class="relative z-0 w-full mb-10 group">
@@ -137,8 +138,7 @@ export default {
   },
   methods: {
     //Immediate selected images display
-    //This function is accessed from child component
-
+    //This function is accessed from child component (Imagesupload)
     async displayFiles() {
       const input = document.querySelector("#imagesPath");
 
@@ -223,12 +223,6 @@ export default {
           "You can insert up to 155 characters in component description"
         );
         return false;
-      }
-      if (!this.componentDescription.match(lettersValidation)) {
-        this.errors.push(
-          "Only numbers, letters, underscore, dashes and spaces are accepted in component description"
-        );
-        return false;
       } else {
         return true;
       }
@@ -266,6 +260,7 @@ export default {
         this.routeRedirect();
       }
     },
+    // Dynamically redirect the page to the new component page
     async routeRedirect() {
       setTimeout(() => {
         this.$router.push({

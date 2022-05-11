@@ -15,19 +15,19 @@
       class="myCards grid gap-y-10 sm:grid-cols-2 justify-items-center items-center mt-10 mb-20"
     >
       <router-link to="">
-        <Card dataImage="./images/bereadableposter.png">
+        <Card dataImage="./images/tailwinder-cards-poster.png">
           <template v-slot:header>
-            <h2 class="text-white text-xl font-bold">Buttons</h2>
+            <h2 class="text-white text-xl font-bold">Cards</h2>
           </template>
           <template v-slot:content>
             <p class="relative text-white">
-              Create buttons design set for your website.
+              Creating cards never been easier with this tool.
             </p>
           </template>
         </Card>
       </router-link>
       <router-link to="">
-        <Card dataImage="./images/bereadableposter.png">
+        <Card dataImage="./images/tailwinder-navbars-poster.png">
           <template v-slot:header>
             <h2 class="text-white text-xl font-bold">Navbars</h2>
           </template>
@@ -39,13 +39,25 @@
         </Card>
       </router-link>
       <router-link to="">
-        <Card dataImage="./images/bereadableposter.png">
+        <Card dataImage="./images/tailwinder-popup-poster.png">
           <template v-slot:header>
             <h2 class="text-white text-xl font-bold">Popup Modals</h2>
           </template>
           <template v-slot:content>
             <p class="relative text-white">
               Create popup modals for your website.
+            </p>
+          </template>
+        </Card>
+      </router-link>
+      <router-link to="">
+        <Card dataImage="./images/tailwinder-buttons-poster.png">
+          <template v-slot:header>
+            <h2 class="text-white text-xl font-bold">Buttons</h2>
+          </template>
+          <template v-slot:content>
+            <p class="relative text-white">
+              Creating your favorite buttons design set.
             </p>
           </template>
         </Card>

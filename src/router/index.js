@@ -9,6 +9,9 @@ import Componentview from "../components/main/Componentview.vue";
 import Academy from "../components/main/Academy.vue";
 import Addacademy from "../components/main/Addacademy.vue";
 import Videoview from "../components/main/Videoview.vue";
+import Community from "../components/main/Community.vue";
+import Addthread from "../components/main/Addthread.vue";
+import Threadview from "../components/main/Threadview.vue";
 
 const routes = [
   {
@@ -92,9 +95,36 @@ const routes = [
     },
   },
   {
-    path: "/Addvideo",
+    path: "/addvideo",
     name: "Addacademy",
     component: Addacademy,
+    meta: {
+      enterClass: "animate__animated animate__fadeIn animate__faster",
+      leaveClass: "animate__animated animate__fadeOut animate__faster",
+    },
+  },
+  {
+    path: "/community",
+    name: "Community",
+    component: Community,
+    meta: {
+      enterClass: "animate__animated animate__fadeIn animate__faster",
+      leaveClass: "animate__animated animate__fadeOut animate__faster",
+    },
+  },
+  {
+    path: "/addthread",
+    name: "Addthread",
+    component: Addthread,
+    meta: {
+      enterClass: "animate__animated animate__fadeIn animate__faster",
+      leaveClass: "animate__animated animate__fadeOut animate__faster",
+    },
+  },
+  {
+    path: "/community/:threadId",
+    name: "Threadview",
+    component: Threadview,
     meta: {
       enterClass: "animate__animated animate__fadeIn animate__faster",
       leaveClass: "animate__animated animate__fadeOut animate__faster",

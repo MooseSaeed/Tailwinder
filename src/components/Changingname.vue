@@ -84,6 +84,6 @@ export default {
 }
 
 .mask span:nth-child(3) {
-  background-image: linear-gradient(45deg, #8a7cfb 50%, #633e9c);
+  background-image: linear-gradient(45deg, #6b58ff 50%, #3724ce);
 }
 </style>

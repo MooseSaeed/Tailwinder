@@ -3,7 +3,7 @@
     <div class="flex flex-col justify-center items-center sm:mt-8 mt-20">
       <div class="max-w-72 order-1 md:-order-none">
         <div
-          class="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg animate__animated animate__flipInX"
+          class="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-xl animate__animated animate__flipInX"
         >
           <Tailwinder />
         </div>
@@ -50,9 +50,9 @@
               class="ml-3 animate__animated animate__bounceInUp animate__slow animate__delay-1s"
               to="/components"
             >
-              <Infobtn class="text-sm sm:text-base">
+              <Secondarybtn class="text-sm sm:text-base">
                 Explore Components
-              </Infobtn>
+              </Secondarybtn>
             </router-link>
           </div>
         </footer>
@@ -63,14 +63,14 @@
 
 <script>
 import Primarybtn from "../buttons/Primarybtn.vue";
-import Infobtn from "../buttons/Infobtn.vue";
+import Secondarybtn from "../buttons/Secondarybtn.vue";
 import Changingname from "../Changingname.vue";
 import Tailwinder from "../Tailwinder.vue";
 export default {
   name: "Homepage",
   components: {
     Primarybtn,
-    Infobtn,
+    Secondarybtn,
     Changingname,
     Tailwinder,
   },

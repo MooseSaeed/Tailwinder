@@ -186,14 +186,30 @@ export default {
     },
     async getProfilePic() {
       //Using Node SDK to fetch all files (images) in the desired bucket
-      await getFiles(this.ownerId).then((response) => {
-        //loop over files
-        for (const file of response.files) {
-          // Get file preview for each file using web sdk
-          let result = appwrite.storage.getFilePreview(this.ownerId, file.$id);
-          this.profilePic = result.href;
+      getFiles(this.ownerId).then(
+        (response) => {
+          if (response.code == 404) {
+            this.profilePic = null;
+            this.getAvatar();
+          } else {
+            for (const file of response.files) {
+              let result = appwrite.storage.getFilePreview(
+                this.ownerId,
+                file.$id
+              );
+              this.profilePic = result.href;
+            }
+          }
+        },
+        (error) => {
+          console.log(error);
         }
-      });
+      );
+    },
+    getAvatar() {
+      let result = appwrite.avatars.getInitials(this.owner);
+
+      this.profilePic = result.href;
     },
     async getGithub() {
       await getUserPref(this.ownerId).then((response) => {

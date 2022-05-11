@@ -18,6 +18,7 @@
           <Primarybtn>Add Video to The Academy</Primarybtn>
         </router-link>
       </div>
+
       <section class="text-gray-600 body-font">
         <div class="container px-5 mx-auto">
           <div class="flex flex-wrap -m-4">

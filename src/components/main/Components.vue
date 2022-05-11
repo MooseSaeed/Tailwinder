@@ -8,10 +8,8 @@
     </div>
 
     <div v-if="!isLoading">
-      <div>
-        <h1
-          class="text-2xl mt-10 font-bold text-center dark:text-white sm:text-3xl"
-        >
+      <div class="mb-10 flex flex-col justify-center items-center">
+        <h1 class="text-2xl font-bold text-center dark:text-white sm:text-3xl">
           Community Components
         </h1>
         <h2 class="mt-5 text-center dark:text-gray-200">
@@ -21,7 +19,11 @@
         <h2 class="mb-5 text-center dark:text-gray-200">
           Feel free to check as many as you want.
         </h2>
+        <router-link class="mt-2 w-fit text-center" to="/addcomponent">
+          <Primarybtn>Add Component to Tailwinder</Primarybtn>
+        </router-link>
       </div>
+
       <!-- Loop over all categories and spit out category name -->
       <div v-for="category in categories" :key="category.$id">
         <!-- show category only if it has any documents inside -->
@@ -59,9 +61,11 @@
 import Componentcards from "../Componentcards.vue";
 import { appwrite } from "../../utils";
 import { getAllCollections } from "../../services/collectionService";
+import Primarybtn from "../buttons/Primarybtn.vue";
 export default {
   components: {
     Componentcards,
+    Primarybtn,
   },
   data() {
     return {

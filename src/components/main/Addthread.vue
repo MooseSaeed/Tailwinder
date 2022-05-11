@@ -104,6 +104,8 @@
             >
           </div>
 
+          <Deepgram class="mx-auto" />
+
           <div class="relative z-0 w-full mb-10 group">
             <textarea
               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -111,14 +113,14 @@
               id="dicussion_content"
               cols="30"
               rows="10"
-              placeholder="Paste your component code."
+              placeholder="Write your thread here.."
               v-model="discussionContext"
               required
             ></textarea>
             <label
               for="dicussion_content"
               class="peer-focus:font-medium -top-3 left-0 peer-focus:right-auto peer-focus:top-3 right-0 absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-500 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >Component Code</label
+              >Thread</label
             >
           </div>
 
@@ -142,8 +144,10 @@ import Flashmessage from "../Flashmessage.vue";
 
 import { createBucket } from "../../services/bucketsService";
 
+import Deepgram from "../Deepgram.vue";
+
 export default {
-  components: { Imagesupload, Primarybtn, Flashmessage },
+  components: { Imagesupload, Primarybtn, Flashmessage, Deepgram },
   name: "Buttontool",
   data() {
     return {

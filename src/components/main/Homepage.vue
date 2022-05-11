@@ -1,7 +1,7 @@
 <template>
   <main class="min-h-screen flex justify-center items-center">
     <div
-      class="flex md:flex-row flex-col justify-center items-center mt-10 gap-10"
+      class="flex md:flex-row flex-col justify-center items-center mt-12 gap-10"
     >
       <section class="basis-full order-2 md:-order-none p-2">
         <header class="py-2 overflow-hidden">
@@ -26,7 +26,7 @@
         </header>
         <footer>
           <div
-            class="flex flex-col sm:flex-row gap-3 items-center overflow-hidden py-5 px-2"
+            class="flex flex-col sm:flex-row gap-4 items-center overflow-hidden py-5 px-2"
           >
             <router-link
               to="/tools"
@@ -48,7 +48,10 @@
         </footer>
       </section>
       <div class="max-w-72 basis-4/5 order-1 md:-order-none mt-28 md:mt-0">
-        <img src="../../assets/images/robotthumbnail.png" alt="" />
+        <!--   <img src="../../assets/images/robotthumbnail.png" alt="" /> -->
+        <div class="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
+          <Tailwinder />
+        </div>
       </div>
     </div>
   </main>
@@ -58,12 +61,14 @@
 import Primarybtn from "../buttons/Primarybtn.vue";
 import Secondarybtn from "../buttons/Secondarybtn.vue";
 import Changingname from "../Changingname.vue";
+import Tailwinder from "../Tailwinder.vue";
 export default {
   name: "Homepage",
   components: {
     Primarybtn,
     Secondarybtn,
     Changingname,
+    Tailwinder,
   },
 };
 </script>

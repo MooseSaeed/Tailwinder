@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 .bgDark {
-  @apply bg-gradient-to-br from-slate-700 via-zinc-900 to-slate-700;
+  @apply bg-gradient-to-br from-slate-900 via-gray-800 to-slate-900;
 }

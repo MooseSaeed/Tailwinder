@@ -82,7 +82,7 @@ html {
     radial-gradient(at 99% 69%, rgb(209, 250, 229) 0, transparent 11%),
     radial-gradient(at 100% 81%, rgb(219, 234, 254) 0, transparent 21%),
     radial-gradient(at 29% 0%, rgb(254, 252, 232) 0, transparent 15%),
-    radial-gradient(at 100% 54%, rgb(255, 228, 230) 0, transparent 15%);
+    radial-gradient(at 100% 54%, rgb(196, 228, 255) 0, transparent 15%);
 }
 .background-animate {
   background-size: 400%;

@@ -7,7 +7,7 @@
     >
       <router-link to="/" class="flex items-center">
         <span
-          class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
+          class="self-center font-sans text-lg sm:text-2xl font-semibold whitespace-nowrap dark:text-white"
           >Tailwinder</span
         >
       </router-link>
@@ -25,7 +25,7 @@
           v-if="store.userprofile"
           @click="themeToggle"
           type="button"
-          class="my-2 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"
+          class="my-2 text-gray-500 dark:text-gray-400 hover:bg-gray-400 dark:hover:bg-gray-700 focus:outline-none rounded-lg text-sm p-2.5"
         >
           <svg
             v-if="!dark"

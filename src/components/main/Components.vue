@@ -1,5 +1,5 @@
 <template>
-  <section class="min-h-screen mt-16 flex flex-col justify-center items-center">
+  <section class="min-h-screen mt-28 flex flex-col justify-center items-center">
     <div v-if="isLoading" class="absolute left-2/4 top-2/4">
       <div class="ripple-loader">
         <div></div>

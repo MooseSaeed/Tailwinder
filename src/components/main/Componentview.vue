@@ -45,6 +45,24 @@
           {{ description }}
         </p>
       </div>
+      <div class="mt-6">
+        <h4 class="text-left text-lg font-semibold mb-3">Component Code:</h4>
+        <p
+          class="bg-gray-900 py-1 px-2 rounded-xl w-fit text-left dark:text-gray-200 leading-relaxed"
+        >
+          - You can
+          <Secondarybtn @click="copyCode" class="cursor-pointer w-fit mx-2 my-2"
+            >Copy Code</Secondarybtn
+          >
+          the code of this component and test it in
+          <a
+            class="underline text-blue-500 font-semibold hover:text-white"
+            href="//play.tailwindcss.com/"
+            target="_blank"
+            >TailwindCSS Playground</a
+          >
+        </p>
+      </div>
     </div>
 
     <div
@@ -146,6 +164,7 @@ import { Pagination, Navigation } from "swiper";
 import { store } from "../../store";
 import { appwrite } from "../../utils";
 import Infobtn from "../buttons/Infobtn.vue";
+import Secondarybtn from "../buttons/Secondarybtn.vue";
 import Addcomment from "../Addcomment.vue";
 import Comments from "../Comments.vue";
 import Flashmessage from "../Flashmessage.vue";
@@ -161,6 +180,7 @@ export default {
     Addcomment,
     Comments,
     Flashmessage,
+    Secondarybtn,
   },
   setup() {
     return {
@@ -174,6 +194,7 @@ export default {
       description: null,
       owner: false,
       ownerId: false,
+      componentCode: false,
       gitHubAcc: "",
       successMsg: false,
       isLoading: false,
@@ -213,6 +234,7 @@ export default {
         this.description = response.description;
         this.owner = response.owner;
         this.ownerId = response.ownerId;
+        this.componentCode = response.code;
       });
 
       this.getProfilePic();
@@ -222,6 +244,26 @@ export default {
       await getUserPref(this.ownerId).then((response) => {
         this.gitHubAcc = response.github;
       });
+    },
+    // Fetch the code from the document and copy to clip board
+    async copyCode() {
+      let code = this.componentCode;
+      var input = document.createElement("input");
+      input.setAttribute("value", code);
+      input.value = code;
+      document.body.appendChild(input);
+      try {
+        input.select();
+        input.click();
+        input.focus();
+        var successful = document.execCommand("copy");
+        var msg = successful
+          ? (this.successMsg = "Code copied to clipboard 🥳")
+          : (this.successMsg = "Couldn't copy the code");
+      } catch (err) {
+        console.log(err);
+      }
+      document.body.removeChild(input);
     },
     async checkForComments() {
       this.availableComments = [];
@@ -304,16 +346,32 @@ export default {
         this.checkForComments();
       }, 1000);
     },
-    async getProfilePic() {
+    getProfilePic() {
       //Using Node SDK to fetch all files (images) in the desired bucket
-      await getFiles(this.ownerId).then((response) => {
-        //loop over files
-        for (const file of response.files) {
-          // Get file preview for each file using web sdk
-          let result = appwrite.storage.getFilePreview(this.ownerId, file.$id);
-          this.profilePic = result.href;
+      getFiles(this.ownerId).then(
+        (response) => {
+          if (response.code == 404) {
+            this.profilePic = null;
+            this.getAvatar();
+          } else {
+            for (const file of response.files) {
+              let result = appwrite.storage.getFilePreview(
+                this.ownerId,
+                file.$id
+              );
+              this.profilePic = result.href;
+            }
+          }
+        },
+        (error) => {
+          console.log(error);
         }
-      });
+      );
+    },
+    getAvatar() {
+      let result = appwrite.avatars.getInitials(this.owner);
+
+      this.profilePic = result.href;
     },
   },
 };

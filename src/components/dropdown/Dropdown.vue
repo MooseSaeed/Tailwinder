@@ -99,7 +99,8 @@ export default {
     getAvatar() {
       let result = appwrite.avatars.getInitials(this.userName);
 
-      this.profilePic = result;
+      this.profilePic = result.href;
+      store.userprofilePic = result.href;
     },
   },
   setup() {

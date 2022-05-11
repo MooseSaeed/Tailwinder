@@ -145,7 +145,23 @@
       class="text-center p-4 dark:text-white text-black"
       style="background-color: rgba(0, 0, 0, 0.2)"
     >
-      Made with ❤️, Appwrite, Tailwind and Vue.
+      Made with ❤️,
+      <a
+        class="text-red-500 font-semibold hover:text-red-600"
+        href="https://appwrite.io/"
+        >Appwrite</a
+      >,
+      <a
+        class="text-blue-500 font-semibold hover:text-blue-600"
+        href="https://tailwindcss.com/"
+        >Tailwind</a
+      >
+      and
+      <a
+        class="text-green-500 font-semibold hover:text-green-600"
+        href="https://vuejs.org/"
+        >Vue</a
+      >.
     </div>
   </footer>
 </template>

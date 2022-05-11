@@ -67,9 +67,7 @@ export default {
 
       promise.then(
         (response) => {
-          console.log(response);
           // Push all documents to this documents array
-
           for (const document of response.documents) {
             this.documents.push(document);
           }

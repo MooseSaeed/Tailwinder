@@ -300,6 +300,8 @@ export default {
     logout() {
       store.userprofile = false;
       appwrite.account.deleteSession("current");
+      this.dark = true;
+      this.themeToggleCondition();
       this.$router.push("/");
     },
     navToggle() {

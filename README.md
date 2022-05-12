@@ -99,7 +99,7 @@ This is an opensource component by Claire Larsen created in October 21, 2015 and
 
 #### 2- **Signup/Signin**:<a name="chapter-2"></a>
 
-{% youtube t3-PSxNbzI8 %}
+https://www.youtube.com/watch?v=t3-PSxNbzI8
 
 - **Dynamic User URL <u> (Appwrite Feature)</u>**<a name="chapter-21"></a>
 
@@ -146,7 +146,7 @@ As you can see, every user has the ability to update their info and it's being d
 
 - **User Information Update <u>(Appwrite Feature)</u>**<a name="chapter-33"></a>
 
-{% youtube cS86TZGh46I %}
+https://www.youtube.com/watch?v=cS86TZGh46I
 
 In the above video, you can notice that I'm changing the user's **profile picture**, **name**, **email** and **preferences**.
 
@@ -211,7 +211,7 @@ Components submitters user's profile picture is being dynamically fetched as wel
 
 - **Add New Component <u>(Appwrite Feature)</u>**<a name="chapter-42"></a>
 
-{% youtube OmuTzSwrvrw %}
+https://www.youtube.com/watch?v=OmuTzSwrvrw
 
 The user is able to add new components to the community. Every component has category, sample pictures, name, description and component code.
 
@@ -232,7 +232,7 @@ The code automatically and dynamically redirects the user to the submitted compo
 
 - **Component View <u>(Appwrite Feature)</u>**<a name="chapter-43"></a>
 
-{% youtube UBrBPC34HUg %}
+https://www.youtube.com/watch?v=UBrBPC34HUg
 
 As explained above, I have created a unique slug for the component URL along with the users as well. Appwrite fetches the component details and dynamically inject them in the URL. Vue Router is being used for this piece of action.
 
@@ -273,7 +273,7 @@ Combining [Youtube](https://developers.google.com/youtube/v3) API with Appwrite 
 
 #### 6- **Tailwinder Community**:<a name="chapter-6"></a>
 
-{% youtube T_JYcbKMlvo %}
+https://www.youtube.com/watch?v=T_JYcbKMlvo
 
 This can be considered as a blog for Tailwinders. The user is able to view posts submitted by others or add his own.
 

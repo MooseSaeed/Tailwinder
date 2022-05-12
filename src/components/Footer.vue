@@ -163,6 +163,16 @@
         >Vue</a
       >.
     </div>
+    <div
+      class="text-center p-4 dark:text-white text-black"
+      style="background-color: rgba(0, 0, 0, 0.2)"
+    >
+      <a
+        href="https://github.com/MooseSaeed/appwrite-app/blob/master/LICENSE"
+        target="_blank"
+        >MIT Licensed</a
+      >
+    </div>
   </footer>
 </template>
 

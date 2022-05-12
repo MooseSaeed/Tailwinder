@@ -16,11 +16,13 @@
 
 > An open source community for tailwind fans - powered by Appwrite
 
-### ✨ [Demo](<[demo](https://youtu.be/7aCqeBC1F7w)>)
+> This project was built for [Appwrite hackathon on Dev Community](https://dev.to/devteam/announcing-the-appwrite-hackathon-on-dev-1oc0)
+
+### ✨ [Demo](https://youtu.be/7aCqeBC1F7w)
 
 ### ⚙️ Built With
 
-| Used Stack<a name="chapter-7"></a>                            |
+| Used Stack                                                    |
 | ------------------------------------------------------------- |
 | [Appwrite](https://appwrite.io/)                              |
 | [Appwrite Node SDK](https://github.com/appwrite/sdk-for-node) |

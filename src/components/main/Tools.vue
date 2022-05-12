@@ -6,9 +6,7 @@
       >
         Tailwinder Tools
       </h1>
-      <h2 class="mt-5 text-center dark:text-gray-200">
-        Here you will find unique tools that will make your life easier.
-      </h2>
+      <h2 class="mt-5 text-center dark:text-gray-200">Coming Soon!</h2>
     </div>
 
     <div
